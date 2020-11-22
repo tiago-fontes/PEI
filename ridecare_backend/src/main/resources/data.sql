@@ -1,0 +1,4 @@
+INSERT INTO user (id, email, company_name, password) VALUES (1, "email1@gmail.com", "company1", "$2a$10$BPAZbYxTyiggL2X81SJ1uOg4DFOVvVwajuXLkVnzq5hFE1MO6VNFi");
+INSERT INTO user (id, email, company_name, password) VALUES (2, "email2@gmail.com", "company2", "$2a$10$BPAZbYxTyiggL2X81SJ1uOg4DFOVvVwajuXLkVnzq5hFE1MO6VNFi");
+INSERT INTO car (id, license_plate, brand, fuel, model, number_of_doors, number_of_seats, transmission, year, user_id) VALUES (1, "AA-11-AA", "BMW", "Diesel", "M4", 5, 5, "Manual", 2017, 1);
+INSERT INTO car (id, license_plate, brand, fuel, model, number_of_doors, number_of_seats, transmission, year, user_id) VALUES (2, "BB-22-BB", "Renault", "Diesel", "Megane", 5, 5, "Manual", 2015, 2);
