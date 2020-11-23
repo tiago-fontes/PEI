@@ -68,4 +68,30 @@ public class UserService {
     }
 
 
+    public void editUser(String authorizationToken, int id, UserSetDto userSetDto) {
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        Optional<User> existingUser = this.userRepository.findById(id);
+
+        if(existingUser.isPresent() && existingUser.get().getEmail().equals(email)){
+            User user = existingUser.get();
+
+            if(userSetDto.getEmail() != null){
+                user.setEmail(userSetDto.getEmail());
+            }
+            if(userSetDto.getCompanyName() != null){
+                user.setCompanyName(userSetDto.getCompanyName());
+            }
+            if(userSetDto.getPassword() != null){
+                user.setPassword(userSetDto.getPassword());
+            }
+
+            this.userRepository.save(user);
+        }
+        else if(existingUser.isPresent() && !(existingUser.get().getEmail().equals(email))){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The profile you were trying to edit belongs to another user");
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no user with this id");
+        }
+    }
 }

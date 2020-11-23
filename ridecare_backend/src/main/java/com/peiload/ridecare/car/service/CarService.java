@@ -86,7 +86,7 @@ public class CarService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user");
         }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this license plate");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
         }
     }
 

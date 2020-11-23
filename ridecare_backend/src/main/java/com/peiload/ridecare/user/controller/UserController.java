@@ -1,5 +1,7 @@
 package com.peiload.ridecare.user.controller;
 
+import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -32,5 +34,10 @@ public class UserController {
     @DeleteMapping
     public void deleteUser(@RequestHeader("Authorization") String authorizationToken){
         this.userService.deleteUser(authorizationToken);
+    }
+
+    @PatchMapping(path="/edit/{id}")
+    public void editUser(@RequestHeader("Authorization") String authorizationToken, @PathVariable int id, @RequestBody UserSetDto userSetDto){
+        this.userService.editUser(authorizationToken, id, userSetDto);
     }
 }
