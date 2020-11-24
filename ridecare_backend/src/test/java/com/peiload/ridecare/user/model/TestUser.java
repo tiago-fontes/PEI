@@ -1,5 +1,6 @@
 package com.peiload.ridecare.user.model;
 
+import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 
 import java.util.Arrays;
@@ -22,6 +23,14 @@ public class TestUser {
                 .email("testUser2@email.com")
                 .companyName("Company Test2")
                 .password("test2")
+                .build();
+    }
+
+    public static UserSetDto getUserSetDto1() {
+        return UserSetDto.builder()
+                .email("testUser1@email.com")
+                .companyName("Company Test1")
+                .password("test1")
                 .build();
     }
 
