@@ -14,7 +14,7 @@ import java.util.List;
 @Api(tags = "AnomalyController")
 
 public class AnomalyController {
-    private AnomalyService anomalyService;
+    private final AnomalyService anomalyService;
 
     public AnomalyController(AnomalyService anomalyService){
         this.anomalyService = anomalyService;
@@ -25,9 +25,26 @@ public class AnomalyController {
         return this.anomalyService.getAllAnomalies();
     }
 
+    //Gets all the non-viewed anomalies from all the cars from one user
+    @GetMapping(path="/user/latest")
+    public List<AnomalyShowDto> getLatestAnomaliesUser(@RequestHeader("Authorization") String authorizationToken){
+        return this.anomalyService.getLatestAnomaliesUser(authorizationToken);
+    }
+
+    //Get all the non-viewed anomalies from one car
+    @GetMapping(path="/car/{carId}/latest")
+    public List<AnomalyShowDto> getLatestAnomaliesCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId){
+        return this.anomalyService.getLatestAnomaliesCar(authorizationToken, carId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestBody AnomalySetDto anomalySetDto){
-        this.anomalyService.createAnomaly(authorizationToken, anomalySetDto);
+    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody AnomalySetDto anomalySetDto){
+        this.anomalyService.createAnomaly(authorizationToken, carId, anomalySetDto);
+    }
+
+    @PatchMapping(path="/edit/{anomalyId}")
+    public void editAnomaly(@PathVariable int anomalyId, @RequestBody AnomalySetDto anomalySetDto){
+        this.anomalyService.editAnomaly(anomalyId, anomalySetDto);
     }
 }

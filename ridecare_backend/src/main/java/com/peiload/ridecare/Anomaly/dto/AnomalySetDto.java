@@ -1,29 +1,24 @@
 package com.peiload.ridecare.Anomaly.dto;
 
-import com.peiload.ridecare.car.model.Car;
 import lombok.Data;
 
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Data
 public class AnomalySetDto {
-    private int carId;
-
     private String classification;
     private Date date;
-    private float longitude;
-    private float latitude;
+    private Float longitude;
+    private Float latitude;
 
-    private float pm25;
-    private float pm10;
+    private Float pm25;
+    private Float pm10;
 
-    private float temperature;
-    private float gas;
-    private float humidity;
-    private float pressure;
-    private float altitude;
+    private Float temperature;
+    private Float gas;
+    private Float humidity;
+    private Float pressure;
+    private Float altitude;
 
-
-
+    private Boolean viewed;
 }

@@ -1,5 +1,6 @@
 package com.peiload.ridecare.car.model;
 
+import com.peiload.ridecare.Anomaly.model.Anomaly;
 import com.peiload.ridecare.car.dto.CarSetDto;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -36,6 +39,9 @@ public class Car {
     //lista de IDs de anomalias
     //private int[] anomalies;
 
+    @OneToMany(mappedBy = "car")
+    private List<Anomaly> anomalies;
+
     public Car(CarSetDto car, User user) {
         this.licensePlate = car.getLicensePlate();
         this.user = user;
@@ -47,5 +53,7 @@ public class Car {
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
         this.raspberryInfo = "";
+
+        this.anomalies = new ArrayList<>();
     }
 }

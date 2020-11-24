@@ -116,4 +116,8 @@ public class CarService {
             car.setFuel(carSetDto.getFuel());
         }
     }
+
+    public Car findById(int carId) {
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    }
 }
