@@ -14,19 +14,23 @@
 - Docker-Compose;
 
 ---
+## Generate Jar File
+
+1. ```mvn install -DskipTests```
 
 ## Run Database
     
  On the root directory, where the docker-compose.yml file is, run the following command:
 
- ```docker-compose up```
+ ```docker-compose up mysql```
 
 ## Run Application
 
-#### Using Maven
+#### Using Docker Compose
 
-1. ```mvn clean install```
-2. ```java -jar target/ridecare(...).jar```
+1. ```docker-compose up mysql```
+2. ```docker-compose up spring_boot```
+
 
 #### Using IntelliJ
 
