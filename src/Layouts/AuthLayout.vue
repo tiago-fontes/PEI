@@ -1,6 +1,5 @@
 <template>
   <div>
-    AuthLayout
     <v-main>
       <slot />
     </v-main>
