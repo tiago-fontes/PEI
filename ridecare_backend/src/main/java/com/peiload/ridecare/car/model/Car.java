@@ -1,6 +1,6 @@
 package com.peiload.ridecare.car.model;
 
-import com.peiload.ridecare.Anomaly.model.Anomaly;
+import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.car.dto.CarSetDto;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package com.peiload.ridecare.Anomaly.controller;
+package com.peiload.ridecare.anomaly.controller;
 
-import com.peiload.ridecare.Anomaly.dto.AnomalySetDto;
-import com.peiload.ridecare.Anomaly.service.AnomalyService;
-import com.peiload.ridecare.Anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.anomaly.service.AnomalyService;
+import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

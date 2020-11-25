@@ -1,4 +1,4 @@
-package com.peiload.ridecare.Anomaly.dto;
+package com.peiload.ridecare.anomaly.dto;
 
 import lombok.Data;
 

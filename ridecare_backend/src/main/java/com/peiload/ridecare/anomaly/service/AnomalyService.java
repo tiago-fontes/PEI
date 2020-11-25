@@ -1,9 +1,9 @@
-package com.peiload.ridecare.Anomaly.service;
+package com.peiload.ridecare.anomaly.service;
 
-import com.peiload.ridecare.Anomaly.dto.AnomalySetDto;
-import com.peiload.ridecare.Anomaly.dto.AnomalyShowDto;
-import com.peiload.ridecare.Anomaly.model.Anomaly;
-import com.peiload.ridecare.Anomaly.repository.AnomalyRepository;
+import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.model.Anomaly;
+import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
@@ -13,9 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnomalyService {
@@ -35,9 +35,7 @@ public class AnomalyService {
     }
 
     public List<AnomalyShowDto> getAllAnomalies() {
-        List<AnomalyShowDto> allAnomalies = new ArrayList<>();
-        this.anomalyRepository.findAll().forEach(anomaly -> allAnomalies.add(new AnomalyShowDto(anomaly)));
-        return allAnomalies;
+        return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesUser(String authorizationToken) {

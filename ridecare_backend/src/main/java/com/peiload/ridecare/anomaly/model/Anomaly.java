@@ -1,17 +1,28 @@
-package com.peiload.ridecare.Anomaly.dto;
+package com.peiload.ridecare.anomaly.model;
 
-import com.peiload.ridecare.Anomaly.model.Anomaly;
+import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.car.model.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class AnomalyShowDto {
+@Entity
+@Table(name="anomaly")
+public class Anomaly {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne
+    private Car car;
 
     private String classification;
     private Date date;
@@ -29,19 +40,24 @@ public class AnomalyShowDto {
 
     private Boolean viewed;
 
-    public AnomalyShowDto(Anomaly anomaly) {
-        this.id = anomaly.getId();
+
+    public Anomaly(AnomalySetDto anomaly, Car car) {
+        this.car = car;
+
         this.classification = anomaly.getClassification();
         this.date = anomaly.getDate();
         this.longitude = anomaly.getLongitude();
         this.latitude = anomaly.getLatitude();
+
         this.pm25 = anomaly.getPm25();
         this.pm10 = anomaly.getPm10();
+
         this.temperature = anomaly.getTemperature();
         this.gas = anomaly.getGas();
         this.humidity = anomaly.getHumidity();
         this.pressure = anomaly.getPressure();
         this.altitude = anomaly.getAltitude();
+
         this.viewed = anomaly.getViewed();
     }
 }
