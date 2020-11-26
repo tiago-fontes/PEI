@@ -11,8 +11,8 @@ import shutil
 import pandas as pd
 
 
-url_sensor1 = "http://cehum.ilch.uminho.pt/datalake/csv.load"
-url_sensor2 = "http://cehum.ilch.uminho.pt/datalake/csv.load/bme680"
+url_sensor1 = "http://cehum.ilch.uminho.pt/datalake/sds011/all/csv"
+url_sensor2 = "http://cehum.ilch.uminho.pt/datalake/bme680/all/csv"
 
 
 def getRawData():
@@ -24,15 +24,15 @@ def getRawData():
         exit()
         
     r_1.raw.decode_content = True
-    with open("sensor1_raw.csv", 'wb') as f1:
+    with open("data/sensor1_raw_all.csv", 'wb') as f1:
         shutil.copyfileobj(r_1.raw, f1)
     r_2.raw.decode_content = True    
-    with open("sensor2_raw.csv", 'wb') as f2:
+    with open("data/sensor2_raw_all.csv", 'wb') as f2:
         shutil.copyfileobj(r_2.raw, f2)
     print("Success. Data from both sensors collected")
 
 if __name__ == '__main__':
     getRawData()
-    df1 = pd.read_csv("sensor1_raw.csv")
-    df2 = pd.read_csv("sensor2_raw.csv")
+    df1 = pd.read_csv("data/sensor1_raw_all.csv")
+    df2 = pd.read_csv("data/sensor2_raw_all.csv")
     #print(df2.head())
