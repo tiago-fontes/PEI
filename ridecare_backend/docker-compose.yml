@@ -1,0 +1,24 @@
+version: '2.1'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: theusername
+      MYSQL_PASSWORD: thepw
+      MYSQL_DATABASE: mydb
+
+  spring_boot:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: ridecare_backend
+    restart: on-failure
+    ports:
+      - 8080:8080
+
