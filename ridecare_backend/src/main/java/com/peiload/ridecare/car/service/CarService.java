@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,19 +24,14 @@ public class CarService {
     private final JwtTokenUtil jtu;
     private final UserService userService;
 
-
-
-    public CarService(CarRepository carRepository, JwtTokenUtil jtu, UserService userService){//, CarMapper carMapper){
+    public CarService(CarRepository carRepository, JwtTokenUtil jtu, UserService userService){
         this.carRepository = carRepository;
         this.jtu = jtu;
         this.userService = userService;
-        //this.carMapper = carMapper;
     }
 
     public List<CarShowDto> getAllCars() {
-        List<CarShowDto> allCars = new ArrayList<>();
-        this.carRepository.findAll().forEach(car -> allCars.add(new CarShowDto(car)));
-        return allCars;
+        return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
@@ -115,5 +111,9 @@ public class CarService {
         if(carSetDto.getFuel() != null){
             car.setFuel(carSetDto.getFuel());
         }
+    }
+
+    public Car findById(int carId) {
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
     }
 }
