@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <component :is="layout" class="bg">
+  <v-app id="app">
+    <component :is="layout">
       <router-view :layout.sync="layout" />
     </component>
   </v-app>
@@ -42,4 +42,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#app {
+  background-color: #f5f5f5;
+}
+</style>
