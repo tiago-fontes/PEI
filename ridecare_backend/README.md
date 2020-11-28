@@ -28,14 +28,20 @@
 
 #### Using Docker Compose
 
-1. ```docker-compose up mysql```
-2. ```docker-compose up spring_boot```
+1. ```docker-compose up```
 
 
 #### Using IntelliJ
 
 1. Open the project on IntelliJ.
-2. Run RidecareApplication.
+2. On the Run/Debug configuration click on Edit Configurations.
+3. On RidecareApplication configuration add to the VM options:
+
+    ```-Dspring.profiles.active=local```
+    
+    to use the application-local.properties file.
+
+4. Run RidecareApplication.
 
 ---
 ## Swagger UI

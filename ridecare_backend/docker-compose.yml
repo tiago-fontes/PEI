@@ -12,13 +12,19 @@ services:
       MYSQL_USER: theusername
       MYSQL_PASSWORD: thepw
       MYSQL_DATABASE: mydb
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
 
   spring_boot:
     build:
       context: .
       dockerfile: dockerfile
     container_name: ridecare_backend
-    restart: on-failure
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
       - 8080:8080
 
