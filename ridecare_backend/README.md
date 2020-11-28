@@ -28,7 +28,11 @@
 
 #### Using Docker Compose
 
-1. ```docker-compose up```
+1. ```docker-compose build```
+
+    so the docker image of the app is updated with the new generated jar file.
+    
+2. ```docker-compose up```
 
 
 #### Using IntelliJ
