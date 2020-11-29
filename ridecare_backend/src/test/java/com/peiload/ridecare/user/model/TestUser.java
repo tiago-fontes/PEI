@@ -34,6 +34,14 @@ public class TestUser {
                 .build();
     }
 
+    public static UserSetDto getUserSetDto2() {
+        return UserSetDto.builder()
+                .email("testUser2@email.com")
+                .companyName("Company Test2")
+                .password("test2")
+                .build();
+    }
+
     public static UserShowDto getUserShowDto1(){
         return new UserShowDto(getUser1());
     }

@@ -78,13 +78,13 @@ public class UserService {
                 user.setCompanyName(userSetDto.getCompanyName());
             }
             if(userSetDto.getPassword() != null){
-                user.setPassword(userSetDto.getPassword());
+                user.setPassword(passwordEncoder.encode(userSetDto.getPassword()));
             }
 
             this.userRepository.save(user);
         }
         else if(existingUser.isPresent() && !(existingUser.get().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The profile you were trying to edit belongs to another user");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The profile you are trying to edit belongs to another user");
         }
         else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no user with this id");

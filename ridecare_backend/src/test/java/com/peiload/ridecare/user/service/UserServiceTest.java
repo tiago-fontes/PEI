@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.peiload.ridecare.user.model.TestUser.getUser1;
+import static com.peiload.ridecare.user.model.TestUser.getUser2;
 import static com.peiload.ridecare.user.model.TestUser.getUserSetDto1;
+import static com.peiload.ridecare.user.model.TestUser.getUserSetDto2;
 import static com.peiload.ridecare.user.model.TestUser.getUsersList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,7 +68,8 @@ class UserServiceTest {
     void findByEmail_whenEmailDoesntExist_shouldRaiseAnException() {
         when(userRepositoryMock.findByEmail(any())).thenReturn(Optional.ofNullable(null));
 
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.findByEmail(any()));
+        String email = any();
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.findByEmail(email));
 
         assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
     }
@@ -158,5 +161,58 @@ class UserServiceTest {
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.deleteUser("Bearer token"));
 
         assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
+    }
+
+    @Test
+    void editUser_happyPath(){
+        User user1 = getUser1();
+        when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
+        when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.of(user1));
+
+        UserSetDto userSetDto = getUserSetDto2();
+
+        testObj.editUser("Bearer token", user1.getId(), userSetDto);
+
+        verify(userRepositoryMock, times(1)).save(
+                argThat(u -> {
+                    assertThat(u).isNotNull();
+                    assertThat(u.getEmail()).isEqualTo(userSetDto.getEmail());
+                    assertThat(u.getCompanyName()).isEqualTo(userSetDto.getCompanyName());
+                    return true;
+                })
+        );
+    }
+
+    @Test
+    void editUser_whenUserTryingToEditIsNotTheOwner_shouldRaiseAnException(){
+        User user1 = getUser1();
+        User user2 = getUser2();
+        when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
+        when(userRepositoryMock.findById(user2.getId())).thenReturn(Optional.of(user2));
+
+        UserSetDto userSetDto = getUserSetDto2();
+
+        int userId2 = user2.getId();
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId2, userSetDto));
+
+        assertEquals(HttpStatus.FORBIDDEN.toString() + " \"The profile you are trying to edit belongs to another user\"", exception.getMessage());
+
+        verify(userRepositoryMock, times(0)).save(user1);
+    }
+
+    @Test
+    void editUser_whenUserDoesntExist_shouldRaiseAnException(){
+        User user1 = getUser1();
+        when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
+        when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.ofNullable(null));
+
+        UserSetDto userSetDto = getUserSetDto2();
+
+        int userId = user1.getId();
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId, userSetDto));
+
+        assertEquals(HttpStatus.FORBIDDEN.toString() + " \"There's no user with this id\"", exception.getMessage());
+
+        verify(userRepositoryMock, times(0)).save(user1);
     }
 }
