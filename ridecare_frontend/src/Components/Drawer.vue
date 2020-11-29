@@ -5,7 +5,7 @@
     fixed
     color="#000000"
     floating
-    v-model="drawer"
+    v-model="myDrawer"
     dark
   >
     <v-list dense nav>
@@ -39,10 +39,16 @@ export default {
         { title: "Home", icon: "mdi-home" },
         { title: "Cars", icon: "mdi-car" },
         { title: "Settings", icon: "mdi-cog" }
-      ]
+      ],
+      myDrawer: this.drawer
     };
   },
-  props: ["drawer"]
+  props: ["drawer"],
+  watch: {
+    drawer: function() {
+      console.log("aqui");
+    } // watch it
+  }
 };
 </script>
 

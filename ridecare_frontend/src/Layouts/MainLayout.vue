@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <Drawer drawer="drawer" />
-    <NavBar :handlerDrawer="this.handlerDrawer" />
+    <NavBar @handler-drawer="handlerDrawer" />
     <div id="main_wrapper">
       <v-main class="MainLayout__main">
         <slot />
@@ -22,11 +22,12 @@ export default {
   },
   data() {
     return {
-      drawer: null
+      drawer: false
     };
   },
   methods: {
     handlerDrawer() {
+      console.log("entrei aqui");
       this.drawer = !this.drawer;
     }
   }
