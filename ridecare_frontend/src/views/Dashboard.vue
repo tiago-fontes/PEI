@@ -8,7 +8,21 @@
         <v-row class="mt-12">
           <v-col cols="12" sm="6" md="3" lg="3">
             <v-card color="green" class="rounded-xl">
-              <v-card-title>Online</v-card-title>
+              <v-container>
+                <v-row>
+                  <v-col>
+                    6
+                  </v-col>
+                  <v-col>
+                    <v-icon x-large>mdi-car</v-icon>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    Cars Online
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-card>
           </v-col>
           <v-col cols="12" sm="6" md="3" lg="3">
