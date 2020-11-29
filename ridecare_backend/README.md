@@ -14,24 +14,38 @@
 - Docker-Compose;
 
 ---
+## Generate Jar File
+
+1. ```mvn install -DskipTests```
 
 ## Run Database
     
  On the root directory, where the docker-compose.yml file is, run the following command:
 
- ```docker-compose up```
+ ```docker-compose up mysql```
 
 ## Run Application
 
-#### Using Maven
+#### Using Docker Compose
 
-1. ```mvn clean install```
-2. ```java -jar target/ridecare(...).jar```
+1. ```docker-compose build```
+
+    so the docker image of the app is updated with the new generated jar file.
+    
+2. ```docker-compose up```
+
 
 #### Using IntelliJ
 
 1. Open the project on IntelliJ.
-2. Run RidecareApplication.
+2. On the Run/Debug configuration click on Edit Configurations.
+3. On RidecareApplication configuration add to the VM options:
+
+    ```-Dspring.profiles.active=local```
+    
+    to use the application-local.properties file.
+
+4. Run RidecareApplication.
 
 ---
 ## Swagger UI
