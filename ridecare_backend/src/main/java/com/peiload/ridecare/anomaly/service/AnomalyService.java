@@ -75,60 +75,16 @@ public class AnomalyService {
         //}
     }
 
-    public void editAnomaly(int anomalyId, AnomalySetDto anomalySetDto) {
+    public void setAnomalyAsViewed(int anomalyId) {
         Optional<Anomaly> existingAnomaly = this.anomalyRepository.findById(anomalyId);
-        //String email = jtu.getEmailFromAuthorizationString(authorizationToken);
 
-        if(existingAnomaly.isPresent()){ //&& car.get().getUser().getEmail().equals(email)){
+        if(existingAnomaly.isPresent()){
             Anomaly anomaly = existingAnomaly.get();
-            updateAnomaly(anomaly, anomalySetDto);
-            this.anomalyRepository.save(existingAnomaly.get());
+            anomaly.setViewed(true);
+            this.anomalyRepository.save(anomaly);
         }
         else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There is no car");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Anomaly doesn't exist");
         }
     }
-
-    private void updateAnomaly(Anomaly anomaly, AnomalySetDto anomalySetDto){
-        if(anomalySetDto.getClassification() != null){
-            anomaly.setClassification(anomalySetDto.getClassification());
-        }
-        if(anomalySetDto.getDate() != null){
-            anomaly.setDate(anomalySetDto.getDate());
-        }
-        if(anomalySetDto.getLongitude() != null){
-            anomaly.setLongitude(anomalySetDto.getLongitude());
-        }
-        if(anomalySetDto.getLatitude() != null){
-            anomaly.setLatitude(anomalySetDto.getLatitude());
-        }
-
-        if(anomalySetDto.getPm25() != null){
-            anomaly.setPm25(anomalySetDto.getPm25());
-        }
-        if(anomalySetDto.getPm10() != null){
-            anomaly.setPm10(anomalySetDto.getPm10());
-        }
-
-        if(anomalySetDto.getTemperature() != null){
-            anomaly.setTemperature(anomalySetDto.getTemperature());
-        }
-        if(anomalySetDto.getGas() != null){
-            anomaly.setGas(anomalySetDto.getGas());
-        }
-        if(anomalySetDto.getHumidity() != null){
-            anomaly.setHumidity(anomalySetDto.getHumidity());
-        }
-        if(anomalySetDto.getPressure() != null){
-            anomaly.setPressure(anomalySetDto.getPressure());
-        }
-        if(anomalySetDto.getAltitude() != null){
-            anomaly.setAltitude(anomalySetDto.getAltitude());
-        }
-
-        if(anomalySetDto.getViewed() != null){
-            anomaly.setViewed(anomalySetDto.getViewed());
-        }
-    }
-
 }

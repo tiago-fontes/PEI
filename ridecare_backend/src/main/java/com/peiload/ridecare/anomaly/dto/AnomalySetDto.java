@@ -19,6 +19,4 @@ public class AnomalySetDto {
     private Float humidity;
     private Float pressure;
     private Float altitude;
-
-    private Boolean viewed;
 }

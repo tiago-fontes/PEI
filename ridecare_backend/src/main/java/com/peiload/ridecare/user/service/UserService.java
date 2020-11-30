@@ -1,6 +1,5 @@
 package com.peiload.ridecare.user.service;
 
-import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
@@ -9,7 +8,6 @@ import com.peiload.ridecare.user.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
