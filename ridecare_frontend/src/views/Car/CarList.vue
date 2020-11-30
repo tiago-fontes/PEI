@@ -10,7 +10,13 @@
           >My Cars</v-col
         >
         <v-col cols="12" sm="2" lg="1">
-          <v-btn small tile color="primary" class="text-capitalize" block
+          <v-btn
+            small
+            tile
+            color="primary"
+            class="text-capitalize"
+            block
+            @click="newCar"
             >New Car</v-btn
           >
         </v-col>
@@ -33,6 +39,7 @@
                 <v-btn
                   small
                   text
+                  @click="viewItem(item)"
                   class="text-decoration-underline text-capitalize"
                   color="primary"
                   >View More</v-btn
@@ -126,10 +133,16 @@ export default {
     };
   },
   methods: {
+    newCar() {
+      console.log("New Car");
+    },
     editItem(item) {
       console.log(item);
     },
     deleteItem(item) {
+      console.log(item);
+    },
+    viewItem(item) {
       console.log(item);
     }
   }
