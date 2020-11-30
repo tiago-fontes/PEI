@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class CarShowDto {
     private int id;
     private String licensePlate;
+    private String image;
     private String brand;
     private String model;
     private int year;
@@ -30,6 +31,7 @@ public class CarShowDto {
     public CarShowDto(Car car) {
         this.id = car.getId();
         this.licensePlate = car.getLicensePlate();
+        this.image = car.getImage();
         this.brand = car.getBrand();
         this.model = car.getModel();
         this.year = car.getYear();
