@@ -48,17 +48,28 @@
                 <thead>
                   <tr>
                     <th class="text-center">
-                      Matrícula
+                      License Plate
                     </th>
                     <th class="text-center">
-                      Estado
+                      Status
                     </th>
                   </tr>
                 </thead>
                 <tbody class="text-center">
                   <tr v-for="(car, index) in cars" :key="index">
                     <td>{{ car.numberPlate }}</td>
-                    <td>{{ car.status }}</td>
+                    <td>
+                      <v-tooltip right>
+                        <template v-slot:activator="{ on, attrs }">
+                          <span v-bind="attrs" v-on="on">
+                            <v-icon color="red"
+                              >mdi-checkbox-blank-circle</v-icon
+                            >
+                          </span>
+                        </template>
+                        <span>Car Offline</span>
+                      </v-tooltip>
+                    </td>
                   </tr>
                 </tbody>
               </template>
@@ -83,23 +94,23 @@ export default {
       cars: [
         {
           numberPlate: "AA-00-ZZ",
-          status: "OK"
+          status: "Everything is Ok"
         },
         {
           numberPlate: "AA-01-ZZ",
-          status: "OFF"
+          status: "Sensor Unavailable"
         },
         {
           numberPlate: "AA-02-ZZ",
-          status: "ANOMALY DETECTED"
+          status: "Anomaly Detected"
         },
         {
           numberPlate: "AA-03-ZZ",
-          status: "SENSOR UNAVAILABLE"
+          status: "Car Offline"
         },
         {
           numberPlate: "AA-04-ZZ",
-          status: "OK"
+          status: "Sensor Unavailable"
         }
       ]
     };
