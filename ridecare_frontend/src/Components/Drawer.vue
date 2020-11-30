@@ -9,7 +9,12 @@
     dark
   >
     <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item.title" link>
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        link
+        :to="item.route"
+      >
         <v-list-item-icon>
           <v-icon color="white">{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -36,9 +41,9 @@ export default {
   data() {
     return {
       items: [
-        { title: "Home", icon: "mdi-home" },
-        { title: "Cars", icon: "mdi-car" },
-        { title: "Settings", icon: "mdi-cog" }
+        { title: "Home", icon: "mdi-home", route: "/" },
+        { title: "Cars", icon: "mdi-car", route: "/my-cars" },
+        { title: "Settings", icon: "mdi-cog", route: "/settings" }
       ],
       myDrawer: this.drawer
     };
@@ -47,7 +52,7 @@ export default {
   watch: {
     drawer: function() {
       console.log("aqui");
-    } // watch it
+    }
   }
 };
 </script>

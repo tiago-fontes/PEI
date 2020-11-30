@@ -7,26 +7,6 @@
         <v-form ref="signUpForm" @submit.prevent="signup">
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="6" lg="6">
-                <v-text-field
-                  v-model="firstName"
-                  label="First Name"
-                  type="text"
-                  required
-                  color="primary"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="6" lg="6">
-                <v-text-field
-                  v-model="lastName"
-                  label="Last Name"
-                  type="text"
-                  required
-                  color="primary"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
               <v-col cols="12">
                 <v-text-field
                   v-model="companyName"
@@ -107,8 +87,6 @@ export default {
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
       repeatPassword: "",
