@@ -58,6 +58,6 @@ public class Anomaly {
         this.pressure = anomaly.getPressure();
         this.altitude = anomaly.getAltitude();
 
-        this.viewed = anomaly.getViewed();
+        this.viewed = false;
     }
 }

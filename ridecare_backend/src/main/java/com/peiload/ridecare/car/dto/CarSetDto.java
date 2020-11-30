@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CarSetDto {
     private String licensePlate;
+    private String image;
     private String brand;
     private String model;
     private Integer year;

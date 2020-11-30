@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class Car {
     @ManyToOne
     private User user;
 
+    @Lob
+    private String image;
+
     private String brand;
     private String model;
     private int year;
@@ -36,15 +40,14 @@ public class Car {
 
     private String raspberryInfo;
 
-    //lista de IDs de anomalias
-    //private int[] anomalies;
-
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
+
 
     public Car(CarSetDto car, User user) {
         this.licensePlate = car.getLicensePlate();
         this.user = user;
+        this.image = car.getImage();
         this.brand = car.getBrand();
         this.model = car.getModel();
         this.year = car.getYear();
