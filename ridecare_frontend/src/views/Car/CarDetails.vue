@@ -3,8 +3,12 @@
 </template>
 
 <script>
+import MainLayoutVue from "../../Layouts/MainLayout.vue";
 export default {
-  name: "CarDetails"
+  name: "CarDetails",
+  created() {
+    this.$emit("update:layout", MainLayoutVue);
+  }
 };
 </script>
 

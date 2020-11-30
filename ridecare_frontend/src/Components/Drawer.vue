@@ -3,7 +3,7 @@
     app
     clipped
     fixed
-    color="#000000"
+    color="primary"
     floating
     v-model="myDrawer"
     dark
@@ -20,7 +20,7 @@
     </v-list>
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block depressed color="#000">
+        <v-btn block depressed color="primary">
           <v-icon left dark>
             mdi-logout
           </v-icon>

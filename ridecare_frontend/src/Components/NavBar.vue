@@ -3,10 +3,7 @@
     <v-app-bar-nav-icon @click="handlerDrawer"></v-app-bar-nav-icon>
     <v-toolbar-title>RideCare</v-toolbar-title>
     <v-spacer></v-spacer>
-    <div class="d-flex flex-column align-center">
-      <span>Rui Santos</span>
-      <span>Share Now</span>
-    </div>
+    <span>Share Now</span>
   </v-app-bar>
 </template>
 
