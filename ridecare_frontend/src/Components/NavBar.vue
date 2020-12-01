@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app clipped-left fixed flat color="white">
-    <v-app-bar-nav-icon @click="handlerDrawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="$emit('toggle-drawer')" />
     <v-toolbar-title>RideCare</v-toolbar-title>
     <v-spacer></v-spacer>
     <span class="font-weight-light font-italic text--primary hidden-sm-and-down"
@@ -18,14 +18,11 @@
 
 <script>
 export default {
+  name: "NavBar",
   data() {
     return {};
   },
-  methods: {
-    handlerDrawer() {
-      this.$emit("handler-drawer");
-    }
-  }
+  methods: {}
 };
 </script>
 

@@ -1,11 +1,12 @@
 <template>
   <v-navigation-drawer
+    v-model="drawer"
     app
     clipped
     fixed
-    color="primary"
     floating
-    v-model="myDrawer"
+    bottom
+    color="primary"
     dark
   >
     <v-list dense nav>
@@ -38,21 +39,16 @@
 
 <script>
 export default {
+  name: "Drawer",
   data() {
     return {
+      drawer: true,
       items: [
         { title: "Home", icon: "mdi-home", route: "/" },
         { title: "Cars", icon: "mdi-car", route: "/my-cars" },
         { title: "Settings", icon: "mdi-cog", route: "/settings" }
-      ],
-      myDrawer: this.drawer
+      ]
     };
-  },
-  props: ["drawer"],
-  watch: {
-    drawer: function() {
-      console.log("aqui");
-    }
   }
 };
 </script>

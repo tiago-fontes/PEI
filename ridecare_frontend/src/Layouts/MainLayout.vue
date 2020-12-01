@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
-    <Drawer drawer="drawer" />
-    <NavBar @handler-drawer="handlerDrawer" />
+    <Drawer ref="drawer" />
+    <NavBar @toggle-drawer="$refs.drawer.drawer = !$refs.drawer.drawer" />
     <div id="main_wrapper">
       <v-main class="MainLayout__main">
         <slot />
@@ -21,16 +21,9 @@ export default {
     NavBar
   },
   data() {
-    return {
-      drawer: false
-    };
+    return {};
   },
-  methods: {
-    handlerDrawer() {
-      console.log("entrei aqui");
-      this.drawer = !this.drawer;
-    }
-  }
+  methods: {}
 };
 </script>
 
