@@ -1,8 +1,10 @@
 package com.peiload.ridecare.car.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CarCreateDto {
     private String licensePlate;
     private String image;

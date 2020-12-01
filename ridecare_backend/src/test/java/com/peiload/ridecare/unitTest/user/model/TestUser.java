@@ -43,20 +43,7 @@ public class TestUser {
                 .build();
     }
 
-    public static UserShowDto getUserShowDto1(){
-        return new UserShowDto(getUser1());
-    }
-
-    public static UserShowDto getUserShowDto2(){
-        return new UserShowDto(getUser2());
-    }
-
     public static List<User> getUsersList(){
         return Arrays.asList(getUser1(), getUser2());
     }
-
-    public static List<UserShowDto> getUserShowDtoList(){
-        return Arrays.asList(getUserShowDto1(), getUserShowDto2());
-    }
-
 }

@@ -42,8 +42,8 @@ public class CarController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCar(@RequestHeader("Authorization") String authorizationToken, @RequestBody CarCreateDto carCreateDto){
-        this.carService.createCar(authorizationToken, carCreateDto);
+    public CarShowDto createCar(@RequestHeader("Authorization") String authorizationToken, @RequestBody CarCreateDto carCreateDto){
+        return this.carService.createCar(authorizationToken, carCreateDto);
     }
 
     @DeleteMapping(path="/{licensePlate}")

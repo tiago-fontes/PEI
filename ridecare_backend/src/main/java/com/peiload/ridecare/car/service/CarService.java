@@ -47,13 +47,14 @@ public class CarService {
         return userCars;
     }
 
-    public void createCar(String authorizationToken, CarCreateDto carCreateDto){
+    public CarShowDto createCar(String authorizationToken, CarCreateDto carCreateDto){
         Optional<Car> existingCar = this.carRepository.findByLicensePlate(carCreateDto.getLicensePlate());
         if(!(existingCar.isPresent())){
             String email = jtu.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
             this.carRepository.save(car);
+            return new CarShowDto(car);
         }
         else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate");
