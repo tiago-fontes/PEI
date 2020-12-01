@@ -1,7 +1,8 @@
-package com.peiload.ridecare.user.model;
+package com.peiload.ridecare.unitTest.user.model;
 
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
+import com.peiload.ridecare.user.model.User;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,10 +1,13 @@
-package com.peiload.ridecare.user.service;
+package com.peiload.ridecare.unitTest.user.service;
 
 import com.peiload.ridecare.common.JwtTokenUtil;
+import com.peiload.ridecare.unitTest.user.model.TestUser;
 import com.peiload.ridecare.user.dto.UserSetDto;
-import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.repository.UserRepository;
+import com.peiload.ridecare.user.dto.UserShowDto;
+import com.peiload.ridecare.user.service.UserService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.peiload.ridecare.user.model.TestUser.getUser1;
-import static com.peiload.ridecare.user.model.TestUser.getUser2;
-import static com.peiload.ridecare.user.model.TestUser.getUserSetDto1;
-import static com.peiload.ridecare.user.model.TestUser.getUserSetDto2;
-import static com.peiload.ridecare.user.model.TestUser.getUsersList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -53,7 +51,7 @@ class UserServiceTest {
 
     @Test
     void findByEmail_happyPath() {
-        User user1 = getUser1();
+        User user1 = TestUser.getUser1();
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
         User result = testObj.findByEmail(user1.getEmail());
@@ -76,7 +74,7 @@ class UserServiceTest {
 
     @Test
     void getUser_happyPath() {
-        User user1 = getUser1();
+        User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
@@ -89,7 +87,7 @@ class UserServiceTest {
 
     @Test
     void getAllUsers_happyPath() {
-        List<User> userList = getUsersList();
+        List<User> userList = TestUser.getUsersList();
         when(userRepositoryMock.findAll()).thenReturn(userList);
 
         List<UserShowDto> result = testObj.getAllUsers();
@@ -100,7 +98,7 @@ class UserServiceTest {
 
     @Test
     void createUser_happyPath() {
-        UserSetDto user1 = getUserSetDto1();
+        UserSetDto user1 = TestUser.getUserSetDto1();
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.ofNullable(null));
         when(passwordEncoderMock.encode(user1.getPassword())).thenReturn(user1.getPassword());
 
@@ -115,9 +113,9 @@ class UserServiceTest {
         verify(userRepositoryMock, times(1)).save(
                 argThat(newUser -> {
                     assertThat(newUser).isNotNull();
-                    assertThat(newUser.getEmail()).isEqualTo(user1.getEmail());
-                    assertThat(newUser.getCompanyName()).isEqualTo(user1.getCompanyName());
-                    assertThat(newUser.getPassword()).isEqualTo(user1.getPassword());
+                    Assertions.assertThat(newUser.getEmail()).isEqualTo(user1.getEmail());
+                    Assertions.assertThat(newUser.getCompanyName()).isEqualTo(user1.getCompanyName());
+                    Assertions.assertThat(newUser.getPassword()).isEqualTo(user1.getPassword());
                     return true;
                 })
         );
@@ -125,8 +123,8 @@ class UserServiceTest {
 
     @Test
     void createUser_whenEmailAlreadyExists_shouldRaiseAnException() {
-        User user1 = getUser1();
-        UserSetDto userSetDto1 = getUserSetDto1();
+        User user1 = TestUser.getUser1();
+        UserSetDto userSetDto1 = TestUser.getUserSetDto1();
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.createUser(userSetDto1));
@@ -136,7 +134,7 @@ class UserServiceTest {
 
     @Test
     void deleteUser_happyPath() {
-        User user1 = getUser1();
+        User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
@@ -145,10 +143,10 @@ class UserServiceTest {
         verify(userRepositoryMock, times(1)).delete(
                 argThat(userToDelete -> {
                     assertThat(userToDelete).isNotNull();
-                    assertThat(userToDelete.getId()).isEqualTo(user1.getId());
-                    assertThat(userToDelete.getEmail()).isEqualTo(user1.getEmail());
-                    assertThat(userToDelete.getCompanyName()).isEqualTo(user1.getCompanyName());
-                    assertThat(userToDelete.getPassword()).isEqualTo(user1.getPassword());
+                    Assertions.assertThat(userToDelete.getId()).isEqualTo(user1.getId());
+                    Assertions.assertThat(userToDelete.getEmail()).isEqualTo(user1.getEmail());
+                    Assertions.assertThat(userToDelete.getCompanyName()).isEqualTo(user1.getCompanyName());
+                    Assertions.assertThat(userToDelete.getPassword()).isEqualTo(user1.getPassword());
                     return true;
                 })
         );
@@ -165,19 +163,19 @@ class UserServiceTest {
 
     @Test
     void editUser_happyPath(){
-        User user1 = getUser1();
+        User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.of(user1));
 
-        UserSetDto userSetDto = getUserSetDto2();
+        UserSetDto userSetDto = TestUser.getUserSetDto2();
 
         testObj.editUser("Bearer token", user1.getId(), userSetDto);
 
         verify(userRepositoryMock, times(1)).save(
                 argThat(u -> {
                     assertThat(u).isNotNull();
-                    assertThat(u.getEmail()).isEqualTo(userSetDto.getEmail());
-                    assertThat(u.getCompanyName()).isEqualTo(userSetDto.getCompanyName());
+                    Assertions.assertThat(u.getEmail()).isEqualTo(userSetDto.getEmail());
+                    Assertions.assertThat(u.getCompanyName()).isEqualTo(userSetDto.getCompanyName());
                     return true;
                 })
         );
@@ -185,12 +183,12 @@ class UserServiceTest {
 
     @Test
     void editUser_whenUserTryingToEditIsNotTheOwner_shouldRaiseAnException(){
-        User user1 = getUser1();
-        User user2 = getUser2();
+        User user1 = TestUser.getUser1();
+        User user2 = TestUser.getUser2();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findById(user2.getId())).thenReturn(Optional.of(user2));
 
-        UserSetDto userSetDto = getUserSetDto2();
+        UserSetDto userSetDto = TestUser.getUserSetDto2();
 
         int userId2 = user2.getId();
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId2, userSetDto));
@@ -202,11 +200,11 @@ class UserServiceTest {
 
     @Test
     void editUser_whenUserDoesntExist_shouldRaiseAnException(){
-        User user1 = getUser1();
+        User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.ofNullable(null));
 
-        UserSetDto userSetDto = getUserSetDto2();
+        UserSetDto userSetDto = TestUser.getUserSetDto2();
 
         int userId = user1.getId();
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId, userSetDto));
