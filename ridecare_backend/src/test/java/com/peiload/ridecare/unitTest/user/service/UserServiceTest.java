@@ -165,11 +165,11 @@ class UserServiceTest {
     void editUser_happyPath(){
         User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
-        when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.of(user1));
+        when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
         UserSetDto userSetDto = TestUser.getUserSetDto2();
 
-        testObj.editUser("Bearer token", user1.getId(), userSetDto);
+        testObj.editUser("Bearer token", userSetDto);
 
         verify(userRepositoryMock, times(1)).save(
                 argThat(u -> {
@@ -182,34 +182,16 @@ class UserServiceTest {
     }
 
     @Test
-    void editUser_whenUserTryingToEditIsNotTheOwner_shouldRaiseAnException(){
-        User user1 = TestUser.getUser1();
-        User user2 = TestUser.getUser2();
-        when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
-        when(userRepositoryMock.findById(user2.getId())).thenReturn(Optional.of(user2));
-
-        UserSetDto userSetDto = TestUser.getUserSetDto2();
-
-        int userId2 = user2.getId();
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId2, userSetDto));
-
-        assertEquals(HttpStatus.FORBIDDEN.toString() + " \"The profile you are trying to edit belongs to another user\"", exception.getMessage());
-
-        verify(userRepositoryMock, times(0)).save(user1);
-    }
-
-    @Test
     void editUser_whenUserDoesntExist_shouldRaiseAnException(){
         User user1 = TestUser.getUser1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
-        when(userRepositoryMock.findById(user1.getId())).thenReturn(Optional.ofNullable(null));
+        when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.ofNullable(null));
 
         UserSetDto userSetDto = TestUser.getUserSetDto2();
 
-        int userId = user1.getId();
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userId, userSetDto));
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userSetDto));
 
-        assertEquals(HttpStatus.FORBIDDEN.toString() + " \"There's no user with this id\"", exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
 
         verify(userRepositoryMock, times(0)).save(user1);
     }
