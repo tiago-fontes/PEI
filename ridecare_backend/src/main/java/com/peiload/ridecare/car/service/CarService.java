@@ -1,6 +1,7 @@
 package com.peiload.ridecare.car.service;
 
-import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.repository.CarRepository;
@@ -30,6 +31,10 @@ public class CarService {
         this.userService = userService;
     }
 
+    public Car findById(int carId) {
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    }
+
     public List<CarShowDto> getAllCars() {
         return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
     }
@@ -42,12 +47,12 @@ public class CarService {
         return userCars;
     }
 
-    public void createCar(String authorizationToken, CarSetDto carSetDto){
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(carSetDto.getLicensePlate());
+    public void createCar(String authorizationToken, CarCreateDto carCreateDto){
+        Optional<Car> existingCar = this.carRepository.findByLicensePlate(carCreateDto.getLicensePlate());
         if(!(existingCar.isPresent())){
             String email = jtu.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
-            Car car = new Car(carSetDto, user);
+            Car car = new Car(carCreateDto, user);
             this.carRepository.save(car);
         }
         else{
@@ -69,13 +74,13 @@ public class CarService {
         }
     }
 
-    public void editCar(String authorizationToken, int id, CarSetDto carSetDto){
+    public void editCar(String authorizationToken, int id, CarEditDto carEditDto){
         String email = jtu.getEmailFromAuthorizationString(authorizationToken);
         Optional<Car> existingCar = this.carRepository.findById(id);
 
         if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
             Car car = existingCar.get();
-            updateCar(car, carSetDto);
+            updateCar(car, carEditDto);
             this.carRepository.save(car);
         }
         else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
@@ -86,37 +91,31 @@ public class CarService {
         }
     }
 
-    private void updateCar(Car car, CarSetDto carSetDto){
-        if(carSetDto.getLicensePlate() != null){
-            car.setLicensePlate(carSetDto.getLicensePlate());
+    private void updateCar(Car car, CarEditDto carEditDto){
+        if(carEditDto.getImage() != null){
+            car.setImage(carEditDto.getImage());
         }
-        if(carSetDto.getImage() != null){
-            car.setImage(carSetDto.getImage());
+        if(carEditDto.getBrand() != null){
+            car.setBrand(carEditDto.getBrand());
         }
-        if(carSetDto.getBrand() != null){
-            car.setBrand(carSetDto.getBrand());
+        if(carEditDto.getModel() != null){
+            car.setModel(carEditDto.getModel());
         }
-        if(carSetDto.getModel() != null){
-            car.setModel(carSetDto.getModel());
+        if(carEditDto.getYear() != null){
+            car.setYear(carEditDto.getYear());
         }
-        if(carSetDto.getYear() != null){
-            car.setYear(carSetDto.getYear());
+        if(carEditDto.getNumberOfDoors() != null){
+            car.setNumberOfDoors(carEditDto.getNumberOfDoors());
         }
-        if(carSetDto.getNumberOfDoors() != null){
-            car.setNumberOfDoors(carSetDto.getNumberOfDoors());
+        if(carEditDto.getNumberOfSeats() != null){
+            car.setNumberOfSeats(carEditDto.getNumberOfDoors());
         }
-        if(carSetDto.getNumberOfSeats() != null){
-            car.setNumberOfSeats(carSetDto.getNumberOfDoors());
+        if(carEditDto.getTransmission() != null){
+            car.setTransmission(carEditDto.getTransmission());
         }
-        if(carSetDto.getTransmission() != null){
-            car.setTransmission(carSetDto.getTransmission());
-        }
-        if(carSetDto.getFuel() != null){
-            car.setFuel(carSetDto.getFuel());
+        if(carEditDto.getFuel() != null){
+            car.setFuel(carEditDto.getFuel());
         }
     }
 
-    public Car findById(int carId) {
-        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-    }
 }

@@ -1,6 +1,7 @@
 package com.peiload.ridecare.car.controller;
 
-import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.service.CarService;
 import io.swagger.annotations.Api;
@@ -41,8 +42,8 @@ public class CarController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCar(@RequestHeader("Authorization") String authorizationToken, @RequestBody CarSetDto carSetDto){
-        this.carService.createCar(authorizationToken, carSetDto);
+    public void createCar(@RequestHeader("Authorization") String authorizationToken, @RequestBody CarCreateDto carCreateDto){
+        this.carService.createCar(authorizationToken, carCreateDto);
     }
 
     @DeleteMapping(path="/{licensePlate}")
@@ -52,7 +53,7 @@ public class CarController {
     }
 
     @PatchMapping(path="/edit/{id}")
-    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int id, @RequestBody CarSetDto carSetDto){
-        this.carService.editCar(authorizationToken, id, carSetDto);
+    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int id, @RequestBody CarEditDto carEditDto){
+        this.carService.editCar(authorizationToken, id, carEditDto);
     }
 }

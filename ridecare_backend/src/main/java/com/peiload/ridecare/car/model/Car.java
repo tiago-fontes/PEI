@@ -1,7 +1,8 @@
 package com.peiload.ridecare.car.model;
 
 import com.peiload.ridecare.anomaly.model.Anomaly;
-import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +51,7 @@ public class Car {
     private List<Anomaly> anomalies;
 
 
-    public Car(CarSetDto car, User user) {
+    public Car(CarCreateDto car, User user) {
         this.licensePlate = car.getLicensePlate();
         this.user = user;
         this.image = car.getImage();
