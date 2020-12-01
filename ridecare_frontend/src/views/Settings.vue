@@ -52,7 +52,7 @@
           cols="12"
           class="text-center text-sm-left text-h6 font-weight-bold"
         >
-          Project
+          Project Version
         </v-col>
       </v-row>
       <v-row>
@@ -83,7 +83,7 @@
           cols="12"
           class="text-center text-sm-left text-h6 font-weight-bold"
         >
-          About Project
+          About the Project
         </v-col>
       </v-row>
       <v-row>
@@ -97,7 +97,7 @@
                     <span class="font-weight-bold">Bosch(Braga)</span> and
                     <span class="font-weight-bold">Universidade do Minho</span>
                     within the scope of the Computer Engineering Project course
-                    of the Master in Computer Engineering.
+                    of the Masters in Computer Engineering.
                   </v-col>
                 </v-row>
                 <v-row>
