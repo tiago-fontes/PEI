@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class AnomalySetDto {
+public class MeasurementSetDto {
     private String classification;
     private Date date;
     private Float longitude;
@@ -19,6 +19,4 @@ public class AnomalySetDto {
     private Float humidity;
     private Float pressure;
     private Float altitude;
-
-    private Boolean viewed;
 }

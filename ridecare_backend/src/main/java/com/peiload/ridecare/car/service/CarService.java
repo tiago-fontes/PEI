@@ -90,6 +90,9 @@ public class CarService {
         if(carSetDto.getLicensePlate() != null){
             car.setLicensePlate(carSetDto.getLicensePlate());
         }
+        if(carSetDto.getImage() != null){
+            car.setImage(carSetDto.getImage());
+        }
         if(carSetDto.getBrand() != null){
             car.setBrand(carSetDto.getBrand());
         }
