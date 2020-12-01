@@ -34,11 +34,14 @@ class UserIT {
     private static final String COMPANY_NAME = ITUtils.randomString(10);
     private static final String PASSWORD = ITUtils.randomString(10);
     private static final String NEW_PASSWORD = ITUtils.randomString(10);
-    private static int userId;
     private static String userToken;
 
-    private static final String userPath = "/user";
     private static UserSetDto userSetDto;
+
+    private static final String userPath = "/user";
+    private static final String loginPath = "/login";
+    private static final String registerPath = "/register";
+
 
     @BeforeEach
     public void setUp(){
@@ -54,11 +57,11 @@ class UserIT {
                 .password(PASSWORD)
                 .build();
 
-        String bodyString = ITUtils.asJsonString(userSetDto);
+        String body = ITUtils.asJsonString(userSetDto);
 
         Response response = RestAssured.given()
-                .contentType(ContentType.JSON).body(bodyString)
-                .post("/register")
+                .contentType(ContentType.JSON).body(body)
+                .post(registerPath)
                 .then().extract().response();
 
         UserShowDto user = response.then().statusCode(201).extract().as(UserShowDto.class);
@@ -69,11 +72,11 @@ class UserIT {
     @Test
     @Order(2)
     void createUserAgain_shouldRaiseAnException(){
-        String bodyString = ITUtils.asJsonString(userSetDto);
+        String body = ITUtils.asJsonString(userSetDto);
 
         RestAssured.given()
-                .contentType(ContentType.JSON).body(bodyString)
-                .post("/register")
+                .contentType(ContentType.JSON).body(body)
+                .post(registerPath)
                 .then().statusCode(403);
     }
 
@@ -86,7 +89,7 @@ class UserIT {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(bodyCredentials)
-                .post("/login")
+                .post(loginPath)
                 .then().statusCode(403);
     }
 
@@ -99,7 +102,7 @@ class UserIT {
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(bodyCredentials)
-                .post("/login")
+                .post(loginPath)
                 .then().statusCode(200).extract().response();
 
         userToken = response.body().jsonPath().getString("token");
@@ -109,13 +112,13 @@ class UserIT {
     @Order(5)
     void editUser(){
         UserSetDto userSetDto = UserSetDto.builder().password(NEW_PASSWORD).build();
-        String bodyCredentials = ITUtils.asJsonString(userSetDto);
+        String body = ITUtils.asJsonString(userSetDto);
 
         RestAssured.given()
                 .header("Authorization", "Bearer "+ userToken)
                 .contentType(ContentType.JSON)
-                .body(bodyCredentials)
-                .patch("/user")
+                .body(body)
+                .patch(userPath)
                 .then().statusCode(200);
     }
 
@@ -128,7 +131,7 @@ class UserIT {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(bodyCredentials)
-                .post("/login")
+                .post(loginPath)
                 .then().statusCode(403);
     }
 
@@ -141,7 +144,7 @@ class UserIT {
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(bodyCredentials)
-                .post("/login")
+                .post(loginPath)
                 .then().statusCode(200).extract().response();
 
         userToken = response.body().jsonPath().getString("token");
@@ -149,7 +152,7 @@ class UserIT {
 
 
     @Test
-    @Order(6)
+    @Order(8)
     void deleteUser(){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
@@ -158,8 +161,23 @@ class UserIT {
                 .then().statusCode(200);
     }
 
+
     @Test
-    @Order(7)
+    @Order(9)
+    void loginUserAfterDeletingIt_shouldRaiseAnException(){
+        JwtRequest jwtRequest = new JwtRequest(EMAIL, NEW_PASSWORD);
+        String bodyCredentials = ITUtils.asJsonString(jwtRequest);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(bodyCredentials)
+                .post(loginPath)
+                .then().statusCode(403);
+    }
+
+
+    @Test
+    @Order(10)
     void deleteUserAgain_shouldRaiseAnException(){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
