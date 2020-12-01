@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class AnomalySetDto {
+public class MeasurementSetDto {
     private String classification;
     private Date date;
     private Float longitude;

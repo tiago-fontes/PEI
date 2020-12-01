@@ -1,9 +1,11 @@
 package com.peiload.ridecare.anomaly.service;
 
-import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
+import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
+import com.peiload.ridecare.anomaly.repository.MeasurementRepository;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
@@ -21,14 +23,16 @@ import java.util.stream.Collectors;
 public class AnomalyService {
 
     private final AnomalyRepository anomalyRepository;
+    private final MeasurementRepository measurementRepository;
     private final JwtTokenUtil jtu;
     private final UserService userService;
     private final CarService carService;
 
 
 
-    public AnomalyService(AnomalyRepository anomalyRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
+    public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
+        this.measurementRepository = measurementRepository;
         this.jtu = jtu;
         this.userService = userService;
         this.carService = carService;
@@ -62,17 +66,33 @@ public class AnomalyService {
         }
     }
 
-    public void createAnomaly(String authorizationToken, int carId, AnomalySetDto anomalySetDto) {
+    public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
         Car car = this.carService.findById(carId);
-        //String email = jtu.getEmailFromAuthorizationString(authorizationToken);
 
-        //if(car.get().getUser().getEmail().equals(email)){
-        Anomaly anomaly = new Anomaly(anomalySetDto, car);
-        this.anomalyRepository.save(anomaly);
-        //}
-        //else {
-        //    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There is no car");
-        //}
+        boolean createNewAnomaly = car.getAnomalies().isEmpty();
+
+        if(car.getAnomalies().isEmpty()){
+            Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
+            this.anomalyRepository.save(newAnomaly);
+            this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+        }
+        else{
+            List<Anomaly> anomalies = car.getAnomalies();
+            Anomaly lastAnomaly = anomalies.get(anomalies.size()-1);
+
+            List<Measurement> measurements = lastAnomaly.getMeasurements();
+            Measurement lastMeasurement = measurements.get(measurements.size()-1);
+
+            //if(Duration.between(measurementSetDto.getDate().toInstant(), lastMeasurement.getDate().toInstant()).compareTo(Duration.ofSeconds(30)) < 0)
+           if(lastMeasurement.getDate().toInstant().plusSeconds(30).isBefore(measurementSetDto.getDate().toInstant())){
+               Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
+               this.anomalyRepository.save(newAnomaly);
+               this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+           }
+           else {
+               this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
+           }
+        }
     }
 
     public void setAnomalyAsViewed(int anomalyId) {

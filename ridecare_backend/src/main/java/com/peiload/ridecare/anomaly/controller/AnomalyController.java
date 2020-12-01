@@ -1,6 +1,6 @@
 package com.peiload.ridecare.anomaly.controller;
 
-import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
 import io.swagger.annotations.Api;
@@ -47,8 +47,8 @@ public class AnomalyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody AnomalySetDto anomalySetDto){
-        this.anomalyService.createAnomaly(authorizationToken, carId, anomalySetDto);
+    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
+        this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
     }
 
     @PatchMapping(path="/{anomalyId}/viewed")
