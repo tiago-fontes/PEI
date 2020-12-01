@@ -175,7 +175,7 @@
         </v-col>
       </v-row>
       <v-row justify="end">
-        <v-btn tile color="primary" class="text-capitalize">
+        <v-btn color="primary" class="text-capitalize">
           Save
         </v-btn>
         <v-btn outlined color="warning" class="text-capitalize ml-4">
