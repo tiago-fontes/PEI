@@ -29,6 +29,7 @@
                 <v-row>
                   <v-col cols="12">
                     <v-btn
+                      tile
                       block
                       outlined
                       color="primary"
@@ -37,7 +38,7 @@
                     >
                   </v-col>
                   <v-col cols="12" class="pt-0">
-                    <v-btn block color="primary" class="text-capitalize"
+                    <v-btn tile block color="primary" class="text-capitalize"
                       >Change Password</v-btn
                     >
                   </v-col>
@@ -101,14 +102,10 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col>
-                    Coordenador: André Ferreira
-                  </v-col>
+                  <v-col> Coordenador: André Ferreira </v-col>
                 </v-row>
                 <v-row>
-                  <v-col class="pt-0" cols="12">
-                    Participantes:
-                  </v-col>
+                  <v-col class="pt-0" cols="12"> Participantes: </v-col>
                 </v-row>
               </v-container>
             </v-card-text>

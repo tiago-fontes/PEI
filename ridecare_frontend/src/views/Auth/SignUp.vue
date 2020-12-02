@@ -52,10 +52,10 @@
             <v-row>
               <v-col>
                 <v-btn
+                  tile
                   type="submit"
                   color="primary"
                   block
-                  tile
                   class="text-none"
                 >
                   Create Account

@@ -12,6 +12,7 @@
         </v-col>
         <v-col cols="12" sm="2" lg="1">
           <v-btn
+            tile
             small
             outlined
             rounded
@@ -61,9 +62,7 @@
           <v-container>
             <v-row>
               <v-card elevation="0" width="100%">
-                <v-card-title>
-                  Device
-                </v-card-title>
+                <v-card-title> Device </v-card-title>
                 <v-card-text class="text-center">
                   <v-container>
                     <v-row>
@@ -84,9 +83,7 @@
             </v-row>
             <v-row>
               <v-card elevation="0" width="100%">
-                <v-card-title>
-                  Sensors
-                </v-card-title>
+                <v-card-title> Sensors </v-card-title>
                 <v-data-table
                   :headers="headerSensor"
                   :items="sensors"
@@ -99,9 +96,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6" lg="6">
           <v-card elevation="0" width="100%">
-            <v-card-title>
-              Anomalies
-            </v-card-title>
+            <v-card-title> Anomalies </v-card-title>
             <v-data-table :headers="headerAnomalies" :items="anomalies">
             </v-data-table>
           </v-card>

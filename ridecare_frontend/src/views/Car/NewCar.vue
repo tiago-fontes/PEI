@@ -63,9 +63,7 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn color="primary" @click="stepper = 2">
-                Next
-              </v-btn>
+              <v-btn tile color="primary" @click="stepper = 2"> Next </v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="stepper > 2" step="2">
@@ -117,12 +115,8 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn color="primary" @click="stepper = 3">
-                Next
-              </v-btn>
-              <v-btn text @click="stepper = stepper - 1">
-                Previous
-              </v-btn>
+              <v-btn tile color="primary" @click="stepper = 3"> Next </v-btn>
+              <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="stepper > 3" step="3">
@@ -148,38 +142,26 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn color="primary" @click="stepper = 4">
-                Next
-              </v-btn>
-              <v-btn text @click="stepper = stepper - 1">
-                Previous
-              </v-btn>
+              <v-btn tile color="primary" @click="stepper = 4"> Next </v-btn>
+              <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
 
-            <v-stepper-step step="4">
-              Raspberry Info
-            </v-stepper-step>
+            <v-stepper-step step="4"> Raspberry Info </v-stepper-step>
             <v-stepper-content step="4">
               <v-card
                 color="grey lighten-1"
                 class="mb-12"
                 height="200px"
               ></v-card>
-              <v-btn color="primary" @click="stepper = 1">
-                Next
-              </v-btn>
-              <v-btn text @click="stepper = stepper - 1">
-                Previous
-              </v-btn>
+              <v-btn tile color="primary" @click="stepper = 1"> Next </v-btn>
+              <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
           </v-stepper>
         </v-col>
       </v-row>
       <v-row justify="end">
-        <v-btn color="primary" class="text-capitalize">
-          Save
-        </v-btn>
-        <v-btn outlined color="warning" class="text-capitalize ml-4">
+        <v-btn tile color="primary" class="text-capitalize"> Save </v-btn>
+        <v-btn tile outlined color="warning" class="text-capitalize ml-4">
           Cancel
         </v-btn>
       </v-row>

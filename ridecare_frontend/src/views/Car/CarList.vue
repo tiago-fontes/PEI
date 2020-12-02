@@ -11,8 +11,8 @@
         >
         <v-col cols="12" sm="2" lg="1">
           <v-btn
-            small
             tile
+            small
             color="primary"
             class="text-capitalize"
             block
@@ -37,6 +37,7 @@
             <v-data-table :headers="headers" :items="cars" :search="search">
               <template v-slot:[`item.actions`]="{ item }">
                 <v-btn
+                  tile
                   small
                   text
                   @click="viewItem(item)"
@@ -45,6 +46,7 @@
                   >View More</v-btn
                 >
                 <v-btn
+                  tile
                   small
                   text
                   @click="editItem(item)"
@@ -53,6 +55,7 @@
                   >Edit</v-btn
                 >
                 <v-btn
+                  tile
                   small
                   text
                   @click="deleteItem(item)"

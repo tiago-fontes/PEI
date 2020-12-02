@@ -2,7 +2,10 @@
   <div class="dashboard">
     <v-container>
       <v-row>
-        <v-col cols="12" class="text-center text-sm-left text-h6 font-weight-bold">
+        <v-col
+          cols="12"
+          class="text-center text-sm-left text-h6 font-weight-bold"
+        >
           Dashboard
         </v-col>
       </v-row>

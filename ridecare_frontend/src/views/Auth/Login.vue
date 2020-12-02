@@ -25,6 +25,7 @@
           />
           <v-row justify="end">
             <v-btn
+              tile
               text
               color="primary"
               small
@@ -38,10 +39,10 @@
             <v-container>
               <v-row>
                 <v-btn
+                  tile
                   type="submit"
                   color="primary"
                   block
-                  tile
                   class="text-none"
                 >
                   Sign in
@@ -49,12 +50,12 @@
               </v-row>
               <v-row class="mt-4">
                 <v-btn
+                  tile
                   type="submit"
                   color="secondary"
                   block
                   small
                   text
-                  tile
                   class="text-none"
                 >
                   New to RideCare? Create an account.

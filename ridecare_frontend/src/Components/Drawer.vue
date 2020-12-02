@@ -25,10 +25,8 @@
     </v-list>
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block depressed color="primary">
-          <v-icon left dark>
-            mdi-logout
-          </v-icon>
+        <v-btn tile block depressed color="primary">
+          <v-icon left dark> mdi-logout </v-icon>
           Logout
         </v-btn>
       </div>
