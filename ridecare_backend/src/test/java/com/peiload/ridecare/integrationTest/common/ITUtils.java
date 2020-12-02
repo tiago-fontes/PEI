@@ -18,6 +18,14 @@ public class ITUtils {
                 .toString();
     }
 
+    public static int randomInt(int min, int max){
+        return new Random().nextInt(max - min) + min;
+    }
+
+    public static int randomYear(int min, int max){
+        return new Random().nextInt(max - min) + min;
+    }
+
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
@@ -25,5 +33,4 @@ public class ITUtils {
             throw new RuntimeException(e);
         }
     }
-
 }

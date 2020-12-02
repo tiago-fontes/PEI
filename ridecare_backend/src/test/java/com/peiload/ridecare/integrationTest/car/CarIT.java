@@ -1,5 +1,7 @@
-package com.peiload.ridecare.integrationTest.user;
+package com.peiload.ridecare.integrationTest.car;
 
+import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.integrationTest.common.ITUtils;
 import com.peiload.ridecare.login.model.JwtRequest;
 import com.peiload.ridecare.user.dto.UserSetDto;
@@ -25,23 +27,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(locations = "classpath:application-integration.test.properties")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class UserIT {
+class CarIT {
 
     @LocalServerPort
     private int port;
 
+    private static final String LICENSE_PLATE = ITUtils.randomString(2) + "-" + ITUtils.randomString(2) + "-" + ITUtils.randomString(2);
+    private static final String IMAGE = ITUtils.randomString(10);
+    private static final String BRAND = ITUtils.randomString(10);
+    private static final String MODEL = ITUtils.randomString(10);
+    private static final int YEAR = ITUtils.randomYear(1970, 2021);
+    private static final int NUMBER_OF_DOORS = ITUtils.randomInt(2, 6);
+    private static final int NUMBER_OF_SEATS = ITUtils.randomInt(2, 6);
+    private static final String TRANSMISSION = ITUtils.randomString(10);
+    private static final String FUEL = ITUtils.randomString(10);
+
     private static final String EMAIL = ITUtils.randomString(10) + "@email.com";
     private static final String COMPANY_NAME = ITUtils.randomString(10);
     private static final String PASSWORD = ITUtils.randomString(10);
-    private static final String NEW_PASSWORD = ITUtils.randomString(10);
+
+
+    private static CarCreateDto carCreateDto;
+    private static UserSetDto userSetDto;
+
+
     private static String userToken;
 
-    private static UserSetDto userSetDto;
+
+    private static final String carPath = "/car";
 
     private static final String userPath = "/user";
     private static final String loginPath = "/login";
     private static final String registerPath = "/register";
-
 
     @BeforeEach
     public void setUp(){
@@ -69,32 +86,9 @@ class UserIT {
         assertEquals(EMAIL, user.getEmail());
     }
 
+
     @Test
     @Order(2)
-    void createUserAgain_shouldRaiseAnException(){
-        String body = ITUtils.asJsonString(userSetDto);
-
-        RestAssured.given()
-                .contentType(ContentType.JSON).body(body)
-                .post(registerPath)
-                .then().statusCode(403);
-    }
-
-    @Test
-    @Order(3)
-    void loginUser_withWrongPassword_shouldRaiseAnException(){
-        JwtRequest jwtRequest = new JwtRequest(EMAIL, ITUtils.randomString(5));
-        String bodyCredentials = ITUtils.asJsonString(jwtRequest);
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(bodyCredentials)
-                .post(loginPath)
-                .then().statusCode(403);
-    }
-
-    @Test
-    @Order(4)
     void loginUser(){
         JwtRequest jwtRequest = new JwtRequest(EMAIL, PASSWORD);
         String bodyCredentials = ITUtils.asJsonString(jwtRequest);
@@ -109,50 +103,53 @@ class UserIT {
     }
 
     @Test
-    @Order(5)
-    void editUser(){
-        UserSetDto userSetDto = UserSetDto.builder().password(NEW_PASSWORD).build();
-        String body = ITUtils.asJsonString(userSetDto);
+    @Order(3)
+    void createCar(){
+        carCreateDto = CarCreateDto.builder()
+                .licensePlate(LICENSE_PLATE)
+                .image(IMAGE)
+                .brand(BRAND)
+                .model(MODEL)
+                .year(YEAR)
+                .numberOfDoors(NUMBER_OF_DOORS)
+                .numberOfSeats(NUMBER_OF_SEATS)
+                .transmission(TRANSMISSION)
+                .fuel(FUEL)
+                .build();
 
-        RestAssured.given()
-                .header("Authorization", "Bearer "+ userToken)
-                .contentType(ContentType.JSON)
-                .body(body)
-                .patch(userPath)
-                .then().statusCode(200);
-    }
-
-    @Test
-    @Order(6)
-    void loginUserWithOldPassword_shouldRaiseAnException(){
-        JwtRequest jwtRequest = new JwtRequest(EMAIL, PASSWORD);
-        String bodyCredentials = ITUtils.asJsonString(jwtRequest);
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(bodyCredentials)
-                .post(loginPath)
-                .then().statusCode(403);
-    }
-
-    @Test
-    @Order(7)
-    void loginUserAgainWithNewPassword_shouldWorkAndLoginSuccessfully(){
-        JwtRequest jwtRequest = new JwtRequest(EMAIL, NEW_PASSWORD);
-        String bodyCredentials = ITUtils.asJsonString(jwtRequest);
+        String body = ITUtils.asJsonString(carCreateDto);
 
         Response response = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(bodyCredentials)
-                .post(loginPath)
-                .then().statusCode(200).extract().response();
+                .header("Authorization", "Bearer "+ userToken)
+                .contentType(ContentType.JSON).body(body)
+                .post(carPath)
+                .then().extract().response();
 
-        userToken = response.body().jsonPath().getString("token");
+        CarShowDto car = response.then().statusCode(201).extract().as(CarShowDto.class);
+
+        assertEquals(LICENSE_PLATE, car.getLicensePlate());
+        assertEquals(IMAGE, car.getImage());
+        assertEquals(BRAND, car.getBrand());
+        assertEquals(MODEL, car.getModel());
+        assertEquals(YEAR, car.getYear());
+        assertEquals(NUMBER_OF_DOORS, car.getNumberOfDoors());
+        assertEquals(NUMBER_OF_SEATS, car.getNumberOfSeats());
+        assertEquals(TRANSMISSION, car.getTransmission());
+        assertEquals(FUEL, car.getFuel());
     }
 
+    @Test
+    @Order(4)
+    void deleteCar(){
+        RestAssured.given()
+                .header("Authorization", "Bearer " + userToken)
+                .when()
+                .delete(carPath + "/" + carCreateDto.getLicensePlate())
+                .then().statusCode(204);
+    }
 
     @Test
-    @Order(8)
+    @Order(5)
     void deleteUser(){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
@@ -160,31 +157,4 @@ class UserIT {
                 .delete(userPath)
                 .then().statusCode(204);
     }
-
-
-    @Test
-    @Order(9)
-    void loginUserAfterDeletingIt_shouldRaiseAnException(){
-        JwtRequest jwtRequest = new JwtRequest(EMAIL, NEW_PASSWORD);
-        String bodyCredentials = ITUtils.asJsonString(jwtRequest);
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(bodyCredentials)
-                .post(loginPath)
-                .then().statusCode(403);
-    }
-
-
-    @Test
-    @Order(10)
-    void deleteUserAgain_shouldRaiseAnException(){
-        RestAssured.given()
-                .header("Authorization", "Bearer " + userToken)
-                .when()
-                .delete(userPath)
-                .then().statusCode(403);
-    }
-
-
 }
