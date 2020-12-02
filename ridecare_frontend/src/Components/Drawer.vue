@@ -5,7 +5,6 @@
     clipped
     fixed
     floating
-    bottom
     color="primary"
     dark
   >

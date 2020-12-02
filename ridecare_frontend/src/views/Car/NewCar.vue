@@ -140,6 +140,7 @@
                             small-chips
                             multiple
                             label="Photo"
+                            @change="updatePhoto"
                           ></v-file-input>
                         </v-col>
                       </v-row>
@@ -208,12 +209,23 @@ export default {
       raspberryInfo: "",
       errorMsg: null,
       transmissionItems: ["Automatic", "Manual"],
-      fuelItems: ["Gasoline", "Diesel", "Eletric", "Hybrid"]
+      fuelItems: ["Gasoline", "Diesel", "Eletric", "Hybrid"],
+      photoBase64: ""
     };
   },
   methods: {
     saveCar() {
       console.log("New Car");
+    },
+    updatePhoto(e) {
+      let file = e[0];
+      let reader = new FileReader();
+
+      reader.onloadend = () => {
+        this.photoBase64 = reader.result;
+        console.log(this.photoBase64);
+      };
+      reader.readAsDataURL(file);
     }
   }
 };
