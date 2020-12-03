@@ -32,7 +32,7 @@ public class CarService {
     }
 
     public Car findById(int carId) {
-        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist"));
     }
 
     public List<CarShowDto> getAllCars() {

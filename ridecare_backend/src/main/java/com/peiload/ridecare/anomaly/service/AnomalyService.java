@@ -58,12 +58,10 @@ public class AnomalyService {
         if(car.getUser().getEmail().equals(email)){
             return anomalyRepository.findAllByViewedAndCar(false, car);
         }
-        else if(!(car.getUser().getEmail().equals(email))){
+        else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
         }
-        else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
-        }
+
     }
 
     public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
