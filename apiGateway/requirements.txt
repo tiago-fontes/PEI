@@ -1,0 +1,9 @@
+Python 3+
+pip3 install Flask
+pip3 install flask-cors
+pip3 install rq
+pip3 install rq-dashboard
+pip3 install requests
+pip3 install flask-httpauth
+
+redis>=3
