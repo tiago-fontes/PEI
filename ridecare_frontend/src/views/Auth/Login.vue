@@ -24,15 +24,17 @@
             color="primary"
           />
           <v-row justify="end">
-            <v-btn
-              tile
-              text
-              color="primary"
-              small
-              class="mb-4 text-decoration-underline text-capitalize"
-            >
-              Forgot Password?
-            </v-btn>
+            <router-link :to="{ name: 'ForgotPwd' }">
+              <v-btn
+                tile
+                text
+                color="primary"
+                small
+                class="mb-4 text-decoration-underline text-capitalize"
+              >
+                Forgot Password?
+              </v-btn>
+            </router-link>
           </v-row>
           <v-divider class="mb-4"></v-divider>
           <v-card-actions>
@@ -49,17 +51,21 @@
                 </v-btn>
               </v-row>
               <v-row class="mt-4">
-                <v-btn
-                  tile
-                  type="submit"
-                  color="secondary"
-                  block
-                  small
-                  text
-                  class="text-none"
-                >
-                  New to RideCare? Create an account.
-                </v-btn>
+                <v-col>
+                  <router-link :to="{ name: 'SignUp' }">
+                    <v-btn
+                      tile
+                      type="submit"
+                      color="secondary"
+                      block
+                      small
+                      text
+                      class="text-none"
+                    >
+                      New to RideCare? Create an account.
+                    </v-btn>
+                  </router-link>
+                </v-col>
               </v-row>
             </v-container>
           </v-card-actions>

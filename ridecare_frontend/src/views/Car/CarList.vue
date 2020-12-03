@@ -10,15 +10,11 @@
           >My Cars</v-col
         >
         <v-col cols="12" sm="2" lg="1">
-          <v-btn
-            tile
-            small
-            color="primary"
-            class="text-capitalize"
-            block
-            @click="newCar"
-            >New Car</v-btn
-          >
+          <router-link :to="{ name: 'NewCar' }">
+            <v-btn tile small color="primary" class="text-capitalize" block
+              >New Car</v-btn
+            >
+          </router-link>
         </v-col>
       </v-row>
       <v-row>
