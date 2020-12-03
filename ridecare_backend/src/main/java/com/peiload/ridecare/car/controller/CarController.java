@@ -35,9 +35,9 @@ public class CarController {
         return this.carService.getAllCars();
     }
 
-    @GetMapping(path="/{company}")
-    public List<CarShowDto> getUserCars(@PathVariable String company){
-        return this.carService.getUserCars(company);
+    @GetMapping
+    public List<CarShowDto> getUserCars(@RequestHeader("Authorization") String authorizationToken){
+        return this.carService.getUserCars(authorizationToken);
     }
 
     @PostMapping
@@ -52,7 +52,7 @@ public class CarController {
         this.carService.deleteCar(authorizationToken, licensePlate);
     }
 
-    @PatchMapping(path="/edit/{id}")
+    @PatchMapping(path="/{id}")
     public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int id, @RequestBody CarEditDto carEditDto){
         this.carService.editCar(authorizationToken, id, carEditDto);
     }
