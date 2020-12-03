@@ -11,24 +11,32 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="6" md="3" lg="3">
-          <v-card color="green" class="rounded-xl">
-            <v-card-title>cars online</v-card-title>
-          </v-card>
+          <DashboardCard
+            color="green"
+            icon="mdi-car"
+            description="Cars On-line"
+          />
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="3">
-          <v-card color="red" class="rounded-xl">
-            <v-card-title>cars off</v-card-title>
-          </v-card>
+          <DashboardCard
+            color="red"
+            icon="mdi-robot-dead"
+            description="Cars Off-line"
+          />
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="3">
-          <v-card color="yellow" class="rounded-xl">
-            <v-card-title>sensors disabled</v-card-title>
-          </v-card>
+          <DashboardCard
+            color="#f7d02e"
+            icon="mdi-signal-off"
+            description="Sensors Disabled"
+          />
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="3">
-          <v-card color="orange" class="rounded-xl">
-            <v-card-title>anomalies</v-card-title>
-          </v-card>
+          <DashboardCard
+            color="orange"
+            icon="mdi-alert"
+            description="Anomalies"
+          />
         </v-col>
       </v-row>
       <v-row class="mt-12">
@@ -47,11 +55,13 @@
 import MainLayoutVue from "../Layouts/MainLayout.vue";
 
 import SimpleTable from "../Components/SimpleTable.vue";
+import DashboardCard from "../Components/DashboardCard.vue";
 
 export default {
   name: "Dashboard",
   components: {
-    SimpleTable
+    SimpleTable,
+    DashboardCard
   },
   data() {
     return {
