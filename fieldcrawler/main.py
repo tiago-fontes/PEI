@@ -5,7 +5,10 @@
 Start all the sensors and manage measuarments data flow
 """
 
-import requests, datetime, time
+import requests
+import datetime
+import time
+import json
 from time import gmtime, strftime
 
 from alertai import alertai
@@ -13,20 +16,28 @@ from alertai import alertai
 from sensors import sensor1
 from sensors import sensor2
 
+
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
+
 PORT1 = "/dev/ttyUSB0"
 DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api/sensors"
+API = "http://0.0.0.0:8085/api"
 
 # EVENTS PY-RQ URL
-#DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake/"#sensor1 / sensor2 POST
+# DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake/"#sensor1 / sensor2 POST
 
 TAGS = "Existência de fumo, vidros fechados, AC desligado"
-CLASSIFICATION = "1"
+CLASSIFICATION = "-1"
+
 
 class FieldCrawler:
 
     def __init__(self):
 
-        self.readInterval = 10#seconds
+        self.readInterval = 10  # seconds
+
+        self.token2send = ""
 
         self.sensor1 = None
         self.sensor2 = None
@@ -54,7 +65,7 @@ class FieldCrawler:
                         'timeValue': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
                         'tags': TAGS,
                         'classification': CLASSIFICATION
-                    }
+                        }
             try:
                 dicFinal.update(self.readSensor1())
             except:
@@ -76,7 +87,7 @@ class FieldCrawler:
         dataDict = {'pm25': measurement["pm2.5"],
                     'pm10': measurement["pm10"]
                     }
-        #print(dataDict)
+        # print(dataDict)
 
         return dataDict
 
@@ -88,26 +99,59 @@ class FieldCrawler:
                     'pressure': measurement["pressure"],
                     'altitude': measurement["altitude"]
                     }
-        #print(dataDict)
+        # print(dataDict)
 
         return dataDict
 
+    def verify_token(self, token):
+        s = Serializer('rjvZhLKKCC5crnH6AU9m6Q')
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return False  # valid token, but expired
+        except BadSignature:
+            return False  # invalid token
+        return True
+
+    def notifyDataLakeWithAuth(self, dataDict):
+        session = requests.Session()
+        session.auth = ('VP-35-44', 'VP-35-44')
+
+        verify = self.verify_token(self.token2send)
+
+        # token expired or is invalid
+        if verify == False:
+            # requests new token with basic auth
+            token = session.get(API + "/token")
+            json_token = json.loads(token.text)
+            self.token2send = json_token["token"]
+
+        # requests post with token auth
+        my_headers = {'Authorization': 'Bearer ' + self.token2send}
+        res = requests.post(
+            API + "/sensors", json=dataDict, headers=my_headers)
+        print('response from server:'+res.text)
 
     def notifyDataLake(self, dataDict):
+
+        # self.notifyDataLakeWithAuth(dataDict)
+
         res = requests.post(DATALAKE_HOST, json=dataDict)
         print('response from server:'+res.text)
+
         #print('i would send to the datalake')
         #dictFromResponse = res.json()
-        #print(dictFromResponse)
+        # print(dictFromResponse)
 
     def notifyAlertAI(self, dataDict):
-        ### CALL MONITOR ALERT (WITH PYTHON-RQ EVENTS MANAGER p.e.)
-        
+        # CALL MONITOR ALERT (WITH PYTHON-RQ EVENTS MANAGER p.e.)
+
         self.ml.update(dataDict)
         pass
 
     def data2Json(self):
         pass
+
 
 if __name__ == '__main__':
     main = FieldCrawler()
