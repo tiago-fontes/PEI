@@ -1,0 +1,5 @@
+Python 3+
+pip3 install pyserial
+pip3 install adafruit-circuitpython-bme680
+pip3 install py-sds011
+
