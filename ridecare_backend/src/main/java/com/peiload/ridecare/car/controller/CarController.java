@@ -24,7 +24,7 @@ import java.util.List;
 @Api(tags = "CarController")
 public class CarController {
 
-    private CarService carService;
+    private final CarService carService;
 
     public CarController(CarService carService){
         this.carService = carService;
@@ -46,14 +46,14 @@ public class CarController {
         return this.carService.createCar(authorizationToken, carCreateDto);
     }
 
+    @PatchMapping(path="/{licensePlate}")
+    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String licensePlate, @RequestBody CarEditDto carEditDto){
+        this.carService.editCar(authorizationToken, licensePlate, carEditDto);
+    }
+
     @DeleteMapping(path="/{licensePlate}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String licensePlate){
         this.carService.deleteCar(authorizationToken, licensePlate);
-    }
-
-    @PatchMapping(path="/{license_plate}")
-    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String license_plate, @RequestBody CarEditDto carEditDto){
-        this.carService.editCar(authorizationToken, license_plate, carEditDto);
     }
 }

@@ -27,7 +27,6 @@ public class CarShowDto {
     private List<AnomalyShowDto> anomalies;
 
 
-
     public CarShowDto(Car car) {
         this.id = car.getId();
         this.licensePlate = car.getLicensePlate();

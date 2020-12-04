@@ -17,17 +17,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 public class CarService {
 
     private final CarRepository carRepository;
-    private final JwtTokenUtil jtu;
+    private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    public CarService(CarRepository carRepository, JwtTokenUtil jtu, UserService userService){
+    public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService){
         this.carRepository = carRepository;
-        this.jtu = jtu;
+        this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
     }
 
@@ -41,7 +40,7 @@ public class CarService {
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
         List<CarShowDto> userCars = new ArrayList<>();
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
         this.carRepository.findAllByUser(user).forEach(car -> userCars.add(new CarShowDto(car)));
         return userCars;
@@ -50,7 +49,7 @@ public class CarService {
     public CarShowDto createCar(String authorizationToken, CarCreateDto carCreateDto){
         Optional<Car> existingCar = this.carRepository.findByLicensePlate(carCreateDto.getLicensePlate());
         if(!(existingCar.isPresent())){
-            String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+            String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
             this.carRepository.save(car);
@@ -61,22 +60,8 @@ public class CarService {
         }
     }
 
-    public void deleteCar(String authorizationToken, String licensePlate){
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(licensePlate);
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            this.carRepository.delete(existingCar.get());
-        }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user");
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with license plate: " + licensePlate);
-        }
-    }
-
     public void editCar(String authorizationToken, String license_plate, CarEditDto carEditDto){
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         Optional<Car> existingCar = this.carRepository.findByLicensePlate(license_plate);
 
         if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
@@ -89,6 +74,20 @@ public class CarService {
         }
         else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+        }
+    }
+
+    public void deleteCar(String authorizationToken, String licensePlate){
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        Optional<Car> existingCar = this.carRepository.findByLicensePlate(licensePlate);
+        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
+            this.carRepository.delete(existingCar.get());
+        }
+        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user");
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with license plate: " + licensePlate);
         }
     }
 

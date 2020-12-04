@@ -6,7 +6,6 @@ import com.peiload.ridecare.login.model.JwtResponse;
 import com.peiload.ridecare.login.service.JwtUserDetailsService;
 import com.peiload.ridecare.user.model.User;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,14 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 @Api(tags = "LoginController")
 public class LoginController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
+    public LoginController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, JwtUserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostMapping
     public HttpEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
@@ -40,6 +41,7 @@ public class LoginController {
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token, userInfo.getEmail(), userInfo.getCompanyName()));
     }
+
     private void authenticate(String username, String password){
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -49,4 +51,5 @@ public class LoginController {
             throw new BadCredentialsException("INVALID_CREDENTIALS", e);
         }
     }
+
 }
