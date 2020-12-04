@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,8 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     private String licensePlate;
-    @ManyToOne
-    private User user;
 
     @Lob
     private String image;
@@ -46,9 +46,11 @@ public class Car {
 
     private String raspberryInfo;
 
+    @ManyToOne
+    private User user;
+
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
-
 
     public Car(CarCreateDto car, User user) {
         this.licensePlate = car.getLicensePlate();

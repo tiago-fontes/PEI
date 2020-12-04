@@ -19,12 +19,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final JwtTokenUtil jtu;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, JwtTokenUtil jtu){
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, JwtTokenUtil jwtTokenUtil){
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.jtu = jtu;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     public User findByEmail(String email){
@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public UserShowDto getUser(String authorizationToken) {
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         return new UserShowDto(findByEmail(email));
     }
 
@@ -58,14 +58,8 @@ public class UserService {
         }
     }
 
-    public void deleteUser(String authorizationToken) {
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
-        this.userRepository.delete(findByEmail(email));
-    }
-
-
     public void editUser(String authorizationToken, UserSetDto userSetDto) {
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = findByEmail(email);
 
         if(userSetDto.getEmail() != null){
@@ -79,5 +73,10 @@ public class UserService {
         }
 
         this.userRepository.save(user);
+    }
+
+    public void deleteUser(String authorizationToken) {
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        this.userRepository.delete(findByEmail(email));
     }
 }

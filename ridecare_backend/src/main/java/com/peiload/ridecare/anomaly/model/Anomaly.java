@@ -21,15 +21,13 @@ public class Anomaly {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private Boolean viewed;
+
     @ManyToOne
     private Car car;
 
-    private Boolean viewed;
-
     @OneToMany(mappedBy="anomaly")
     private List<Measurement> measurements;
-
-
 
     public Anomaly(MeasurementSetDto anomaly, Car car) {
         this.car = car;

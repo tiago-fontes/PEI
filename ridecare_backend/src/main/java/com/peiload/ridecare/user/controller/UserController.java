@@ -21,7 +21,7 @@ import java.util.List;
 @Api(tags = "UserController")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService){
         this.userService = userService;
@@ -37,14 +37,14 @@ public class UserController {
         return this.userService.getAllUsers();
     }
 
+    @PatchMapping
+    public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody UserSetDto userSetDto){
+        this.userService.editUser(authorizationToken, userSetDto);
+    }
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@RequestHeader("Authorization") String authorizationToken){
         this.userService.deleteUser(authorizationToken);
-    }
-
-    @PatchMapping
-    public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody UserSetDto userSetDto){
-        this.userService.editUser(authorizationToken, userSetDto);
     }
 }

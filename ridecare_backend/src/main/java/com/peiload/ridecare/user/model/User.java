@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Builder
@@ -30,7 +31,9 @@ public class User {
     @Email
     private String email;
     private String companyName;
+    @NotNull
     private String password;
+
     @OneToMany(mappedBy = "user")
     private List<Car> cars;
 }
