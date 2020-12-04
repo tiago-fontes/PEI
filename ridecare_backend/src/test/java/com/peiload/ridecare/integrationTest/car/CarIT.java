@@ -160,8 +160,8 @@ class CarIT {
                 .header("Authorization", "Bearer "+ userToken)
                 .contentType(ContentType.JSON)
                 .body(body)
-                .pathParam("id", carId)
-                .patch(carPath + "/{id}")
+                .pathParam("license_plate", carCreateDto.getLicensePlate())
+                .patch(carPath + "/{license_plate}")
                 .then().statusCode(200);
     }
 

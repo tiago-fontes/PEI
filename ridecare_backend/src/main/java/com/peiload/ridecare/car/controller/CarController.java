@@ -52,8 +52,8 @@ public class CarController {
         this.carService.deleteCar(authorizationToken, licensePlate);
     }
 
-    @PatchMapping(path="/{id}")
-    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int id, @RequestBody CarEditDto carEditDto){
-        this.carService.editCar(authorizationToken, id, carEditDto);
+    @PatchMapping(path="/{license_plate}")
+    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String license_plate, @RequestBody CarEditDto carEditDto){
+        this.carService.editCar(authorizationToken, license_plate, carEditDto);
     }
 }

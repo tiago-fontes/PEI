@@ -75,9 +75,9 @@ public class CarService {
         }
     }
 
-    public void editCar(String authorizationToken, int id, CarEditDto carEditDto){
+    public void editCar(String authorizationToken, String license_plate, CarEditDto carEditDto){
         String email = jtu.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findById(id);
+        Optional<Car> existingCar = this.carRepository.findByLicensePlate(license_plate);
 
         if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
             Car car = existingCar.get();

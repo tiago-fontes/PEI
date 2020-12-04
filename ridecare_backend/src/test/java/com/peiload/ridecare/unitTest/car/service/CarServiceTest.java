@@ -79,7 +79,7 @@ public class CarServiceTest {
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.findById(0));
 
-        assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"Car does not exist\"", exception.getMessage());
     }
 
     @Test
@@ -195,11 +195,11 @@ public class CarServiceTest {
         User user1 = TestUser.getUser1();
         Car car1 = TestCar.getCar1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer Token")).thenReturn(user1.getEmail());
-        when(carRepositoryMock.findById(car1.getId())).thenReturn(Optional.of(car1));
+        when(carRepositoryMock.findByLicensePlate(car1.getLicensePlate())).thenReturn(Optional.of(car1));
 
         CarEditDto carEditDto1 = TestCar.getCarEditDto1();
 
-        testObj.editCar("Bearer Token", car1.getId(), carEditDto1);
+        testObj.editCar("Bearer Token", car1.getLicensePlate(), carEditDto1);
 
         verify(carRepositoryMock, times(1)).save(
                 argThat(editedCar -> {
@@ -217,11 +217,11 @@ public class CarServiceTest {
         User user2 = TestUser.getUser2();
         Car car1 = TestCar.getCar1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer Token")).thenReturn(user2.getEmail());
-        when(carRepositoryMock.findById(car1.getId())).thenReturn(Optional.of(car1));
+        when(carRepositoryMock.findByLicensePlate(car1.getLicensePlate())).thenReturn(Optional.of(car1));
 
         CarEditDto carEditDto1 = TestCar.getCarEditDto1();
 
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editCar("Bearer Token", car1.getId(), carEditDto1));
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editCar("Bearer Token", car1.getLicensePlate(), carEditDto1));
 
         assertEquals(HttpStatus.FORBIDDEN.toString() +  " \"The car you were trying to edit belongs to another user\"", exception.getMessage());
     }
@@ -231,11 +231,11 @@ public class CarServiceTest {
         User user1 = TestUser.getUser1();
         Car car1 = TestCar.getCar1();
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer Token")).thenReturn(user1.getEmail());
-        when(carRepositoryMock.findById(car1.getId())).thenReturn(Optional.ofNullable(null));
+        when(carRepositoryMock.findByLicensePlate(car1.getLicensePlate())).thenReturn(Optional.ofNullable(null));
 
         CarEditDto carEditDto1 = TestCar.getCarEditDto1();
 
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editCar("Bearer Token", car1.getId(), carEditDto1));
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editCar("Bearer Token", car1.getLicensePlate(), carEditDto1));
 
         assertEquals(HttpStatus.FORBIDDEN.toString() +  " \"There's no car with this id\"", exception.getMessage());
     }
