@@ -3,7 +3,6 @@ package com.peiload.ridecare.config;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.login.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,18 +18,21 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+
+    private final JwtUserDetailsService jwtUserDetailsService;
+    private final JwtTokenUtil jwtTokenUtil;
+
+    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
         String email = null;
         String jwtToken = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get
-        // only the Token
+        // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
@@ -40,14 +42,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
                 logger.info("JWT Token has expired");
             }
-        } else {
-            logger.warn("JWT Token does not begin with Bearer String");
         }
         // Once we get the token validate it.
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(email);
-            // if token is valid configure Spring Security to manually set
-            // authentication
+            // if token is valid configure Spring Security to manually set authentication
             Boolean bool = jwtTokenUtil.validateToken(jwtToken, userDetails);
             if (Boolean.TRUE.equals(bool)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

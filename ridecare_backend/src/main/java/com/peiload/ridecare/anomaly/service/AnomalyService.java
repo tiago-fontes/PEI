@@ -1,9 +1,11 @@
 package com.peiload.ridecare.anomaly.service;
 
-import com.peiload.ridecare.anomaly.dto.AnomalySetDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
+import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
+import com.peiload.ridecare.anomaly.repository.MeasurementRepository;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
@@ -21,14 +23,16 @@ import java.util.stream.Collectors;
 public class AnomalyService {
 
     private final AnomalyRepository anomalyRepository;
+    private final MeasurementRepository measurementRepository;
     private final JwtTokenUtil jtu;
     private final UserService userService;
     private final CarService carService;
 
 
 
-    public AnomalyService(AnomalyRepository anomalyRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
+    public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
+        this.measurementRepository = measurementRepository;
         this.jtu = jtu;
         this.userService = userService;
         this.carService = carService;
@@ -54,81 +58,51 @@ public class AnomalyService {
         if(car.getUser().getEmail().equals(email)){
             return anomalyRepository.findAllByViewedAndCar(false, car);
         }
-        else if(!(car.getUser().getEmail().equals(email))){
+        else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
         }
+
+    }
+
+    public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
+        Car car = this.carService.findById(carId);
+
+        boolean createNewAnomaly = car.getAnomalies().isEmpty();
+
+        if(car.getAnomalies().isEmpty()){
+            Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
+            this.anomalyRepository.save(newAnomaly);
+            this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+        }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+            List<Anomaly> anomalies = car.getAnomalies();
+            Anomaly lastAnomaly = anomalies.get(anomalies.size()-1);
+
+            List<Measurement> measurements = lastAnomaly.getMeasurements();
+            Measurement lastMeasurement = measurements.get(measurements.size()-1);
+
+            //if(Duration.between(measurementSetDto.getDate().toInstant(), lastMeasurement.getDate().toInstant()).compareTo(Duration.ofSeconds(30)) < 0)
+           if(lastMeasurement.getDate().toInstant().plusSeconds(30).isBefore(measurementSetDto.getDate().toInstant())){
+               Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
+               this.anomalyRepository.save(newAnomaly);
+               this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+           }
+           else {
+               this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
+           }
         }
     }
 
-    public void createAnomaly(String authorizationToken, int carId, AnomalySetDto anomalySetDto) {
-        Car car = this.carService.findById(carId);
-        //String email = jtu.getEmailFromAuthorizationString(authorizationToken);
-
-        //if(car.get().getUser().getEmail().equals(email)){
-        Anomaly anomaly = new Anomaly(anomalySetDto, car);
-        this.anomalyRepository.save(anomaly);
-        //}
-        //else {
-        //    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There is no car");
-        //}
-    }
-
-    public void editAnomaly(int anomalyId, AnomalySetDto anomalySetDto) {
+    public void setAnomalyAsViewed(int anomalyId) {
         Optional<Anomaly> existingAnomaly = this.anomalyRepository.findById(anomalyId);
-        //String email = jtu.getEmailFromAuthorizationString(authorizationToken);
 
-        if(existingAnomaly.isPresent()){ //&& car.get().getUser().getEmail().equals(email)){
+        if(existingAnomaly.isPresent()){
             Anomaly anomaly = existingAnomaly.get();
-            updateAnomaly(anomaly, anomalySetDto);
-            this.anomalyRepository.save(existingAnomaly.get());
+            anomaly.setViewed(true);
+            this.anomalyRepository.save(anomaly);
         }
         else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There is no car");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Anomaly doesn't exist");
         }
     }
-
-    private void updateAnomaly(Anomaly anomaly, AnomalySetDto anomalySetDto){
-        if(anomalySetDto.getClassification() != null){
-            anomaly.setClassification(anomalySetDto.getClassification());
-        }
-        if(anomalySetDto.getDate() != null){
-            anomaly.setDate(anomalySetDto.getDate());
-        }
-        if(anomalySetDto.getLongitude() != null){
-            anomaly.setLongitude(anomalySetDto.getLongitude());
-        }
-        if(anomalySetDto.getLatitude() != null){
-            anomaly.setLatitude(anomalySetDto.getLatitude());
-        }
-
-        if(anomalySetDto.getPm25() != null){
-            anomaly.setPm25(anomalySetDto.getPm25());
-        }
-        if(anomalySetDto.getPm10() != null){
-            anomaly.setPm10(anomalySetDto.getPm10());
-        }
-
-        if(anomalySetDto.getTemperature() != null){
-            anomaly.setTemperature(anomalySetDto.getTemperature());
-        }
-        if(anomalySetDto.getGas() != null){
-            anomaly.setGas(anomalySetDto.getGas());
-        }
-        if(anomalySetDto.getHumidity() != null){
-            anomaly.setHumidity(anomalySetDto.getHumidity());
-        }
-        if(anomalySetDto.getPressure() != null){
-            anomaly.setPressure(anomalySetDto.getPressure());
-        }
-        if(anomalySetDto.getAltitude() != null){
-            anomaly.setAltitude(anomalySetDto.getAltitude());
-        }
-
-        if(anomalySetDto.getViewed() != null){
-            anomaly.setViewed(anomalySetDto.getViewed());
-        }
-    }
-
 }

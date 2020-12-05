@@ -1,6 +1,7 @@
 package com.peiload.ridecare.car.service;
 
-import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.repository.CarRepository;
@@ -16,18 +17,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 public class CarService {
 
     private final CarRepository carRepository;
-    private final JwtTokenUtil jtu;
+    private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    public CarService(CarRepository carRepository, JwtTokenUtil jtu, UserService userService){
+    public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService){
         this.carRepository = carRepository;
-        this.jtu = jtu;
+        this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
+    }
+
+    public Car findById(int carId) {
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist"));
     }
 
     public List<CarShowDto> getAllCars() {
@@ -36,27 +40,45 @@ public class CarService {
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
         List<CarShowDto> userCars = new ArrayList<>();
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
         this.carRepository.findAllByUser(user).forEach(car -> userCars.add(new CarShowDto(car)));
         return userCars;
     }
 
-    public void createCar(String authorizationToken, CarSetDto carSetDto){
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(carSetDto.getLicensePlate());
+    public CarShowDto createCar(String authorizationToken, CarCreateDto carCreateDto){
+        Optional<Car> existingCar = this.carRepository.findByLicensePlate(carCreateDto.getLicensePlate());
         if(!(existingCar.isPresent())){
-            String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+            String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
-            Car car = new Car(carSetDto, user);
+            Car car = new Car(carCreateDto, user);
             this.carRepository.save(car);
+            return new CarShowDto(car);
         }
         else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate");
         }
     }
 
+    public void editCar(String authorizationToken, String license_plate, CarEditDto carEditDto){
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        Optional<Car> existingCar = this.carRepository.findByLicensePlate(license_plate);
+
+        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
+            Car car = existingCar.get();
+            updateCar(car, carEditDto);
+            this.carRepository.save(car);
+        }
+        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user");
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+        }
+    }
+
     public void deleteCar(String authorizationToken, String licensePlate){
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         Optional<Car> existingCar = this.carRepository.findByLicensePlate(licensePlate);
         if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
             this.carRepository.delete(existingCar.get());
@@ -69,54 +91,31 @@ public class CarService {
         }
     }
 
-    public void editCar(String authorizationToken, int id, CarSetDto carSetDto){
-        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findById(id);
-
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            Car car = existingCar.get();
-            updateCar(car, carSetDto);
-            this.carRepository.save(car);
+    private void updateCar(Car car, CarEditDto carEditDto){
+        if(carEditDto.getImage() != null){
+            car.setImage(carEditDto.getImage());
         }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user");
+        if(carEditDto.getBrand() != null){
+            car.setBrand(carEditDto.getBrand());
         }
-        else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+        if(carEditDto.getModel() != null){
+            car.setModel(carEditDto.getModel());
         }
-    }
-
-    private void updateCar(Car car, CarSetDto carSetDto){
-        if(carSetDto.getLicensePlate() != null){
-            car.setLicensePlate(carSetDto.getLicensePlate());
+        if(carEditDto.getYear() != null){
+            car.setYear(carEditDto.getYear());
         }
-        if(carSetDto.getImage() != null){
-            car.setImage(carSetDto.getImage());
+        if(carEditDto.getNumberOfDoors() != null){
+            car.setNumberOfDoors(carEditDto.getNumberOfDoors());
         }
-        if(carSetDto.getBrand() != null){
-            car.setBrand(carSetDto.getBrand());
+        if(carEditDto.getNumberOfSeats() != null){
+            car.setNumberOfSeats(carEditDto.getNumberOfDoors());
         }
-        if(carSetDto.getModel() != null){
-            car.setModel(carSetDto.getModel());
+        if(carEditDto.getTransmission() != null){
+            car.setTransmission(carEditDto.getTransmission());
         }
-        if(carSetDto.getYear() != null){
-            car.setYear(carSetDto.getYear());
-        }
-        if(carSetDto.getNumberOfDoors() != null){
-            car.setNumberOfDoors(carSetDto.getNumberOfDoors());
-        }
-        if(carSetDto.getNumberOfSeats() != null){
-            car.setNumberOfSeats(carSetDto.getNumberOfDoors());
-        }
-        if(carSetDto.getTransmission() != null){
-            car.setTransmission(carSetDto.getTransmission());
-        }
-        if(carSetDto.getFuel() != null){
-            car.setFuel(carSetDto.getFuel());
+        if(carEditDto.getFuel() != null){
+            car.setFuel(carEditDto.getFuel());
         }
     }
 
-    public Car findById(int carId) {
-        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-    }
 }

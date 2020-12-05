@@ -9,9 +9,9 @@ services:
       - seccomp:unconfined
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: theusername
-      MYSQL_PASSWORD: thepw
-      MYSQL_DATABASE: mydb
+      MYSQL_USER: ridecare
+      MYSQL_PASSWORD: ridecare
+      MYSQL_DATABASE: ridecare_db
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s

@@ -1,15 +1,22 @@
 package com.peiload.ridecare.car.model;
 
 import com.peiload.ridecare.anomaly.model.Anomaly;
-import com.peiload.ridecare.car.dto.CarSetDto;
+import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +30,8 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     private String licensePlate;
-    @ManyToOne
-    private User user;
 
     @Lob
     private String image;
@@ -40,11 +46,13 @@ public class Car {
 
     private String raspberryInfo;
 
+    @ManyToOne
+    private User user;
+
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
 
-
-    public Car(CarSetDto car, User user) {
+    public Car(CarCreateDto car, User user) {
         this.licensePlate = car.getLicensePlate();
         this.user = user;
         this.image = car.getImage();
