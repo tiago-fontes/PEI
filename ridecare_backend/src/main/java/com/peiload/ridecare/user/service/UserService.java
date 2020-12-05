@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public User findByEmail(String email){
-        return this.userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User does not exist."));
     }
 
     public UserShowDto getUser(String authorizationToken) {
