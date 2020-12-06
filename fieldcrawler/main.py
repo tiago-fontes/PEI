@@ -136,7 +136,7 @@ class FieldCrawler:
 
         # self.notifyDataLakeWithAuth(dataDict)
 
-        res = requests.post(DATALAKE_HOST, json=dataDict)
+        #res = requests.post(DATALAKE_HOST, json=dataDict)
         print('response from server:'+res.text)
 
         #print('i would send to the datalake')

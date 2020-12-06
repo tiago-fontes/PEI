@@ -40,7 +40,7 @@ class AlertAI:
 
     def processData(self):
         # We must handle with unnecessary columns
-        raw_data = self.sensorsData
+        raw_data = self.sensorsData.copy()
         raw_data.pop('carId')
         raw_data.pop('carLocation')
         raw_data.pop('timeValue')
@@ -68,13 +68,13 @@ class AlertAI:
         # show the input and predicted output
         print("Value = %s \n Classification = %s " % (data2Use, classification))
         print("Classification process done!!")
-        if(classification==1)
+        if(classification==1):
             self.prepare2Send(classification)
         
 
     def prepare2Send(self,classification):
         #Prepare data before sending to backend
-        beforeSend = self.sensorsData
+        beforeSend = self.sensorsData.copy()
         beforeSend.pop('carId')
         beforeSend.pop('timeValue')
         beforeSend.pop('carLocation')
@@ -89,7 +89,7 @@ class AlertAI:
         arrangedData['latitude'] = subStr[1]
         arrangedData['date'] = self.sensorsData.get('timeValue')
         #Add classification value to array of data
-        arrangedData['classification'] = classif
+        arrangedData['classification'] = classification
         #Send data to backend
         #self.saveData(arrangedData)
 
