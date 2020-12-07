@@ -1,7 +1,6 @@
 package com.peiload.ridecare.anomaly.model;
 
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
-import com.peiload.ridecare.car.model.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class Measurement {
     @ManyToOne
     private Anomaly anomaly;
 
-    private String classification;
+    //private String classification;
 
 
     private Date date;
@@ -45,7 +44,6 @@ public class Measurement {
 
     public Measurement(MeasurementSetDto dto, Anomaly anomaly) {
         this.anomaly = anomaly;
-        this.classification = dto.getClassification();
         this.date = dto.getDate();
         this.longitude = dto.getLongitude();
         this.latitude = dto.getLatitude();

@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 public class MeasurementShowDto {
 
-    private String classification;
 
     private Date date;
     private Float longitude;
@@ -29,7 +28,6 @@ public class MeasurementShowDto {
     private Float altitude;
 
     public MeasurementShowDto(Measurement m) {
-        this.classification = m.getClassification();
         this.date = m.getDate();
         this.longitude = m.getLongitude();
         this.latitude = m.getLatitude();

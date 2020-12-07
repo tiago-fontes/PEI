@@ -23,6 +23,8 @@ public class Anomaly {
 
     private Boolean viewed;
 
+    private String classification;
+
     @ManyToOne
     private Car car;
 
@@ -30,6 +32,7 @@ public class Anomaly {
     private List<Measurement> measurements;
 
     public Anomaly(MeasurementSetDto anomaly, Car car) {
+        this.classification = anomaly.getClassification();
         this.car = car;
         this.viewed = false;
     }
