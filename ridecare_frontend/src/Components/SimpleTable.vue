@@ -14,12 +14,17 @@
         </thead>
         <tbody class="text-center">
           <tr v-for="(car, index) in cars" :key="index">
-            <td>{{ car.numberPlate }}</td>
+            <td>{{ car.licensePlate }}</td>
             <td>
               <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on">
-                    <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
+                    <v-icon v-if="car.anomalies.length > 0" color="orange"
+                      >mdi-checkbox-blank-circle</v-icon
+                    >
+                    <v-icon v-else-if="car.anomalies.length == 0" color="green"
+                      >mdi-checkbox-blank-circle</v-icon
+                    >
                   </span>
                 </template>
                 <span>Car Offline</span>

@@ -52,8 +52,9 @@
 </template>
 
 <script>
-import MainLayoutVue from "../Layouts/MainLayout.vue";
+import axios from "axios";
 
+import MainLayoutVue from "../Layouts/MainLayout.vue";
 import SimpleTable from "../Components/SimpleTable.vue";
 import DashboardCard from "../Components/DashboardCard.vue";
 
@@ -65,32 +66,21 @@ export default {
   },
   data() {
     return {
-      cars: [
-        {
-          numberPlate: "AA-00-ZZ",
-          status: "Everything is Ok"
-        },
-        {
-          numberPlate: "AA-01-ZZ",
-          status: "Sensor Unavailable"
-        },
-        {
-          numberPlate: "AA-02-ZZ",
-          status: "Anomaly Detected"
-        },
-        {
-          numberPlate: "AA-03-ZZ",
-          status: "Car Offline"
-        },
-        {
-          numberPlate: "AA-04-ZZ",
-          status: "Sensor Unavailable"
-        }
-      ]
+      cars: []
     };
   },
   created() {
     this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/car/all`)
+      .then(res => {
+        this.cars = res.data;
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
   }
 };
 </script>
