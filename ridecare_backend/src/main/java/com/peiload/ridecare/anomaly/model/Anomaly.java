@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Builder
@@ -21,10 +22,13 @@ public class Anomaly {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     private Boolean viewed;
 
+    @NotNull
     private String classification;
 
+    @NotNull
     @ManyToOne
     private Car car;
 

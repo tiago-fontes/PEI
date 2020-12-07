@@ -29,7 +29,9 @@ public class User {
     private int id;
     @Column(unique = true)
     @Email
+    @NotNull
     private String email;
+    @NotNull
     private String companyName;
     @NotNull
     private String password;

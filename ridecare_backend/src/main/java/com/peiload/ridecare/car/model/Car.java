@@ -44,8 +44,7 @@ public class Car {
     private String transmission;
     private String fuel;
 
-    private String raspberryInfo;
-
+    @NotNull
     @ManyToOne
     private User user;
 
@@ -63,7 +62,6 @@ public class Car {
         this.numberOfSeats = car.getNumberOfSeats();
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
-        this.raspberryInfo = "";
 
         this.anomalies = new ArrayList<>();
     }

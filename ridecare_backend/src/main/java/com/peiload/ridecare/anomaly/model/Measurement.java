@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -22,23 +23,29 @@ public class Measurement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @ManyToOne
     private Anomaly anomaly;
-
-    //private String classification;
-
-
+    
+    @NotNull
     private Date date;
     private Float longitude;
     private Float latitude;
 
+    @NotNull
     private Float pm25;
+    @NotNull
     private Float pm10;
 
+    @NotNull
     private Float temperature;
+    @NotNull
     private Float gas;
+    @NotNull
     private Float humidity;
+    @NotNull
     private Float pressure;
+    @NotNull
     private Float altitude;
 
 

@@ -24,7 +24,6 @@ public class TestCar {
                 .numberOfSeats(5)
                 .transmission("Manual")
                 .fuel("Diesel")
-                .raspberryInfo("")
                 .build();
     }
 
@@ -41,7 +40,6 @@ public class TestCar {
                 .numberOfSeats(5)
                 .transmission("Manual")
                 .fuel("Diesel")
-                .raspberryInfo("")
                 .build();
     }
 
