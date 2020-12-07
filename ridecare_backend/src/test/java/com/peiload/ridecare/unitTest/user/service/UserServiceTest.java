@@ -69,7 +69,7 @@ class UserServiceTest {
         String email = any();
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.findByEmail(email));
 
-        assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"User does not exist.\"", exception.getMessage());
     }
 
     @Test
@@ -158,7 +158,7 @@ class UserServiceTest {
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.deleteUser("Bearer token"));
 
-        assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"User does not exist.\"", exception.getMessage());
     }
 
     @Test
@@ -191,7 +191,7 @@ class UserServiceTest {
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userSetDto));
 
-        assertEquals(HttpStatus.BAD_REQUEST.toString(), exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"User does not exist.\"", exception.getMessage());
 
         verify(userRepositoryMock, times(0)).save(user1);
     }
