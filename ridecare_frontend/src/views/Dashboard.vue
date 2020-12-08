@@ -52,8 +52,7 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import axios from "../../axios";
 import MainLayoutVue from "../Layouts/MainLayout.vue";
 import SimpleTable from "../Components/SimpleTable.vue";
 import DashboardCard from "../Components/DashboardCard.vue";
@@ -74,7 +73,7 @@ export default {
   },
   mounted() {
     axios
-      .get(`${process.env.VUE_APP_ROOT_API}/car/all`)
+      .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
         this.cars = res.data;
       })

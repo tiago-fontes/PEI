@@ -1,6 +1,15 @@
 <template>
   <div class="parent">
     <v-card width="600" class="px-6 py-8">
+      <v-alert
+        v-if="errorMsg"
+        class="ma-5"
+        icon="mdi-shield-lock-outline"
+        text
+        type="error"
+      >
+        {{ errorMsg }}
+      </v-alert>
       <v-card-title>RideCare</v-card-title>
       <v-card-subtitle>Sign up to RideCare</v-card-subtitle>
       <v-card-text>
@@ -66,15 +75,18 @@
         </v-form>
       </v-card-text>
     </v-card>
-    <v-alert
-      v-if="errorMsg"
-      class="mt-7 mb-0"
-      icon="mdi-shield-lock-outline"
-      text
-      type="error"
+    <v-bottom-sheet v-model="sheet" persistent
+      ><v-sheet class="text-center" height="200px">
+        <div class="pt-12 mb-6">
+          {{ message }}
+        </div>
+        <router-link :to="{ name: 'Login' }">
+          <v-btn tile color="primary" small class="text-capitalize">
+            Login
+          </v-btn>
+        </router-link>
+      </v-sheet></v-bottom-sheet
     >
-      {{ errorMsg }}
-    </v-alert>
   </div>
 </template>
 
@@ -91,12 +103,27 @@ export default {
       password: "",
       repeatPassword: "",
       companyName: "",
-      errorMsg: null
+      errorMsg: null,
+      message: null,
+      sheet: false
     };
   },
   methods: {
-    signup() {
-      console.log(this.data);
+    async signup() {
+      let user = await this.$store.dispatch("signup", {
+        email: this.email,
+        password: this.password,
+        companyName: this.companyName
+      });
+      console.log("user is ->", user);
+
+      if (user.error) {
+        this.errorMsg = user.error;
+      } else {
+        this.sheet = true;
+        this.message = "Welcome, " + user.companyName + "! You can now log in!";
+        this.$refs.signUpForm.reset();
+      }
     }
   }
 };

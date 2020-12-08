@@ -25,7 +25,7 @@
     </v-list>
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn tile block depressed color="primary">
+        <v-btn tile block depressed color="primary" @click="logout">
           <v-icon left dark> mdi-logout </v-icon>
           Logout
         </v-btn>
@@ -46,6 +46,11 @@ export default {
         { title: "Settings", icon: "mdi-cog", route: "/settings" }
       ]
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
   }
 };
 </script>
