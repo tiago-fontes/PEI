@@ -46,17 +46,20 @@ class AlertAI:
         raw_data.pop('timeValue')
         raw_data.pop('tags')
         raw_data.pop('classification')
-        columns = ['pm25','pm10','temperature','gas','humidity','pressure','altitude']
+        columns = ['pm25','pm10','temperature','gas','humidity','pressure']
         data = pd.DataFrame([raw_data])
-        #Normalization with MinMax Scaler
-        minmax = MinMaxScaler()
-        minmaxData = pd.DataFrame(minmax.fit_transform(data.values), columns=data.columns, index=data.index)
-        #Standarization with StandardScaler
-        scaler = StandardScaler()
-        standardData = pd.DataFrame(scaler.fit_transform(data.values), columns=data.columns, index=data.index)
-        result = [data,minmaxData,standardData]
-        # Classify data
-        self.classifyData(result)
+        if(data['pm25'] <= 0.5):
+            pass
+        else:
+            #Normalization with MinMax Scaler
+            minmax = MinMaxScaler()
+            minmaxData = pd.DataFrame(minmax.fit_transform(data.values), columns=data.columns, index=data.index)
+            #Standarization with StandardScaler
+            scaler = StandardScaler()
+            standardData = pd.DataFrame(scaler.fit_transform(data.values), columns=data.columns, index=data.index)
+            result = [data,minmaxData,standardData]
+            # Classify data
+            self.classifyData(result)
 
 
     def classifyData(self,data):
