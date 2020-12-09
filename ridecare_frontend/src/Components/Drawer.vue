@@ -27,7 +27,7 @@
       <div class="pa-2">
         <v-btn tile block depressed color="primary" @click="logout">
           <v-icon left dark> mdi-logout </v-icon>
-          Logout
+          Log out
         </v-btn>
       </div>
     </template>

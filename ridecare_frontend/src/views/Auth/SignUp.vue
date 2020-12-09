@@ -13,7 +13,11 @@
       <v-card-title>RideCare</v-card-title>
       <v-card-subtitle>Sign up to RideCare</v-card-subtitle>
       <v-card-text>
-        <v-form ref="signUpForm" @submit.prevent="signup">
+        <v-form
+          ref="signUpForm"
+          v-model="formValidity"
+          @submit.prevent="signup"
+        >
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -21,8 +25,9 @@
                   v-model="companyName"
                   label="Company Name"
                   type="text"
-                  required
                   color="primary"
+                  :rules="companyNameRules"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -32,8 +37,9 @@
                   v-model="email"
                   label="E-mail"
                   type="text"
-                  required
                   color="primary"
+                  :rules="emailRules"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -43,8 +49,9 @@
                   v-model="password"
                   label="Password"
                   type="password"
-                  required
                   color="primary"
+                  :rules="passwordRules"
+                  required
                 />
               </v-col>
               <v-col cols="12" sm="6" md="6" lg="6">
@@ -52,8 +59,9 @@
                   v-model="repeatPassword"
                   label="Repeat Password"
                   type="password"
-                  required
                   color="primary"
+                  :rules="[passwordRules, passwordConfirmationRule]"
+                  required
                 />
               </v-col>
             </v-row>
@@ -66,6 +74,7 @@
                   color="primary"
                   block
                   class="text-none"
+                  :disabled="!formValidity"
                 >
                   Create Account
                 </v-btn>
@@ -82,7 +91,7 @@
         </div>
         <router-link :to="{ name: 'Login' }">
           <v-btn tile color="primary" small class="text-capitalize">
-            Login
+            Log in
           </v-btn>
         </router-link>
       </v-sheet></v-bottom-sheet
@@ -100,13 +109,28 @@ export default {
   data() {
     return {
       email: "",
+      emailRules: [
+        v => !!v || "Email is required.",
+        v =>
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            v
+          ) || "Please insert a valid email."
+      ],
       password: "",
+      passwordRules: [v => !!v || "Password is required."],
       repeatPassword: "",
       companyName: "",
+      companyNameRules: [v => !!v || "Please identify your company."],
       errorMsg: null,
       message: null,
-      sheet: false
+      sheet: false,
+      formValidity: false
     };
+  },
+  computed: {
+    passwordConfirmationRule() {
+      return this.password === this.repeatPassword || "Passwords must match.";
+    }
   },
   methods: {
     async signup() {

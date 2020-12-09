@@ -4,14 +4,15 @@
       <v-card-title>RideCare</v-card-title>
       <v-card-subtitle>Sign in to RideCare</v-card-subtitle>
       <v-card-text>
-        <v-form ref="logInForm" @submit.prevent="login">
+        <v-form ref="logInForm" v-model="formValidity" @submit.prevent="login">
           <v-text-field
             v-model="email"
             label="Email"
             type="email"
             prepend-icon="mdi-account-circle"
-            required
             color="primary"
+            :rules="emailRules"
+            required
           ></v-text-field>
           <v-text-field
             v-model="password"
@@ -20,8 +21,9 @@
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
-            required
             color="primary"
+            :rules="passwordRules"
+            required
           />
           <v-row justify="end">
             <router-link :to="{ name: 'ForgotPwd' }">
@@ -46,8 +48,9 @@
                   color="primary"
                   block
                   class="text-none"
+                  :disabled="!formValidity"
                 >
-                  Sign in
+                  Log in
                 </v-btn>
               </v-row>
               <v-row class="mt-4">
@@ -94,9 +97,18 @@ export default {
   data() {
     return {
       email: "",
+      emailRules: [
+        v => !!v || "Email is required.",
+        v =>
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            v
+          ) || "Please insert a valid email."
+      ],
       password: "",
+      passwordRules: [v => !!v || "Password is required."],
       showPassword: false,
-      errorMsg: null
+      errorMsg: null,
+      formValidity: false
     };
   },
   methods: {
