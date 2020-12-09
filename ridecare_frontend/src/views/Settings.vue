@@ -39,8 +39,6 @@
                       >Edit</v-btn
                     >
                   </v-col>
-
-                  TeamMember
                   <v-col cols="12" class="pt-0">
                     <v-btn tile block color="primary" class="text-capitalize"
                       >Change Password</v-btn
@@ -112,27 +110,22 @@
                   <v-col class="pt-0" cols="12"> Participantes: </v-col>
                   <v-col class="pt-0" cols="12">
                     <v-container>
-                      <v-row>
-                        <v-col cols="2">
+                      <v-row class="d-flex justify-center">
+                        <v-col
+                          cols="12"
+                          xs="12"
+                          sm="4"
+                          md="3"
+                          lg="2"
+                          v-for="(member, index) in team"
+                          :key="index"
+                        >
                           <team-member
-                            img="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-                            name="Rui Santos"
-                            number="PG41850"
+                            :img="member.img"
+                            :name="member.name"
+                            :number="member.number"
                           />
                         </v-col>
-                        <v-col cols="2">2</v-col>
-                        <v-col cols="2">3</v-col>
-                        <v-col cols="2">4</v-col>
-                        <v-col cols="2">5</v-col>
-                        <v-col cols="2">6</v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col cols="2">1</v-col>
-                        <v-col cols="2">2</v-col>
-                        <v-col cols="2">3</v-col>
-                        <v-col cols="2">4</v-col>
-                        <v-col cols="2">5</v-col>
-                        <v-col cols="2">6</v-col>
                       </v-row>
                     </v-container>
                   </v-col>
@@ -157,7 +150,75 @@ export default {
   data() {
     return {
       companyName: "",
-      email: ""
+      email: "",
+      team: [
+        {
+          name: "André Coutinho",
+          number: "PG39284",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Gabriela Martins",
+          number: "A81987",
+          img:
+            "https://www.rufustoursandtravels.com/wp-content/uploads/2019/02/219969.png"
+        },
+        {
+          name: "João Costa",
+          number: "A81822",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "José António Pinto",
+          number: "A81317",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Leandro Costa",
+          number: "PG41083",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Luís Correia",
+          number: "A81141",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Paulo Jorge Martins",
+          number: "PG17918",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Pedro Barbosa",
+          number: "A82068",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Rafaela Silva",
+          number: "A79034",
+          img:
+            "https://www.rufustoursandtravels.com/wp-content/uploads/2019/02/219969.png"
+        },
+        {
+          name: "Rui Santos",
+          number: "PG41850",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        },
+        {
+          name: "Tiago Fontes",
+          number: "A80987",
+          img:
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+        }
+      ]
     };
   },
   created() {
