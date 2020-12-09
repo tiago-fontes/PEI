@@ -17,13 +17,15 @@
                 <v-row>
                   <span class="font-weight-bold">
                     Email:
-                    <span class="font-weight-light">email@email.com</span>
+                    <span class="font-weight-light">{{ this.email }}</span>
                   </span>
                 </v-row>
                 <v-row>
                   <span class="font-weight-bold">
                     Company Name:
-                    <span class="font-weight-light">Share Now</span>
+                    <span class="font-weight-light">{{
+                      this.companyName
+                    }}</span>
                   </span>
                 </v-row>
                 <v-row>
@@ -37,6 +39,8 @@
                       >Edit</v-btn
                     >
                   </v-col>
+
+                  TeamMember
                   <v-col cols="12" class="pt-0">
                     <v-btn tile block color="primary" class="text-capitalize"
                       >Change Password</v-btn
@@ -106,6 +110,32 @@
                 </v-row>
                 <v-row>
                   <v-col class="pt-0" cols="12"> Participantes: </v-col>
+                  <v-col class="pt-0" cols="12">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="2">
+                          <team-member
+                            img="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                            name="Rui Santos"
+                            number="PG41850"
+                          />
+                        </v-col>
+                        <v-col cols="2">2</v-col>
+                        <v-col cols="2">3</v-col>
+                        <v-col cols="2">4</v-col>
+                        <v-col cols="2">5</v-col>
+                        <v-col cols="2">6</v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="2">1</v-col>
+                        <v-col cols="2">2</v-col>
+                        <v-col cols="2">3</v-col>
+                        <v-col cols="2">4</v-col>
+                        <v-col cols="2">5</v-col>
+                        <v-col cols="2">6</v-col>
+                      </v-row>
+                    </v-container>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -117,12 +147,32 @@
 </template>
 
 <script>
+import axios from "../../axios";
 import MainLayoutVue from "../Layouts/MainLayout.vue";
+import TeamMember from "../Components/TeamMember.vue";
 
 export default {
+  components: { TeamMember },
   name: "Settings",
+  data() {
+    return {
+      companyName: "",
+      email: ""
+    };
+  },
   created() {
     this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/user`)
+      .then(res => {
+        this.companyName = res.data.companyName;
+        this.email = res.data.email;
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
   }
 };
 </script>
