@@ -108,6 +108,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: "Dashboard" });
+        })
+        .catch(err => {
+          console.log(err.response);
         });
     }
   }
