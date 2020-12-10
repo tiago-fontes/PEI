@@ -28,7 +28,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true)
-    @Email
+    @Email(message = "Enter a valid email address.")
     @NotNull
     private String email;
     @NotNull
@@ -38,6 +38,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Car> cars;
+
 }
 
 
