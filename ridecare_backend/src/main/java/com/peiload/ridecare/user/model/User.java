@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -30,10 +31,13 @@ public class User {
     @Column(unique = true)
     @Email(message = "Enter a valid email address.")
     @NotNull
+    @NotEmpty
     private String email;
     @NotNull
+    @NotEmpty
     private String companyName;
     @NotNull
+    @NotEmpty
     private String password;
 
     @OneToMany(mappedBy = "user")

@@ -39,7 +39,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST, new Date(), ex.getLocalizedMessage(), errors);
+        String message = ex.getLocalizedMessage();
+        if(!errors.isEmpty()){
+            message = errors.get(0);
+        }
+
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST, new Date(), message, errors);
         return handleExceptionInternal(ex, exceptionResponse, headers, exceptionResponse.getStatus(), request);
     }
 
