@@ -3,14 +3,16 @@ package com.peiload.ridecare.anomaly.dto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class AnomalyShowDto {
     private int id;
     private Boolean viewed;

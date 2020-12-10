@@ -3,14 +3,16 @@ package com.peiload.ridecare.anomaly.dto;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 
 @Builder
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class MeasurementShowDto {
 
 

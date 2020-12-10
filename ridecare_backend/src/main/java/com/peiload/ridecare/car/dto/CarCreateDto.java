@@ -1,11 +1,18 @@
 package com.peiload.ridecare.car.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Getter
+@Setter
 @Builder
 public class CarCreateDto {
+    @NotNull
+    @NotEmpty
     private String licensePlate;
     private String image;
     private String brand;
