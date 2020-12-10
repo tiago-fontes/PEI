@@ -7,6 +7,7 @@ import com.peiload.ridecare.login.service.JwtUserDetailsService;
 import com.peiload.ridecare.user.model.User;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/login")
@@ -48,7 +50,7 @@ public class LoginController {
         } catch (DisabledException e) {
             throw new DisabledException("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("INVALID_CREDENTIALS", e);
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email or Password are incorrect.");
         }
     }
 

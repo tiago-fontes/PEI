@@ -148,7 +148,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         logger.info(ex.getClass().getName());
         logger.error("error", ex);
         //
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getStatus(), new Date(), ex.getLocalizedMessage(), "");
+        String message = ex.getLocalizedMessage().split("\"")[1];
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getStatus(), new Date(), message, ex.getLocalizedMessage());
         return new ResponseEntity<>(exceptionResponse, new HttpHeaders(), exceptionResponse.getStatus());
     }
 
