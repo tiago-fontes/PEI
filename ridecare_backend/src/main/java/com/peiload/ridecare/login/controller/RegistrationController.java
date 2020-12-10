@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/register")
 @Api(tags = "RegistrationController")
@@ -24,7 +26,7 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserShowDto createUser(@RequestBody UserSetDto userSetDto) {
+    public UserShowDto createUser(@RequestBody @Valid UserSetDto userSetDto) {
         return userService.createUser(userSetDto);
     }
 }
