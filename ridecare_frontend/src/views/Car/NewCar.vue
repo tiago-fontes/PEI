@@ -5,8 +5,9 @@
         <v-col
           cols="12"
           class="text-center text-sm-left text-h6 font-weight-bold"
-          >New Car</v-col
         >
+          New Car
+        </v-col>
       </v-row>
       <v-row>
         <v-col>
@@ -19,43 +20,50 @@
             <v-stepper-content step="1">
               <v-card elevation="0">
                 <v-card-text>
-                  <v-form>
+                  <v-form
+                    ref="carMainInfoForm"
+                    v-model="carMainInfoFormValidity"
+                  >
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="licensePlate"
+                            v-model="carMainInfoForm.licensePlate"
                             label="License Plate"
                             type="text"
                             required
                             color="primary"
+                            :rules="carMainInfoForm.rules.licensePlateRules"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="brand"
+                            v-model="carMainInfoForm.brand"
                             label="Brand"
                             type="text"
                             required
                             color="primary"
+                            :rules="carMainInfoForm.rules.brandRules"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="model"
+                            v-model="carMainInfoForm.model"
                             label="Model"
                             type="text"
                             required
                             color="primary"
+                            :rules="carMainInfoForm.rules.modelRules"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="year"
+                            v-model="carMainInfoForm.year"
                             label="Year"
                             type="text"
                             required
                             color="primary"
+                            :rules="carMainInfoForm.rules.yearRules"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -63,7 +71,14 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn tile color="primary" @click="stepper = 2"> Next </v-btn>
+              <v-btn
+                tile
+                color="primary"
+                :disabled="!carMainInfoFormValidity"
+                @click="stepper = 2"
+              >
+                Next
+              </v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="stepper > 2" step="2">
@@ -73,40 +88,51 @@
             <v-stepper-content step="2">
               <v-card elevation="0">
                 <v-card-text>
-                  <v-form>
+                  <v-form
+                    ref="carCharacteristicsForm"
+                    v-model="carCharacteristicsFormValidity"
+                  >
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="numberOfDoors"
+                            v-model="carCharacteristicsForm.numberOfDoors"
                             label="Number Of Doors"
                             type="number"
                             required
+                            :rules="
+                              carCharacteristicsForm.rules.numberOfDoorsRules
+                            "
                             color="primary"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-text-field
-                            v-model="seats"
+                            v-model="carCharacteristicsForm.seats"
                             label="Seats"
                             type="number"
                             required
+                            :rules="carCharacteristicsForm.rules.seatRules"
                             color="primary"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-select
-                            v-model="transmission"
-                            :items="transmissionItems"
+                            v-model="carCharacteristicsForm.transmission"
+                            :items="carCharacteristicsForm.transmissionItems"
                             label="Transmission"
+                            :rules="
+                              carCharacteristicsForm.rules.transmissionRules
+                            "
                             required
                           ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" lg="3">
                           <v-select
-                            v-model="fuel"
-                            :items="fuelItems"
+                            v-model="carCharacteristicsForm.fuel"
+                            :items="carCharacteristicsForm.fuelItems"
                             label="Fuel"
+                            :rules="carCharacteristicsForm.rules.fuelRules"
                             required
                           ></v-select>
                         </v-col>
@@ -115,7 +141,14 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn tile color="primary" @click="stepper = 3"> Next </v-btn>
+              <v-btn
+                tile
+                color="primary"
+                @click="stepper = 3"
+                :disabled="!carCharacteristicsFormValidity"
+              >
+                Next
+              </v-btn>
               <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
 
@@ -148,19 +181,46 @@
 
             <v-stepper-step step="4"> Raspberry Info </v-stepper-step>
             <v-stepper-content step="4">
-              <v-card
-                color="grey lighten-1"
-                class="mb-12"
-                height="200px"
-              ></v-card>
-              <v-btn tile color="primary" @click="stepper = 1"> Next </v-btn>
+              <v-card elevation="0">
+                <v-card-text>
+                  <v-form>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-text-field
+                            v-model="rideCareDeviceForm.rideCareDeviceId"
+                            label="RideCare Device ID"
+                            hint="Check your RideCare device"
+                            persistent-hint
+                            type="text"
+                            required
+                            color="primary"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-form>
+                </v-card-text>
+              </v-card>
+              <v-btn tile color="primary" @click="stepper = 4"> Next </v-btn>
               <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
           </v-stepper>
         </v-col>
       </v-row>
+
       <v-row justify="end">
-        <v-btn tile color="primary" class="text-capitalize"> Save </v-btn>
+        <v-btn
+          tile
+          color="primary"
+          class="text-capitalize"
+          :disabled="
+            !carMainInfoFormValidity || !carCharacteristicsFormValidity
+          "
+          @click="saveCar"
+        >
+          Save
+        </v-btn>
         <v-btn tile outlined color="warning" class="text-capitalize ml-4">
           Cancel
         </v-btn>
@@ -171,6 +231,8 @@
 
 <script>
 import MainLayoutVue from "../../Layouts/MainLayout.vue";
+import axios from "../../../axios";
+
 export default {
   name: "NewCar",
   created() {
@@ -179,25 +241,72 @@ export default {
   data() {
     return {
       stepper: 1,
-      licensePlate: "",
-      brand: "",
-      model: "",
-      year: "",
-      numberOfDoors: 0,
-      seats: 0,
-      transmission: "",
-      fuel: "",
-      photo: "",
-      raspberryInfo: "",
-      errorMsg: null,
-      transmissionItems: ["Automatic", "Manual"],
-      fuelItems: ["Gasoline", "Diesel", "Eletric", "Hybrid"],
-      photoBase64: ""
+      // Forms
+      carMainInfoForm: {
+        licensePlate: "",
+        brand: "",
+        model: "",
+        year: "",
+        rules: {
+          licensePlateRules: [v => !!v || "The License Plate is Required"],
+          brandRules: [v => !!v || "The Brand is Required"],
+          modelRules: [v => !!v || "The Model is Required"],
+          yearRules: [v => !!v || "The Year is Required"]
+        }
+      },
+      carCharacteristicsForm: {
+        transmissionItems: ["Automatic", "Manual"],
+        fuelItems: ["Gasoline", "Diesel", "Eletric", "Hybrid"],
+        numberOfDoors: 0,
+        seats: 0,
+        transmission: "",
+        fuel: "",
+        rules: {
+          numberOfDoorsRules: [v => !!v || "The Number of Doors is Required"],
+          seatRules: [v => !!v || "The Seat is Required"],
+          transmissionRules: [
+            v => !!v.length > 0 || "The Transmission is Required"
+          ],
+          fuelRules: [v => v.length > 0 || "The Fuel is Required"]
+        }
+      },
+      carPhotoForm: {
+        photo: ""
+      },
+      //Validitys
+      rideCareDeviceForm: {
+        rideCareDeviceId: ""
+      },
+      carMainInfoFormValidity: false,
+      carCharacteristicsFormValidity: false,
+      //carPhotoFormValidity: false,
+      //rideCareDeviceFormValidity: false,
+      //Photo Base 64
+      photoBase64: "",
+      errorMsg: null
     };
   },
   methods: {
     saveCar() {
-      console.log("New Car");
+      var obj = {
+        brand: this.carMainInfoForm.brand,
+        fuel: this.carCharacteristicsForm.fuel,
+        image: this.photoBase64,
+        licensePlate: this.carMainInfoForm.licensePlate,
+        model: this.carMainInfoForm.model,
+        numberOfDoors: this.carCharacteristicsForm.numberOfDoors,
+        numberOfSeats: this.carCharacteristicsForm.seats,
+        transmission: this.carCharacteristicsForm.transmission,
+        year: this.carMainInfoForm.year
+      };
+      axios
+        .post(`${process.env.VUE_APP_ROOT_API}/car`, obj)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     updatePhoto(e) {
       let file = e[0];
