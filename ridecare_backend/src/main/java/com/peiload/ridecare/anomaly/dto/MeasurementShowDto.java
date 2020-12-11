@@ -3,17 +3,18 @@ package com.peiload.ridecare.anomaly.dto;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 
 @Builder
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class MeasurementShowDto {
 
-    private String classification;
 
     private Date date;
     private Float longitude;
@@ -29,7 +30,6 @@ public class MeasurementShowDto {
     private Float altitude;
 
     public MeasurementShowDto(Measurement m) {
-        this.classification = m.getClassification();
         this.date = m.getDate();
         this.longitude = m.getLongitude();
         this.latitude = m.getLatitude();

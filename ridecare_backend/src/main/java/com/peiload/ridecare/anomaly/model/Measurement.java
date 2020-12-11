@@ -1,20 +1,27 @@
 package com.peiload.ridecare.anomaly.model;
 
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
-import com.peiload.ridecare.car.model.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="measurement")
 public class Measurement {
@@ -23,29 +30,36 @@ public class Measurement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @ManyToOne
     private Anomaly anomaly;
-
-    private String classification;
-
-
+    
+    @NotNull
     private Date date;
     private Float longitude;
     private Float latitude;
 
+
+    //TODO: Se estas variáveis não podem ser Null, podem mudar de Float para float.
+    @NotNull
     private Float pm25;
+    @NotNull
     private Float pm10;
 
+    @NotNull
     private Float temperature;
+    @NotNull
     private Float gas;
+    @NotNull
     private Float humidity;
+    @NotNull
     private Float pressure;
+    @NotNull
     private Float altitude;
 
 
     public Measurement(MeasurementSetDto dto, Anomaly anomaly) {
         this.anomaly = anomaly;
-        this.classification = dto.getClassification();
         this.date = dto.getDate();
         this.longitude = dto.getLongitude();
         this.latitude = dto.getLatitude();

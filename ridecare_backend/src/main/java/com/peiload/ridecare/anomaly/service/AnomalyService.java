@@ -67,8 +67,6 @@ public class AnomalyService {
     public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
         Car car = this.carService.findById(carId);
 
-        boolean createNewAnomaly = car.getAnomalies().isEmpty();
-
         if(car.getAnomalies().isEmpty()){
             Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
             this.anomalyRepository.save(newAnomaly);
@@ -81,15 +79,16 @@ public class AnomalyService {
             List<Measurement> measurements = lastAnomaly.getMeasurements();
             Measurement lastMeasurement = measurements.get(measurements.size()-1);
 
-            //if(Duration.between(measurementSetDto.getDate().toInstant(), lastMeasurement.getDate().toInstant()).compareTo(Duration.ofSeconds(30)) < 0)
-           if(lastMeasurement.getDate().toInstant().plusSeconds(30).isBefore(measurementSetDto.getDate().toInstant())){
-               Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
-               this.anomalyRepository.save(newAnomaly);
-               this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
-           }
-           else {
-               this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
-           }
+            //If the new measurement exceeds 30 seconds timeout or if the classifications are different, creates a new anomaly
+            if(lastMeasurement.getDate().toInstant().plusSeconds(30).isBefore(measurementSetDto.getDate().toInstant())
+                    || !(measurementSetDto.getClassification().equals(lastAnomaly.getClassification()))){
+                Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
+                this.anomalyRepository.save(newAnomaly);
+                this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+            }
+            else {
+                this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
+            }
         }
     }
 

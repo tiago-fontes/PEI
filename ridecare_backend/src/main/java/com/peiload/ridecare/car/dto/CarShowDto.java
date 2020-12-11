@@ -4,7 +4,8 @@ import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.car.model.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class CarShowDto {
     private int id;
     private String licensePlate;

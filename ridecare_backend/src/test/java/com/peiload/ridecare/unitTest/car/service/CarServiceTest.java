@@ -70,7 +70,6 @@ public class CarServiceTest {
         assertEquals(car1.getNumberOfSeats(), result.getNumberOfSeats());
         assertEquals(car1.getTransmission(), result.getTransmission());
         assertEquals(car1.getFuel(), result.getFuel());
-        assertEquals(car1.getRaspberryInfo(), result.getRaspberryInfo());
     }
 
     @Test
