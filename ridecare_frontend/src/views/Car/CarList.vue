@@ -45,24 +45,21 @@
               :search="search"
             >
               <template v-slot:[`item.actions`]="{ item }">
-                <v-btn
-                  tile
-                  small
-                  text
-                  @click="viewItem(item)"
-                  class="text-decoration-underline text-capitalize"
-                  color="primary"
-                  >View More</v-btn
+                <router-link
+                  :to="{
+                    name: 'CarDetails',
+                    params: { carID: item.licensePlate }
+                  }"
                 >
-                <v-btn
-                  tile
-                  small
-                  text
-                  @click="editItem(item)"
-                  class="text-decoration-underline text-capitalize"
-                  color="primary"
-                  >Edit</v-btn
-                >
+                  <v-btn
+                    tile
+                    small
+                    text
+                    class="text-decoration-underline text-capitalize"
+                    color="primary"
+                    >View More</v-btn
+                  >
+                </router-link>
                 <v-btn
                   tile
                   small
@@ -78,6 +75,21 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="text-body-1"
+          >Are you sure you want to delete this car?</v-card-title
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+            >OK</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-snackbar
       v-model="snackbar.show"
       :timeout="snackbar.timeout"
@@ -118,6 +130,7 @@ export default {
         this.snackbar.show = true;
         this.snackbar.message = err.message;
         this.snackbar.success = false;
+        this.snackbar.color = "error";
       });
   },
   data() {
@@ -145,17 +158,53 @@ export default {
         message: null,
         timeout: 3500,
         success: false,
-        color: "error"
+        color: ""
       },
-      statusFilter: null
+      statusFilter: null,
+      dialogDelete: false,
+      deleteLicensePlate: null
     };
   },
+  watch: {
+    dialogDelete(val) {
+      val;
+    }
+  },
   methods: {
-    editItem(item) {
-      console.log(item);
-    },
     deleteItem(item) {
       console.log(item);
+      this.deleteLicensePlate = item.licensePlate;
+      this.dialogDelete = true;
+    },
+    deleteItemConfirm() {
+      axios
+        .delete(
+          `${process.env.VUE_APP_ROOT_API}/car/${this.deleteLicensePlate}`
+        )
+        .then(res => {
+          this.cars = this.cars.filter(function(el) {
+            let licensePlate = res.config.url.split("/").slice(-1)[0];
+            return el.licensePlate != licensePlate;
+          });
+          this.dialogDelete = false;
+          this.deleteLicensePlate = null;
+          this.snackbar.show = true;
+          this.snackbar.success = true;
+          this.snackbar.message = "Car successfully deleted";
+          this.snackbar.color = "success";
+        })
+        .catch(err => {
+          this.dialogDelete = false;
+          this.deleteLicensePlate = null;
+          this.snackbar.show = true;
+          this.snackbar.success = false;
+          this.snackbar.message = err.message;
+          this.snackbar.color = "error";
+        });
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+      this.deleteLicensePlate = null;
     }
   },
   computed: {
