@@ -27,7 +27,7 @@
                 'Only Off-line Device',
                 'All Cars'
               ]"
-              v-model="filteredCars"
+              v-model="statusFilter"
             ></v-select>
             <v-card-title>
               <v-spacer></v-spacer>
@@ -147,7 +147,7 @@ export default {
         success: false,
         color: "error"
       },
-      filteredCars: null
+      statusFilter: null
     };
   },
   methods: {
@@ -160,13 +160,13 @@ export default {
   },
   computed: {
     filteredItems() {
-      if (this.filteredCars != null) {
+      if (this.statusFilter != null) {
         return this.cars.filter(item => {
-          if (this.filteredCars == "Only On-line Device") {
-            return !this.filteredCars || item.status == "Online";
-          } else if (this.filteredCars == "Only On-line Device") {
-            return !this.filteredCars || item.status == "Offline";
-          } else if (this.filteredCars == "All Cars") {
+          if (this.statusFilter == "Only On-line Device") {
+            return item.status == "Online";
+          } else if (this.statusFilter == "Only On-line Device") {
+            return item.status == "Offline";
+          } else if (this.statusFilter == "All Cars") {
             return this.cars;
           }
         });
