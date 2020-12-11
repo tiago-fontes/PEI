@@ -158,7 +158,7 @@ export default {
         message: null,
         timeout: 3500,
         success: false,
-        color: ""
+        color: null
       },
       statusFilter: null,
       dialogDelete: false,

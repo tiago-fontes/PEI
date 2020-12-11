@@ -226,6 +226,15 @@
         </v-btn>
       </v-row>
     </v-container>
+    <v-snackbar
+      v-model="snackbar.show"
+      :timeout="snackbar.timeout"
+      top
+      right
+      :color="snackbar.color"
+    >
+      {{ snackbar.message }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -279,11 +288,15 @@ export default {
       },
       carMainInfoFormValidity: false,
       carCharacteristicsFormValidity: false,
-      //carPhotoFormValidity: false,
-      //rideCareDeviceFormValidity: false,
       //Photo Base 64
       photoBase64: "",
-      errorMsg: null
+      snackbar: {
+        show: false,
+        message: null,
+        timeout: 3500,
+        success: false,
+        color: null
+      }
     };
   },
   methods: {
@@ -303,25 +316,43 @@ export default {
         .post(`${process.env.VUE_APP_ROOT_API}/car`, obj)
         .then(res => {
           console.log(res);
-          this.stepper = 1;
-          this.$refs.carMainInfoForm.reset();
-          this.$refs.carCharacteristicsForm.reset();
-          this.$refs.carPhotoForm.reset();
-          this.$refs.rideCareDeviceForm.reset();
+          this.resetForms();
+          this.snackbar.show = true;
+          this.snackbar.message = "Car successfully created";
+          this.snackbar.success = true;
+          this.snackbar.color = "success";
         })
         .catch(err => {
           console.log(err);
+          /*this.resetForms();
+          this.snackbar.show = true;
+          this.snackbar.message = err.message;
+          this.snackbar.success = false;
+          this.snackbar.color = "error";*/
         });
+    },
+    resetForms() {
+      this.stepper = 1;
+      this.$refs.carMainInfoForm.reset();
+      this.$refs.carCharacteristicsForm.reset();
+      this.$refs.carPhotoForm.reset();
+      this.$refs.rideCareDeviceForm.reset();
+      this.carCharacteristicsForm.transmission = "";
+      this.carCharacteristicsForm.fuel = "";
+      this.rideCareDeviceForm.rideCareDeviceId = "";
     },
     updatePhoto(e) {
       let file = e[0];
       let reader = new FileReader();
 
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+
       reader.onloadend = () => {
         this.photoBase64 = reader.result;
         console.log(this.photoBase64);
       };
-      reader.readAsDataURL(file);
     }
   }
 };

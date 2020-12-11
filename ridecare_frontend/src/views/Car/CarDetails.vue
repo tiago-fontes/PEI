@@ -98,7 +98,7 @@
           <v-card elevation="0" width="100%">
             <v-card-title> Events/Anomalies </v-card-title>
             <v-data-table
-              :headers="headerEventandAnomalies"
+              :headers="headerEventsandAnomalies"
               :items="eventAndAnomalies"
             >
             </v-data-table>
@@ -111,10 +111,18 @@
 
 <script>
 import MainLayoutVue from "../../Layouts/MainLayout.vue";
+import axios from "../../../axios";
+
 export default {
   name: "CarDetails",
   created() {
     this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   },
   data() {
     return {
@@ -122,7 +130,7 @@ export default {
         { text: "Sensor", sortable: false, value: "sensor", align: "center" },
         { text: "Status", sortable: false, value: "status", align: "center" }
       ],
-      headerEventandAnomalies: [
+      headerEventsandAnomalies: [
         {
           text: "Event/Anomaly",
           sortable: false,
@@ -136,33 +144,15 @@ export default {
           align: "center"
         }
       ],
-      sensors: [
-        { sensor: "Sensor A", status: "Ok" },
-        { sensor: "Sensor A", status: "Ok" }
-      ],
-      eventAndAnomalies: [
-        {
-          eventOrAnomaly: "Smoke detected",
-          dateAndHour: "2020-12-03 10:30:00"
-        },
-        {
-          eventOrAnomaly: "Smoke detected",
-          dateAndHour: "2020-12-03 10:30:00"
-        },
-        {
-          eventOrAnomaly: "Smoke detected",
-          dateAndHour: "2020-12-03 10:30:00"
-        },
-        {
-          eventOrAnomaly: "Smoke detected",
-          dateAndHour: "2020-12-03 10:30:00"
-        },
-        {
-          eventOrAnomaly: "Smoke detected",
-          dateAndHour: "2020-12-03 10:30:00"
-        },
-        { eventOrAnomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" }
-      ]
+      sensors: [],
+      eventAndAnomalies: [],
+      snackbar: {
+        show: false,
+        message: null,
+        timeout: 3500,
+        success: false,
+        color: null
+      }
     };
   }
 };
