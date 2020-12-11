@@ -38,6 +38,22 @@ public class CarService {
         return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
+    public List<CarShowDto> getOnlineCars(String authorizationToken){
+        List<CarShowDto> userCars = new ArrayList<>();
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        this.carRepository.findAllByUserAndStatus(user, "online").forEach(car -> userCars.add(new CarShowDto(car)));
+        return userCars;
+    }
+
+    public List<CarShowDto> getOfflineCars(String authorizationToken){
+        List<CarShowDto> userCars = new ArrayList<>();
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        this.carRepository.findAllByUserAndStatus(user, "offline").forEach(car -> userCars.add(new CarShowDto(car)));
+        return userCars;
+    }
+
     public List<CarShowDto> getUserCars(String authorizationToken) {
         List<CarShowDto> userCars = new ArrayList<>();
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);

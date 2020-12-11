@@ -35,6 +35,16 @@ public class CarController {
         return this.carService.getAllCars();
     }
 
+    @GetMapping(path="/online")
+    public List<CarShowDto> getOnlineCars(@RequestHeader("Authorization") String authorizationToken){
+        return this.carService.getOnlineCars(authorizationToken);
+    }
+
+    @GetMapping(path="/offline")
+    public List<CarShowDto> getOfflineCars(@RequestHeader("Authorization") String authorizationToken){
+        return this.carService.getOfflineCars(authorizationToken);
+    }
+
     @GetMapping
     public List<CarShowDto> getUserCars(@RequestHeader("Authorization") String authorizationToken){
         return this.carService.getUserCars(authorizationToken);
