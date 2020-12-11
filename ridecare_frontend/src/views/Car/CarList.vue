@@ -65,16 +65,45 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-snackbar
+      v-model="snackbar.show"
+      :timeout="snackbar.timeout"
+      :color="snackbar.color"
+    >
+      {{ snackbar.message }}
+    </v-snackbar>
   </div>
 </template>
 
 <script>
 import MainLayoutVue from "../../Layouts/MainLayout.vue";
+import axios from "../../../axios";
 
 export default {
   name: "CarList",
   created() {
     this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/car`)
+      .then(res => {
+        let cars = res.data;
+        this.cars = cars.map(car => {
+          return {
+            id: car.id,
+            licensePlate: car.licensePlate,
+            brand: car.brand,
+            nEventsOrAnomalies: car.anomalies.length,
+            status: "Online"
+          };
+        });
+      })
+      .catch(err => {
+        this.snackbar.show = true;
+        this.snackbar.message = err.message;
+        this.snackbar.success = false;
+      });
   },
   data() {
     return {
@@ -87,61 +116,29 @@ export default {
           align: "center"
         },
         { text: "Brand", sortable: false, value: "brand", align: "center" },
-        { text: "Rented", sortable: false, value: "rented", align: "center" },
-        { text: "Nº of Anomalies", value: "nAnomalies", align: "center" },
+        {
+          text: "Nº of Eventes/Anomalies",
+          value: "nEventsOrAnomalies",
+          align: "center"
+        },
+        { text: "Status (On or Off)", value: "status", align: "center" },
         { text: "", value: "actions", sortable: false }
       ],
-      cars: [
-        {
-          licensePlate: "AA-00-BB",
-          brand: "Mercedes",
-          rented: "Yes",
-          nAnomalies: 0
-        },
-        {
-          licensePlate: "AA-01-BB",
-          brand: "BMW",
-          rented: "No",
-          nAnomalies: 0
-        },
-        {
-          licensePlate: "AA-02-BB",
-          brand: "Honda",
-          rented: "Yes",
-          nAnomalies: 2
-        },
-        {
-          licensePlate: "AA-03-BB",
-          brand: "Mercedes",
-          rented: "Yes",
-          nAnomalies: 3
-        },
-        {
-          licensePlate: "AA-04-BB",
-          brand: "Mercedes",
-          rented: "No",
-          nAnomalies: 3
-        },
-        {
-          licensePlate: "AA-05-BB",
-          brand: "Mercedes",
-          rented: "Yes",
-          nAnomalies: 9
-        }
-      ]
+      cars: [],
+      snackbar: {
+        show: false,
+        message: null,
+        timeout: 3500,
+        success: false,
+        color: "error"
+      }
     };
   },
   methods: {
-    newCar() {
-      console.log("New Car");
-    },
     editItem(item) {
       console.log(item);
     },
     deleteItem(item) {
-      console.log(item);
-    },
-    viewItem(item) {
       console.log(item);
     }
   }
