@@ -96,8 +96,11 @@
         </v-col>
         <v-col cols="12" sm="12" md="6" lg="6">
           <v-card elevation="0" width="100%">
-            <v-card-title> Anomalies </v-card-title>
-            <v-data-table :headers="headerAnomalies" :items="anomalies">
+            <v-card-title> Events/Anomalies </v-card-title>
+            <v-data-table
+              :headers="headerEventandAnomalies"
+              :items="eventAndAnomalies"
+            >
             </v-data-table>
           </v-card>
         </v-col>
@@ -119,8 +122,13 @@ export default {
         { text: "Sensor", sortable: false, value: "sensor", align: "center" },
         { text: "Status", sortable: false, value: "status", align: "center" }
       ],
-      headerAnomalies: [
-        { text: "Anomaly", sortable: false, value: "anomaly", align: "center" },
+      headerEventandAnomalies: [
+        {
+          text: "Event/Anomaly",
+          sortable: false,
+          value: "eventOrAnomaly",
+          align: "center"
+        },
         {
           text: "Date/Hour",
           sortable: false,
@@ -132,13 +140,28 @@ export default {
         { sensor: "Sensor A", status: "Ok" },
         { sensor: "Sensor A", status: "Ok" }
       ],
-      anomalies: [
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" },
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" },
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" },
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" },
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" },
-        { anomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" }
+      eventAndAnomalies: [
+        {
+          eventOrAnomaly: "Smoke detected",
+          dateAndHour: "2020-12-03 10:30:00"
+        },
+        {
+          eventOrAnomaly: "Smoke detected",
+          dateAndHour: "2020-12-03 10:30:00"
+        },
+        {
+          eventOrAnomaly: "Smoke detected",
+          dateAndHour: "2020-12-03 10:30:00"
+        },
+        {
+          eventOrAnomaly: "Smoke detected",
+          dateAndHour: "2020-12-03 10:30:00"
+        },
+        {
+          eventOrAnomaly: "Smoke detected",
+          dateAndHour: "2020-12-03 10:30:00"
+        },
+        { eventOrAnomaly: "Smoke detected", dateAndHour: "2020-12-03 10:30:00" }
       ]
     };
   }

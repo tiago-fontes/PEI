@@ -14,14 +14,14 @@
           <DashboardCard
             color="green"
             icon="mdi-car"
-            description="Cars On-line"
+            description="RideCare On-line"
           />
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="3">
           <DashboardCard
             color="red"
             icon="mdi-robot-dead"
-            description="Cars Off-line"
+            description="RideCare Off-line"
           />
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="3">
@@ -35,7 +35,7 @@
           <DashboardCard
             color="orange"
             icon="mdi-alert"
-            description="Anomalies"
+            description="Events / Anomalies"
           />
         </v-col>
       </v-row>
