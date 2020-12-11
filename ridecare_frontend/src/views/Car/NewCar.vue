@@ -159,7 +159,7 @@
             <v-stepper-content step="3">
               <v-card elevation="0">
                 <v-card-text>
-                  <v-form>
+                  <v-form ref="carPhotoForm">
                     <v-container>
                       <v-row>
                         <v-col cols="12">
@@ -179,11 +179,11 @@
               <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
 
-            <v-stepper-step step="4"> Raspberry Info </v-stepper-step>
+            <v-stepper-step step="4"> Device Info </v-stepper-step>
             <v-stepper-content step="4">
               <v-card elevation="0">
                 <v-card-text>
-                  <v-form>
+                  <v-form ref="rideCareDeviceForm">
                     <v-container>
                       <v-row>
                         <v-col cols="12">
@@ -303,6 +303,11 @@ export default {
         .post(`${process.env.VUE_APP_ROOT_API}/car`, obj)
         .then(res => {
           console.log(res);
+          this.stepper = 1;
+          this.$refs.carMainInfoForm.reset();
+          this.$refs.carCharacteristicsForm.reset();
+          this.$refs.carPhotoForm.reset();
+          this.$refs.rideCareDeviceForm.reset();
         })
         .catch(err => {
           console.log(err);

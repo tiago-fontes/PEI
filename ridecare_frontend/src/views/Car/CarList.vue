@@ -20,6 +20,15 @@
       <v-row>
         <v-col>
           <v-card elevation="0" class="pa-4">
+            <v-select
+              label="Filter"
+              :items="[
+                'Only On-line Device',
+                'Only Off-line Device',
+                'All Cars'
+              ]"
+              v-model="filteredCars"
+            ></v-select>
             <v-card-title>
               <v-spacer></v-spacer>
               <v-text-field
@@ -30,7 +39,11 @@
                 hide-details
               ></v-text-field>
             </v-card-title>
-            <v-data-table :headers="headers" :items="cars" :search="search">
+            <v-data-table
+              :headers="headers"
+              :items="filteredItems"
+              :search="search"
+            >
               <template v-slot:[`item.actions`]="{ item }">
                 <v-btn
                   tile
@@ -68,6 +81,8 @@
     <v-snackbar
       v-model="snackbar.show"
       :timeout="snackbar.timeout"
+      top
+      right
       :color="snackbar.color"
     >
       {{ snackbar.message }}
@@ -131,7 +146,8 @@ export default {
         timeout: 3500,
         success: false,
         color: "error"
-      }
+      },
+      filteredCars: null
     };
   },
   methods: {
@@ -140,6 +156,22 @@ export default {
     },
     deleteItem(item) {
       console.log(item);
+    }
+  },
+  computed: {
+    filteredItems() {
+      if (this.filteredCars != null) {
+        return this.cars.filter(item => {
+          if (this.filteredCars == "Only On-line Device") {
+            return !this.filteredCars || item.status == "Online";
+          } else if (this.filteredCars == "Only On-line Device") {
+            return !this.filteredCars || item.status == "Offline";
+          } else if (this.filteredCars == "All Cars") {
+            return this.cars;
+          }
+        });
+      }
+      return this.cars;
     }
   }
 };
