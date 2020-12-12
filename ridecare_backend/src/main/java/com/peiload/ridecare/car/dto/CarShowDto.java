@@ -2,6 +2,7 @@ package com.peiload.ridecare.car.dto;
 
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 public class CarShowDto {
     private int id;
     private int sensorId;
-    private String status;
+    private CarStatus status;
     private String licensePlate;
     private String image;
     private String brand;

@@ -4,6 +4,7 @@ import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,28 +51,22 @@ public class CarService {
     }
 
     public List<CarShowDto> getOnlineCars(String authorizationToken){
-        List<CarShowDto> userCars = new ArrayList<>();
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        this.carRepository.findAllByUserAndStatus(user, "online").forEach(car -> userCars.add(new CarShowDto(car)));
-        return userCars;
+        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
 
     public List<CarShowDto> getOfflineCars(String authorizationToken){
-        List<CarShowDto> userCars = new ArrayList<>();
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        this.carRepository.findAllByUserAndStatus(user, "offline").forEach(car -> userCars.add(new CarShowDto(car)));
-        return userCars;
+        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
-        List<CarShowDto> userCars = new ArrayList<>();
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        this.carRepository.findAllByUser(user).forEach(car -> userCars.add(new CarShowDto(car)));
-        return userCars;
+        return this.carRepository.findAllByUser(user).stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public CarShowDto createCar(String authorizationToken, CarCreateDto carCreateDto){

@@ -39,8 +39,7 @@ public class Car {
     private int sensorId;
 
     @NotNull
-    @NotEmpty
-    private String status;
+    private CarStatus status;
 
     @NotNull
     @NotEmpty
@@ -72,7 +71,7 @@ public class Car {
 
     public Car(CarCreateDto car, User user) {
         this.sensorId = car.getSensorId();
-        this.status = "offline";
+        this.status = CarStatus.OFFLINE;
         this.licensePlate = car.getLicensePlate();
         this.user = user;
         this.image = car.getImage();
