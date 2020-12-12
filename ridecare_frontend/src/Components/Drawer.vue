@@ -8,18 +8,46 @@
     color="primary"
     dark
   >
-    <v-list dense nav>
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        link
-        :to="item.route"
-      >
+    <v-list dense nav expand>
+      <v-list-item link to="/">
         <v-list-item-icon>
-          <v-icon color="white">{{ item.icon }}</v-icon>
+          <v-icon color="white">mdi-home</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-group prepend-icon="mdi-garage-variant" color="white" no-action>
+        <template v-slot:activator>
+          <v-list-item-title>Cars</v-list-item-title>
+        </template>
+
+        <v-list-item link to="/my-cars">
+          <v-list-item-icon>
+            <v-icon color="white">mdi-car</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>My Cars</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link to="/">
+          <v-list-item-icon>
+            <v-icon color="white">mdi-alert</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Events</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+      <v-list-item link to="/settings">
+        <v-list-item-icon>
+          <v-icon color="white">mdi-cog</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -39,12 +67,7 @@ export default {
   name: "Drawer",
   data() {
     return {
-      drawer: true,
-      items: [
-        { title: "Home", icon: "mdi-home", route: "/" },
-        { title: "Cars", icon: "mdi-car", route: "/my-cars" },
-        { title: "Settings", icon: "mdi-cog", route: "/settings" }
-      ]
+      drawer: true
     };
   },
   methods: {
