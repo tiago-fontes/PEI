@@ -13,8 +13,7 @@ if __name__ == '__main__':
     ml = AI.AlertAI()
     ml.start()
     pre_process = ml.processData(variable)
-    #print(pre_process[0])
-    ml.classifyData(pre_process)
+    print("JA ACABEIII")
 
 
 
