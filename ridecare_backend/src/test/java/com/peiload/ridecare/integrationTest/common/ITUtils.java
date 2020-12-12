@@ -3,10 +3,8 @@ package com.peiload.ridecare.integrationTest.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.login.model.JwtRequest;
 import com.peiload.ridecare.user.dto.UserSetDto;
-import com.peiload.ridecare.user.dto.UserShowDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -94,12 +92,12 @@ public class ITUtils {
         return response.then().statusCode(201).extract().as(CarShowDto.class);
     }
 
-    public static void deleteCar(String userToken, String license_plate){
+    public static void deleteCar(String userToken, int carId){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
                 .when()
-                .pathParam("license_plate", license_plate)
-                .delete("/car" + "/{license_plate}")
+                .pathParam("carId", carId)
+                .delete("/car" + "/{carId}")
                 .then().statusCode(204);
     }
 
