@@ -36,7 +36,7 @@ public class Car {
     private int id;
 
     @NotNull
-    private Integer sensorId;
+    private int sensorId;
 
     @NotNull
     @NotEmpty

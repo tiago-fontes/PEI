@@ -31,11 +31,23 @@ public class CarService {
     }
 
     public Car findById(int carId) {
-        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist"));
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist."));
     }
 
     public List<CarShowDto> getAllCars() {
         return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
+    }
+
+    public CarShowDto getCarById(String authorizationToken, int carId) {
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        Car car = findById(carId);
+        if(car.getUser().getId() == user.getId()){
+            return new CarShowDto(car);
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
+        }
     }
 
     public List<CarShowDto> getOnlineCars(String authorizationToken){
@@ -45,6 +57,7 @@ public class CarService {
         this.carRepository.findAllByUserAndStatus(user, "online").forEach(car -> userCars.add(new CarShowDto(car)));
         return userCars;
     }
+
 
     public List<CarShowDto> getOfflineCars(String authorizationToken){
         List<CarShowDto> userCars = new ArrayList<>();
@@ -72,42 +85,41 @@ public class CarService {
             return new CarShowDto(car);
         }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate.");
         }
     }
 
-    public void editCar(String authorizationToken, String license_plate, CarEditDto carEditDto){
+    public void editCar(String authorizationToken, int carId, CarEditDto carEditDto){
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(license_plate);
+        User user = userService.findByEmail(email);
+        Car car = findById(carId);
 
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            Car car = existingCar.get();
+        if(car.getUser().getId() == user.getId()){
             updateCar(car, carEditDto);
             this.carRepository.save(car);
         }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user");
-        }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user.");
         }
     }
 
-    public void deleteCar(String authorizationToken, String licensePlate){
+    public void deleteCar(String authorizationToken, int carId){
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(licensePlate);
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            this.carRepository.delete(existingCar.get());
+        User user = userService.findByEmail(email);
+        Car car = findById(carId);
+
+        if(car.getUser().getId() == user.getId()){
+            this.carRepository.delete(car);
         }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user");
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with license plate: " + licensePlate);
+        else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user.");
         }
     }
 
     private void updateCar(Car car, CarEditDto carEditDto){
+        if(carEditDto.getLicencePlate() != null){
+            car.setLicensePlate(carEditDto.getLicencePlate());
+        }
         if(carEditDto.getImage() != null){
             car.setImage(carEditDto.getImage());
         }
@@ -133,5 +145,4 @@ public class CarService {
             car.setFuel(carEditDto.getFuel());
         }
     }
-
 }

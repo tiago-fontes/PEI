@@ -35,6 +35,16 @@ public class CarController {
         return this.carService.getAllCars();
     }
 
+    @GetMapping
+    public List<CarShowDto> getUserCars(@RequestHeader("Authorization") String authorizationToken){
+        return this.carService.getUserCars(authorizationToken);
+    }
+
+    @GetMapping(path = "/{carId}")
+    public CarShowDto getCarById(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId){
+        return this.carService.getCarById(authorizationToken, carId);
+    }
+
     @GetMapping(path="/online")
     public List<CarShowDto> getOnlineCars(@RequestHeader("Authorization") String authorizationToken){
         return this.carService.getOnlineCars(authorizationToken);
@@ -45,25 +55,20 @@ public class CarController {
         return this.carService.getOfflineCars(authorizationToken);
     }
 
-    @GetMapping
-    public List<CarShowDto> getUserCars(@RequestHeader("Authorization") String authorizationToken){
-        return this.carService.getUserCars(authorizationToken);
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CarShowDto createCar(@RequestHeader("Authorization") String authorizationToken, @RequestBody CarCreateDto carCreateDto){
         return this.carService.createCar(authorizationToken, carCreateDto);
     }
 
-    @PatchMapping(path="/{licensePlate}")
-    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String licensePlate, @RequestBody CarEditDto carEditDto){
-        this.carService.editCar(authorizationToken, licensePlate, carEditDto);
+    @PatchMapping(path="/{carId}")
+    public void editCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId, @RequestBody CarEditDto carEditDto){
+        this.carService.editCar(authorizationToken, carId, carEditDto);
     }
 
-    @DeleteMapping(path="/{licensePlate}")
+    @DeleteMapping(path="/{carId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable String licensePlate){
-        this.carService.deleteCar(authorizationToken, licensePlate);
+    public void deleteCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId){
+        this.carService.deleteCar(authorizationToken, carId);
     }
 }
