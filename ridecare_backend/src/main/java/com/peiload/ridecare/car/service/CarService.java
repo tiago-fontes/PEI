@@ -79,7 +79,7 @@ public class CarService {
             return new CarShowDto(car);
         }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There's already a car with this license plate.");
         }
     }
 
