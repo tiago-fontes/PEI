@@ -9,34 +9,30 @@
           Dashboard
         </v-col>
       </v-row>
-      <v-row>
-        <v-col cols="12" sm="6" md="3" lg="3">
+      <v-row justify="center">
+        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
           <DashboardCard
             color="green"
             icon="mdi-car"
             description="RideCare On-line"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" lg="3">
+        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
           <DashboardCard
             color="red"
             icon="mdi-robot-dead"
             description="RideCare Off-line"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" lg="3">
+        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
           <DashboardCard
             color="#f7d02e"
             icon="mdi-signal-off"
             description="Sensors Disabled"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" lg="3">
-          <DashboardCard
-            color="orange"
-            icon="mdi-alert"
-            description="Events / Anomalies"
-          />
+        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
+          <DashboardCard color="orange" icon="mdi-alert" description="Events" />
         </v-col>
       </v-row>
       <v-row class="mt-12">
