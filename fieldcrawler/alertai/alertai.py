@@ -13,9 +13,9 @@ import requests
 import traceback
 
 
-SUP_MODEL = 'models/svm_gridsearch.sav'
-UNSUP_MODEL = 'models/isolationforest.sav'
-DB_HOST = 'https://hookb.in/nPyPk9pQ79HaBBGLqdqd'
+SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
+UNSUP_MODEL = 'alertai/models/isolationforest.sav'
+DB_HOST = 'https://hookb.in/r1o1xk0mnDczWWJVyBKl'
 
 anomalies = {
         0: "normal",
@@ -102,8 +102,8 @@ class AlertAI:
         'temperature' : str(data.iloc[0]['sensors.temperature']),
         'gas': str(data.iloc[0]['sensors.gas']),
         'humidity' : str(data.iloc[0]['sensors.humidity']),
-        'pressure' : str(data.iloc[0]['sensors.pressure'])
-        'altitude' : str(data.iloc[0]['sensors.altitude']),
+        'pressure' : str(data.iloc[0]['sensors.pressure']),
+        'altitude' : str(data.iloc[0]['sensors.altitude'])
         }
         return final
 
