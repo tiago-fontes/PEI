@@ -15,7 +15,7 @@ from flask_httpauth import HTTPTokenAuth, HTTPBasicAuth
 #RQ
 from rq import Queue
 from rqWorker import conn
-
+from app import app
 
 
 from itsdangerous import (TimedJSONWebSignatureSerializer
@@ -47,7 +47,7 @@ def verify_password(username, password):
 
 @tokenAuth.verify_token
 def verify_token(token):
-    s = Serializer('rjvZhLKKCC5crnH6AU9m6Q')
+    s = Serializer(app.config['SECRET_KEY'])
     try:
             data = s.loads(token)
     except SignatureExpired:
@@ -58,7 +58,7 @@ def verify_token(token):
 
 
 def generate_auth_token(expiration = 600):
-        s = Serializer('rjvZhLKKCC5crnH6AU9m6Q', expires_in = expiration)
+        s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
         return s.dumps({ 'id': '123' })
 
 
