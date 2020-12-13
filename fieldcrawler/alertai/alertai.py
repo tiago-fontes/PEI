@@ -10,11 +10,12 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 import pickle
 import requests
+import traceback
 
 
 SUP_MODEL = 'models/svm_gridsearch.sav'
 UNSUP_MODEL = 'models/isolationforest.sav'
-DB_HOST = '/t/zj03z-1607811948/post'
+DB_HOST = 'https://hookb.in/nPyPk9pQ79HaBBGLqdqd'
 
 anomalies = {
         0: "normal",
@@ -43,34 +44,33 @@ class AlertAI:
         self.readingsLog = self.readingsLog[:10]#limita a 10 últimos logs p.e. para não crescer infinitamente
         self.processData()
 
-    def processData(self,data):
+    def processData(self):
         # We must handle with unnecessary columns
-        #raw_data = self.sensorsData.copy()
-        raw_data = data
-        #raw_data.pop('carId')
-        #raw_data.pop('carLocation')
-        #raw_data.pop('timeValue')
-        #raw_data.pop('tags')
-        #raw_data.pop('classification')
+        raw_data = self.sensorsData.copy()
+        raw_data.pop('sensors.id')
+        raw_data.pop('sensors.carId')
+        raw_data.pop('sensors.carLocation')
+        raw_data.pop('sensors.timeValue')
+        raw_data.pop('sensors.tags')
+        raw_data.pop('sensors.classification')
         #Altitude must be ignred due to misconfiguration
-        #raw_data.pop('altitude')
+        raw_data.pop('sensors.altitude')
         columns = ['sensors.pm25','sensors.pm10','sensors.temperature','sensors.gas','sensors.humidity','sensors.pressure']
-        #data = pd.DataFrame([raw_data])
-        data = raw_data[['sensors.pm25','sensors.pm10','sensors.temperature','sensors.gas','sensors.humidity','sensors.pressure']]
-        if(data['sensors.pm25'].item() <= 0.5):
+        dataframe = pd.DataFrame([raw_data])
+        if(dataframe['sensors.pm25'].item() <= 0.5):
             pass
         else:
             #Normalization with MinMax Scaler
             minmax = MinMaxScaler()
-            minmaxData = pd.DataFrame(minmax.fit_transform(data.values), columns=columns, index=data.index)
-            result = [data,minmaxData]
+            minmaxData = pd.DataFrame(minmax.fit_transform(dataframe.values), columns=columns, index=dataframe.index)
+            result = [dataframe,minmaxData]
             # Classify data
             self.handleClassifications(result)
 
 
     def classifyData(self,data):
         #Classify
-        #Note: DATA[0] -> rawData ; DATA[1] -> MINMAX  ; DATA[2] -> STANDARDSCALER
+        #Note: DATA[0] -> rawData ; DATA[1] -> MINMAX  ;
         data2Use = data[0]
         #Unsupervised Model Predict
         unsup_pred = self.unsup_model.predict(data2Use)
@@ -86,21 +86,37 @@ class AlertAI:
 
     def handleClassifications(self,data):
         typ = self.classifyData(data)
-        if(typ!=0):
+        if(typ==0):
             anomalyText = anomalies.get(typ)
+            #position 0 for raw data
             self.prepare2Send(anomalyText)
-        
+
+    def ourDict(self,data):
+        final = {
+        'classification' : str(data.iloc[0]['classification']),
+        'date': str(data.iloc[0]['date']),
+        'longitude' : str(data.iloc[0]['longitude']),
+        'latitude' : str(data.iloc[0]['latitude']),
+        'pm25' : str(data.iloc[0]['sensors.pm25']),
+        'pm10': str(data.iloc[0]['sensors.pm10']),
+        'temperature' : str(data.iloc[0]['sensors.temperature']),
+        'gas': str(data.iloc[0]['sensors.gas']),
+        'humidity' : str(data.iloc[0]['sensors.humidity']),
+        'pressure' : str(data.iloc[0]['sensors.pressure'])
+        'altitude' : str(data.iloc[0]['sensors.altitude']),
+        }
+        return final
 
     def prepare2Send(self,classifString):
         #Prepare data before sending to backend
-        originalData = self.sensorsData.copy()
-        originalData.pop('carId')
-        originalData.pop('timeValue')
-        originalData.pop('carLocation')
+        originalData = self.sensorsData.copy()        
+        originalData.pop('sensors.carId')
+        originalData.pop('sensors.timeValue')
+        originalData.pop('sensors.carLocation')
         # In PROD environment, next 2 lines deleted
-        originalData.pop('tags')
-        originalData.pop('classification')
-        arrangedData = data = pd.DataFrame([originalData])
+        originalData.pop('sensors.tags')
+        originalData.pop('sensors.classification')
+        arrangedData = pd.DataFrame(data)
         #Split carlocation to get latitude & longitude separately
         location = self.sensorsData.get('carLocation')
         subStr = location.split(" ")
@@ -108,21 +124,24 @@ class AlertAI:
         arrangedData['longitude'] = subStr[1]
         arrangedData['date'] = self.sensorsData.get('timeValue')
         #Add classification value to array of data
-        arrangedData['classification'] = classificString
+        arrangedData['classification'] = classifString
         #Send data to backend
-        self.sendData(arrangedData)
+        diction = self.ourDict(arrangedData)
+        self.sendData(diction)
 
 
-    def sendData(self,arrangedData):
+
+    def sendData(self,json):
         #Save in db cloud
         #Sendo to endpoint POST
         try:
-            headers: {"carID" : self.sensorsData.get('carId')}
-            res = requests.post(DB_HOST, json=arrangedData,headers=headers)
+            #headers: {"carID" : self.sensorsData.get('carId')}
+            res = requests.post(DB_HOST, json=json)
             print("Sent to backend :D ")
             print(res.text)
         except:
             print("Something went wrong! :( ")
+            traceback.print_exc()
 
 #if __name__ == '__main__':
 #    main = alertAI()
