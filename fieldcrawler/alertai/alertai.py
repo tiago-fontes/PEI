@@ -135,8 +135,8 @@ class AlertAI:
         #Save in db cloud
         #Sendo to endpoint POST
         try:
-            #headers: {"carID" : self.sensorsData.get('carId')}
-            res = requests.post(DB_HOST, json=json)
+            headers: {"carID" : self.sensorsData.get('carId')}
+            res = requests.post(DB_HOST, json=json,headers=headers)
             print("Sent to backend :D ")
             print(res.text)
         except:
