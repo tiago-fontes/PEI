@@ -5,20 +5,13 @@
 Start all the sensors and manage measuarments data flow
 """
 
-import requests
-import datetime
-import time
-import json
+import requests, datetime, time, json
 from time import gmtime, strftime
 
 from alertai import alertai
 
 from sensors import sensor1
 from sensors import sensor2
-
-
-from itsdangerous import (TimedJSONWebSignatureSerializer
-                          as Serializer, BadSignature, SignatureExpired)
 
 PORT1 = "/dev/ttyUSB0"
 DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api/sensors"
@@ -103,34 +96,35 @@ class FieldCrawler:
 
         return dataDict
 
-    def verify_token(self, token):
-        s = Serializer('rjvZhLKKCC5crnH6AU9m6Q')
-        try:
-            data = s.loads(token)
-        except SignatureExpired:
-            return False  # valid token, but expired
-        except BadSignature:
-            return False  # invalid token
-        return True
-
+ 
     def notifyDataLakeWithAuth(self, dataDict):
         session = requests.Session()
         session.auth = ('VP-35-44', 'VP-35-44')
-
-        verify = self.verify_token(self.token2send)
-
-        # token expired or is invalid
-        if verify == False:
-            # requests new token with basic auth
-            token = session.get(API + "/token")
-            json_token = json.loads(token.text)
-            self.token2send = json_token["token"]
-
+        
         # requests post with token auth
         my_headers = {'Authorization': 'Bearer ' + self.token2send}
-        res = requests.post(
-            API + "/sensors", json=dataDict, headers=my_headers)
+        res = requests.post(API + "/sensors", json=dataDict, headers=my_headers)
+
+        
+        # token expired or is invalid
+        if (res.text == "Unauthorized Access"):
+
+            try:
+               token = session.get(API + "/token")
+               json_token = json.loads(token.text)
+               token2send = json_token["token"]
+
+               my_headers = {'Authorization': 'Bearer ' + self.token2send}
+               res = requests.post(API + "/sensors", json=dataDict, headers=my_headers)
+               print('response from server:'+token.text)
+                
+            except:
+               print("Error")
+
+        
         print('response from server:'+res.text)
+          
+          
 
     def notifyDataLake(self, dataDict):
 
