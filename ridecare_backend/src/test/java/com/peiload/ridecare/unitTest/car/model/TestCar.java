@@ -4,7 +4,6 @@ import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.unitTest.user.model.TestUser;
-import com.peiload.ridecare.user.dto.UserSetDto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +52,7 @@ public class TestCar {
 
     public static CarCreateDto getCarCreateDto1() {
         return CarCreateDto.builder()
+                .sensorId(1)
                 .licensePlate("AA-11-AA")
                 .image("imagem1")
                 .brand("BMW")

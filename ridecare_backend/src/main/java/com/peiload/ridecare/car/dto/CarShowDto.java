@@ -2,6 +2,7 @@ package com.peiload.ridecare.car.dto;
 
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 @Setter
 public class CarShowDto {
     private int id;
+    private int sensorId;
+    private CarStatus status;
     private String licensePlate;
     private String image;
     private String brand;
@@ -26,11 +29,17 @@ public class CarShowDto {
     private int numberOfSeats;
     private String transmission;
     private String fuel;
+
+    private Float latitude;
+    private Float longitude;
+
     private List<AnomalyShowDto> anomalies;
 
 
     public CarShowDto(Car car) {
         this.id = car.getId();
+        this.sensorId = car.getSensorId();
+        this.status = car.getStatus();
         this.licensePlate = car.getLicensePlate();
         this.image = car.getImage();
         this.brand = car.getBrand();
@@ -40,6 +49,9 @@ public class CarShowDto {
         this.numberOfSeats = car.getNumberOfSeats();
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
+
+        this.latitude = car.getLatitude();
+        this.longitude = car.getLongitude();
 
         if(car.getAnomalies() == null){
             this.anomalies = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.peiload.ridecare.car.model;
 
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.car.dto.CarCreateDto;
+import com.peiload.ridecare.statusHistory.model.StatusHistory;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,13 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull
+    private int sensorId;
+
+    @NotNull
+    private CarStatus status;
+
     @NotNull
     @NotEmpty
     private String licensePlate;
@@ -48,6 +56,9 @@ public class Car {
     private String transmission;
     private String fuel;
 
+    private Float latitude;
+    private Float longitude;
+
     @NotNull
     @ManyToOne
     private User user;
@@ -55,7 +66,12 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
 
+    @OneToMany(mappedBy = "car")
+    private List<StatusHistory> statusHistory;
+
     public Car(CarCreateDto car, User user) {
+        this.sensorId = car.getSensorId();
+        this.status = CarStatus.OFFLINE;
         this.licensePlate = car.getLicensePlate();
         this.user = user;
         this.image = car.getImage();
@@ -67,6 +83,10 @@ public class Car {
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
 
+        this.latitude = (float) 0;
+        this.latitude = (float) 0;
+
         this.anomalies = new ArrayList<>();
+        this.statusHistory = new ArrayList<>();
     }
 }

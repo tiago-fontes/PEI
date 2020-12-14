@@ -4,6 +4,7 @@ import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,19 +31,42 @@ public class CarService {
     }
 
     public Car findById(int carId) {
-        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist"));
+        return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist."));
     }
 
     public List<CarShowDto> getAllCars() {
         return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
-    public List<CarShowDto> getUserCars(String authorizationToken) {
-        List<CarShowDto> userCars = new ArrayList<>();
+    public CarShowDto getCarById(String authorizationToken, int carId) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        this.carRepository.findAllByUser(user).forEach(car -> userCars.add(new CarShowDto(car)));
-        return userCars;
+        Car car = findById(carId);
+        if(car.getUser().getId() == user.getId()){
+            return new CarShowDto(car);
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
+        }
+    }
+
+    public List<CarShowDto> getOnlineCars(String authorizationToken){
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+    }
+
+
+    public List<CarShowDto> getOfflineCars(String authorizationToken){
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+    }
+
+    public List<CarShowDto> getUserCars(String authorizationToken) {
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = this.userService.findByEmail(email);
+        return this.carRepository.findAllByUser(user).stream().map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public CarShowDto createCar(String authorizationToken, CarCreateDto carCreateDto){
@@ -56,42 +79,41 @@ public class CarService {
             return new CarShowDto(car);
         }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's already a car with this license plate");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There's already a car with this license plate.");
         }
     }
 
-    public void editCar(String authorizationToken, String license_plate, CarEditDto carEditDto){
+    public void editCar(String authorizationToken, int carId, CarEditDto carEditDto){
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(license_plate);
+        User user = userService.findByEmail(email);
+        Car car = findById(carId);
 
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            Car car = existingCar.get();
+        if(car.getUser().getId() == user.getId()){
             updateCar(car, carEditDto);
             this.carRepository.save(car);
         }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user");
-        }
         else{
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with this id");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to edit belongs to another user.");
         }
     }
 
-    public void deleteCar(String authorizationToken, String licensePlate){
+    public void deleteCar(String authorizationToken, int carId){
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        Optional<Car> existingCar = this.carRepository.findByLicensePlate(licensePlate);
-        if(existingCar.isPresent() && existingCar.get().getUser().getEmail().equals(email)){
-            this.carRepository.delete(existingCar.get());
+        User user = userService.findByEmail(email);
+        Car car = findById(carId);
+
+        if(car.getUser().getId() == user.getId()){
+            this.carRepository.delete(car);
         }
-        else if(existingCar.isPresent() && !(existingCar.get().getUser().getEmail().equals(email))){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user");
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "There's no car with license plate: " + licensePlate);
+        else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to delete belongs to another user.");
         }
     }
 
     private void updateCar(Car car, CarEditDto carEditDto){
+        if(carEditDto.getLicencePlate() != null){
+            car.setLicensePlate(carEditDto.getLicencePlate());
+        }
         if(carEditDto.getImage() != null){
             car.setImage(carEditDto.getImage());
         }
@@ -117,5 +139,4 @@ public class CarService {
             car.setFuel(carEditDto.getFuel());
         }
     }
-
 }

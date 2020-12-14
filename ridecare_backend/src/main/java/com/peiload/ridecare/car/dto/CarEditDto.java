@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class CarEditDto {
+    private String licencePlate;
     private String image;
     private String brand;
     private String model;

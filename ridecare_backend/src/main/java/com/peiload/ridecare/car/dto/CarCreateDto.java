@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Builder
 public class CarCreateDto {
+    private int sensorId;
     @NotNull
     @NotEmpty
     private String licensePlate;

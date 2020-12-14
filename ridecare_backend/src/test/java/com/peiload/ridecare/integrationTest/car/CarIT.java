@@ -160,8 +160,8 @@ class CarIT {
                 .header("Authorization", "Bearer "+ userToken)
                 .contentType(ContentType.JSON)
                 .body(body)
-                .pathParam("license_plate", carCreateDto.getLicensePlate())
-                .patch(carPath + "/{license_plate}")
+                .pathParam("carId", carId)
+                .patch(carPath + "/{carId}")
                 .then().statusCode(200);
     }
 
@@ -216,7 +216,7 @@ class CarIT {
                 .body(body)
                 .pathParam("id", 321312)
                 .patch(carPath + "/{id}")
-                .then().statusCode(403);
+                .then().statusCode(400);
     }
 
     @Test
@@ -225,8 +225,8 @@ class CarIT {
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
                 .when()
-                .pathParam("license_plate", carCreateDto.getLicensePlate())
-                .delete(carPath + "/{license_plate}")
+                .pathParam("carId", carId)
+                .delete(carPath + "/{carId}")
                 .then().statusCode(204);
     }
 
@@ -236,9 +236,9 @@ class CarIT {
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
                 .when()
-                .pathParam("license_plate", carCreateDto.getLicensePlate())
-                .delete(carPath + "/{license_plate}")
-                .then().statusCode(403);
+                .pathParam("carId", carId)
+                .delete(carPath + "/{carId}")
+                .then().statusCode(400);
     }
 
     //verificar
@@ -248,15 +248,15 @@ class CarIT {
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
                 .when()
-                .pathParam("license_plate", licensePlate2)
-                .delete(carPath + "/{license_plate}")
+                .pathParam("carId", carId2)
+                .delete(carPath + "/{carId}")
                 .then().statusCode(403);
     }
 
     @Test
     @Order(13)
     void deleteCar2(){
-        ITUtils.deleteCar(userToken2, licensePlate2);
+        ITUtils.deleteCar(userToken2, carId2);
     }
 
     @Test
