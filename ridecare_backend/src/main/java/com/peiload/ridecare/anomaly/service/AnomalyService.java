@@ -1,5 +1,8 @@
 package com.peiload.ridecare.anomaly.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
@@ -20,11 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -127,8 +126,17 @@ public class AnomalyService {
         String url = "http://cehum.ilch.uminho.pt/datalake/history/" + licensePlate + "/" + secs + "/" + numberOfMeasurements;
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<List<MeasurementShowDto>> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<MeasurementShowDto>>() {});
-        return rateResponse.getBody();
+        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>() {});
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<MeasurementShowDto> measurements;
+        try {
+            measurements = objectMapper.readValue(rateResponse.getBody(), new TypeReference<List<MeasurementShowDto>>(){});
+        } catch (JsonProcessingException e) {
+            measurements = new ArrayList<>();
+            e.printStackTrace();
+        }
+
+        return measurements;
     }
 
 }
