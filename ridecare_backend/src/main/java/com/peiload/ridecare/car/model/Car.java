@@ -66,7 +66,7 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany
     private List<StatusHistory> statusHistory;
 
     public Car(CarCreateDto car, User user) {

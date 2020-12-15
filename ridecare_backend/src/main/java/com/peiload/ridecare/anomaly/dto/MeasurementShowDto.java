@@ -1,5 +1,6 @@
 package com.peiload.ridecare.anomaly.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,12 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MeasurementShowDto {
 
 
-    private Date date;
-    private Float longitude;
-    private Float latitude;
+    private Date timeValue;
+    private String carLocation;
 
     private Float pm25;
     private Float pm10;
@@ -30,9 +31,8 @@ public class MeasurementShowDto {
     private Float altitude;
 
     public MeasurementShowDto(Measurement m) {
-        this.date = m.getDate();
-        this.longitude = m.getLongitude();
-        this.latitude = m.getLatitude();
+        this.timeValue = m.getDate();
+        this.carLocation = m.getCarLocation();
         this.pm25 = m.getPm25();
         this.pm10 = m.getPm10();
         this.temperature = m.getTemperature();

@@ -2,6 +2,7 @@ package com.peiload.ridecare.anomaly.service;
 
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
@@ -11,11 +12,18 @@ import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,6 +44,10 @@ public class AnomalyService {
         this.jtu = jtu;
         this.userService = userService;
         this.carService = carService;
+    }
+
+    public Anomaly findById(int anomalyId) {
+        return this.anomalyRepository.findById(anomalyId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anomaly does not exist."));
     }
 
     public List<AnomalyShowDto> getAllAnomalies() {
@@ -104,4 +116,19 @@ public class AnomalyService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Anomaly doesn't exist");
         }
     }
+
+    public List<MeasurementShowDto> getMeasurements(int anomalyId, int numberOfMeasurements){
+        Anomaly anomaly = this.findById(anomalyId);
+        String licensePlate = anomaly.getCar().getLicensePlate();
+
+        Date anomalyDate = anomaly.getMeasurements().get(0).getDate();
+        long secs = (anomalyDate.getTime())/1000;
+
+        String url = "http://cehum.ilch.uminho.pt/datalake/history/" + licensePlate + "/" + secs + "/" + numberOfMeasurements;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<MeasurementShowDto>> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<MeasurementShowDto>>() {});
+        return rateResponse.getBody();
+    }
+
 }

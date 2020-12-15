@@ -10,8 +10,7 @@ import java.util.Date;
 public class MeasurementSetDto {
     private String classification;
     private Date date;
-    private Float longitude;
-    private Float latitude;
+    private String carLocation;
 
     private Float pm25;
     private Float pm10;
