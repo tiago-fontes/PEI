@@ -15,4 +15,5 @@ public interface AnomalyRepository extends CrudRepository<Anomaly, Integer> {
     List<AnomalyShowDto> findAllByViewedAndCarIn(Boolean viewed, List<Car> car);
     List<AnomalyShowDto> findAllByViewedAndCar(Boolean viewed, Car car);
 
+    List<Anomaly> findAllByCarIn(List<Car> cars);
 }

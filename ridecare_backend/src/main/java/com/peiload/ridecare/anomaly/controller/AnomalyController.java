@@ -6,6 +6,7 @@ import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
 import io.swagger.annotations.Api;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,6 +48,12 @@ public class AnomalyController {
     @GetMapping(path="/car/{carId}/latest")
     public List<AnomalyShowDto> getLatestAnomaliesCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId){
         return this.anomalyService.getLatestAnomaliesCar(authorizationToken, carId);
+    }
+
+    @GetMapping(path="/date/")
+    public List<AnomalyShowDto> getAnomaliesByDate(@RequestHeader("Authorization") String authorizationToken, @RequestParam("date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
+        return this.anomalyService.getAnomaliesByDate(authorizationToken, date);
     }
 
     @PostMapping

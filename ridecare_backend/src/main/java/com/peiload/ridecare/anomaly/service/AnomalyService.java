@@ -15,6 +15,7 @@ import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class AnomalyService {
     public Anomaly findById(int anomalyId) {
         return this.anomalyRepository.findById(anomalyId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anomaly does not exist."));
     }
-
+    //TODO todas de um utilizador
     public List<AnomalyShowDto> getAllAnomalies() {
         return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
     }
@@ -73,6 +74,18 @@ public class AnomalyService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
         }
 
+    }
+
+    public List<AnomalyShowDto> getAnomaliesByDate(String authorizationToken, Date date) {
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        User user = userService.findByEmail(email);
+
+        List<Car> userCars = user.getCars();
+        List<Anomaly> userAnomalies = anomalyRepository.findAllByCarIn(userCars);
+
+       return userAnomalies.stream().filter(anomaly -> DateUtils.isSameDay(anomaly.getMeasurements().get(0).getDate(),date)
+               || DateUtils.isSameDay(anomaly.getMeasurements().get(anomaly.getMeasurements().size()-1).getDate(),date)
+            ).map(AnomalyShowDto::new).collect(Collectors.toList());
     }
 
     public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
