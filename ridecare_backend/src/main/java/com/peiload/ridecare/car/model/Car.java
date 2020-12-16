@@ -2,7 +2,6 @@ package com.peiload.ridecare.car.model;
 
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.car.dto.CarCreateDto;
-import com.peiload.ridecare.statusHistory.model.StatusHistory;
 import com.peiload.ridecare.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,7 +65,7 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
 
-    @OneToMany
+    @OneToMany(mappedBy = "car")
     private List<StatusHistory> statusHistory;
 
     public Car(CarCreateDto car, User user) {

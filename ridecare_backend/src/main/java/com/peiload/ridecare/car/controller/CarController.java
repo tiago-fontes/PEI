@@ -3,8 +3,12 @@ package com.peiload.ridecare.car.controller;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
+import com.peiload.ridecare.car.dto.StatusHistoryRequestDto;
+import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
+import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.service.CarService;
 import io.swagger.annotations.Api;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -72,4 +78,16 @@ public class CarController {
     public void deleteCar(@RequestHeader("Authorization") String authorizationToken, @PathVariable int carId){
         this.carService.deleteCar(authorizationToken, carId);
     }
+
+    @GetMapping(path="/{carId}/history")
+    public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(@PathVariable int carId,
+                                                                   @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,
+                                                                   @RequestParam("finalDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date finalDate){
+        return this.carService.getStatusHistoryBetweenDates(carId, initialDate, finalDate);
+    }
+
+    /*@GetMapping(path="/history")
+    public List<StatusHistory> getStatusHistory(){
+
+    }*/
 }

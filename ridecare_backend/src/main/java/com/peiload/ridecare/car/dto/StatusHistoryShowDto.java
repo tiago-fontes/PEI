@@ -1,6 +1,6 @@
-package com.peiload.ridecare.statusHistory.dto;
+package com.peiload.ridecare.car.dto;
 
-import com.peiload.ridecare.statusHistory.model.StatusHistory;
+import com.peiload.ridecare.car.model.StatusHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -38,7 +38,6 @@ public class Measurement {
     private Date date;
     private String carLocation;
 
-    //TODO: Se estas variáveis não podem ser Null, podem mudar de Float para float.
     @NotNull
     private Float pm25;
     @NotNull
