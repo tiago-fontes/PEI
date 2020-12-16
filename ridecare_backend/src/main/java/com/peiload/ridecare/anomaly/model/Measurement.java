@@ -36,11 +36,8 @@ public class Measurement {
     
     @NotNull
     private Date date;
-    private Float longitude;
-    private Float latitude;
+    private String carLocation;
 
-
-    //TODO: Se estas variáveis não podem ser Null, podem mudar de Float para float.
     @NotNull
     private Float pm25;
     @NotNull
@@ -61,8 +58,7 @@ public class Measurement {
     public Measurement(MeasurementSetDto dto, Anomaly anomaly) {
         this.anomaly = anomaly;
         this.date = dto.getDate();
-        this.longitude = dto.getLongitude();
-        this.latitude = dto.getLatitude();
+        this.carLocation = dto.getCarLocation();
         this.pm25 = dto.getPm25();
         this.pm10 = dto.getPm10();
         this.temperature = dto.getTemperature();

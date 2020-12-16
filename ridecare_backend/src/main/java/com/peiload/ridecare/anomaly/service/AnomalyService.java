@@ -1,7 +1,11 @@
 package com.peiload.ridecare.anomaly.service;
 
-import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
@@ -11,10 +15,17 @@ import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,8 +49,21 @@ public class AnomalyService {
         this.carService = carService;
     }
 
+    public Anomaly findById(int anomalyId) {
+        return this.anomalyRepository.findById(anomalyId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anomaly does not exist."));
+    }
+
     public List<AnomalyShowDto> getAllAnomalies() {
         return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+    }
+
+    public List<AnomalyShowDto> getAllUserAnomalies(String authorizationToken){
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        User user = userService.findByEmail(email);
+
+        List<Car> userCars = user.getCars();
+
+        return anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesUser(String authorizationToken) {
@@ -62,6 +86,18 @@ public class AnomalyService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
         }
 
+    }
+
+    public List<AnomalyShowDto> getAnomaliesByDate(String authorizationToken, Date date) {
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        User user = userService.findByEmail(email);
+
+        List<Car> userCars = user.getCars();
+        List<Anomaly> userAnomalies = anomalyRepository.findAllByCarIn(userCars);
+
+       return userAnomalies.stream().filter(anomaly -> DateUtils.isSameDay(anomaly.getMeasurements().get(0).getDate(),date)
+               || DateUtils.isSameDay(anomaly.getMeasurements().get(anomaly.getMeasurements().size()-1).getDate(),date)
+            ).map(AnomalyShowDto::new).collect(Collectors.toList());
     }
 
     public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
@@ -104,4 +140,28 @@ public class AnomalyService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Anomaly doesn't exist");
         }
     }
+
+    public List<MeasurementShowDto> getMeasurements(int anomalyId, int numberOfMeasurements){
+        Anomaly anomaly = this.findById(anomalyId);
+        String licensePlate = anomaly.getCar().getLicensePlate();
+
+        Date anomalyDate = anomaly.getMeasurements().get(0).getDate();
+        long secs = (anomalyDate.getTime())/1000;
+
+        String url = "http://cehum.ilch.uminho.pt/datalake/history/" + licensePlate + "/" + secs + "/" + numberOfMeasurements;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<MeasurementShowDto> measurements;
+        try {
+            measurements = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
+        } catch (JsonProcessingException e) {
+            measurements = new ArrayList<>();
+            e.printStackTrace();
+        }
+
+        return measurements;
+    }
+
 }

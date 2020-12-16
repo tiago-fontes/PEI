@@ -1,24 +1,30 @@
 package com.peiload.ridecare.anomaly.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MeasurementShowDto {
 
-
-    private Date date;
-    private Float longitude;
-    private Float latitude;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date timeValue;
+    private String carLocation;
 
     private Float pm25;
     private Float pm10;
@@ -30,9 +36,8 @@ public class MeasurementShowDto {
     private Float altitude;
 
     public MeasurementShowDto(Measurement m) {
-        this.date = m.getDate();
-        this.longitude = m.getLongitude();
-        this.latitude = m.getLatitude();
+        this.timeValue = m.getDate();
+        this.carLocation = m.getCarLocation();
         this.pm25 = m.getPm25();
         this.pm10 = m.getPm10();
         this.temperature = m.getTemperature();
@@ -41,5 +46,6 @@ public class MeasurementShowDto {
         this.pressure = m.getPressure();
         this.altitude = m.getAltitude();
     }
+
 }
 
