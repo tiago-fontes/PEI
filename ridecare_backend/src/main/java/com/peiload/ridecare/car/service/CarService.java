@@ -12,6 +12,7 @@ import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -155,6 +156,22 @@ public class CarService {
                     return history;
                 }
             }
+        }
+
+        return history;
+    }
+
+    public List<StatusHistoryShowDto> getLatestStatusHistory(int carId, int hours) {
+        Car car = findById(carId);
+        List<StatusHistoryShowDto> history = new ArrayList<>();
+
+        Date initialDate = new Date(System.currentTimeMillis() - (hours * 60 * 60 * 1000));
+
+        List<StatusHistory> shList = car.getStatusHistory();
+
+        for(int i = car.getStatusHistory().size()-1; i >= 0 && shList.get(i).getDate().after(initialDate); i--){
+            StatusHistory sh = shList.get(i);
+            history.add(new StatusHistoryShowDto(sh));
         }
 
         return history;
