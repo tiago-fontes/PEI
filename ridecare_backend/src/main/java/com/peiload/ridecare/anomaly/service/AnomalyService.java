@@ -3,8 +3,8 @@ package com.peiload.ridecare.anomaly.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.model.Measurement;
@@ -24,7 +24,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,9 +52,18 @@ public class AnomalyService {
     public Anomaly findById(int anomalyId) {
         return this.anomalyRepository.findById(anomalyId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anomaly does not exist."));
     }
-    //TODO todas de um utilizador
+
     public List<AnomalyShowDto> getAllAnomalies() {
         return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+    }
+
+    public List<AnomalyShowDto> getAllUserAnomalies(String authorizationToken){
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        User user = userService.findByEmail(email);
+
+        List<Car> userCars = user.getCars();
+
+        return anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesUser(String authorizationToken) {
@@ -139,11 +151,11 @@ public class AnomalyService {
         String url = "http://cehum.ilch.uminho.pt/datalake/history/" + licensePlate + "/" + secs + "/" + numberOfMeasurements;
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>() {});
+        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
         ObjectMapper objectMapper = new ObjectMapper();
         List<MeasurementShowDto> measurements;
         try {
-            measurements = objectMapper.readValue(rateResponse.getBody(), new TypeReference<List<MeasurementShowDto>>(){});
+            measurements = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
         } catch (JsonProcessingException e) {
             measurements = new ArrayList<>();
             e.printStackTrace();

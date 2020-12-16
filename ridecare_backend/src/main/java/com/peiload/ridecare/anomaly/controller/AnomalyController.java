@@ -3,7 +3,6 @@ package com.peiload.ridecare.anomaly.controller;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
-import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,6 +35,11 @@ public class AnomalyController {
     @GetMapping(path="/all")
     public List<AnomalyShowDto> getAllAnomalies(){
         return this.anomalyService.getAllAnomalies();
+    }
+
+    @GetMapping(path="/user/all")
+    public List<AnomalyShowDto> getAllUserAnomalies(@RequestHeader("Authorization") String authorizationToken){
+        return this.anomalyService.getAllUserAnomalies(authorizationToken);
     }
 
     //Gets all the non-viewed anomalies from all the cars from one user

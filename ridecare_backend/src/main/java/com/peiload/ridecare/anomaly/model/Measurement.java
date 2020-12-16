@@ -37,9 +37,6 @@ public class Measurement {
     @NotNull
     private Date date;
     private String carLocation;
-    //private Float longitude;
-    //private Float latitude;
-
 
     //TODO: Se estas variáveis não podem ser Null, podem mudar de Float para float.
     @NotNull
