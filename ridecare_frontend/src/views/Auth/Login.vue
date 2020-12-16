@@ -72,15 +72,17 @@
               </v-row>
             </v-container>
           </v-card-actions>
-          <v-alert
-            v-if="errorMsg"
-            class="mt-7 mb-0"
-            icon="mdi-shield-lock-outline"
-            text
-            type="error"
-          >
-            {{ errorMsg }}
-          </v-alert>
+          <v-fade-transition>
+            <v-alert
+              v-if="errorMsg"
+              class="mt-7 mb-0"
+              icon="mdi-shield-lock-outline"
+              text
+              type="error"
+            >
+              {{ errorMsg }}
+            </v-alert>
+          </v-fade-transition>
         </v-form>
       </v-card-text>
     </v-card>
@@ -122,7 +124,11 @@ export default {
           this.$router.push({ name: "Dashboard" });
         })
         .catch(err => {
-          console.log(err.response);
+          this.errorMsg = err.response.data.message;
+
+          setTimeout(() => {
+            this.errorMsg = null;
+          }, 3500);
         });
     }
   }
