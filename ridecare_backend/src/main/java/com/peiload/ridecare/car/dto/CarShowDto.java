@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class CarShowDto {
     private int id;
     private int sensorId;
-    private CarStatus status;
+    StatusHistoryShowDto status;
     private String licensePlate;
     private String image;
     private String brand;
@@ -35,14 +35,11 @@ public class CarShowDto {
 
     private List<AnomalyShowDto> anomalies;
 
-    //TODO mudar nome depois de corrigir problema do status
-    StatusHistoryShowDto statuss;
 
 
     public CarShowDto(Car car) {
         this.id = car.getId();
         this.sensorId = car.getSensorId();
-        this.status = car.getStatus();
         this.licensePlate = car.getLicensePlate();
         this.image = car.getImage();
         this.brand = car.getBrand();
@@ -63,6 +60,6 @@ public class CarShowDto {
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
 
-        this.statuss = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
+        this.status = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
     }
 }

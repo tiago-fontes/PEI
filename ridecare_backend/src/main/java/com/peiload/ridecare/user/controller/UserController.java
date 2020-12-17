@@ -30,6 +30,8 @@ public class UserController {
         return this.userService.getUser(authorizationToken);
     }
 
+    //TODO: remover opção de editar password desta função e criar um endpoint novo para isso em que é necessário meter a password antiga
+    //TODO: verificar mensagem de erros quando é enviado um campo vazio ou quando o campo de email tem um email invalido
     @PatchMapping
     public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody UserSetDto userSetDto){
         this.userService.editUser(authorizationToken, userSetDto);

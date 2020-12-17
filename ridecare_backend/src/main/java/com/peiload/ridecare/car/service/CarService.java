@@ -3,13 +3,11 @@ package com.peiload.ridecare.car.service;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryRequestDto;
 import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.repository.CarRepository;
-import com.peiload.ridecare.car.repository.StatusHistoryRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
@@ -27,15 +25,13 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final StatusHistoryRepository statusHistoryRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    public CarService(CarRepository carRepository, StatusHistoryRepository statusHistoryRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
+    public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
         this.carRepository = carRepository;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
-        this.statusHistoryRepository = statusHistoryRepository;
     }
 
     public Car findById(int carId) {
@@ -60,14 +56,15 @@ public class CarService {
     public List<CarShowDto> getOnlineCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+        List<Car> cars = this.carRepository.findAllByUser(user);
+        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.ONLINE)).map(CarShowDto::new).collect(Collectors.toList());
     }
-
 
     public List<CarShowDto> getOfflineCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+        List<Car> cars = this.carRepository.findAllByUser(user);
+        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.OFFLINE)).map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
@@ -82,8 +79,9 @@ public class CarService {
             String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
+            StatusHistory sh = new StatusHistory(CarStatus.OFFLINE, new Date(), car);
+            car.getStatusHistory().add(sh);
             this.carRepository.save(car);
-            this.statusHistoryRepository.save(new StatusHistory("offline", new Date(), car));
             return new CarShowDto(car);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There's already a car with this license plate.");

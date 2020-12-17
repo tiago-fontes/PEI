@@ -1,5 +1,6 @@
 package com.peiload.ridecare.car.dto;
 
+import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.car.model.StatusHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class StatusHistoryShowDto {
-    private String status;
+    private CarStatus status;
     private Date date;
 
     public StatusHistoryShowDto(StatusHistory statusHistory) {

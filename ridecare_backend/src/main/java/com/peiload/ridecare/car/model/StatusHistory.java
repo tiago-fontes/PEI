@@ -1,6 +1,5 @@
 package com.peiload.ridecare.car.model;
 
-import com.peiload.ridecare.anomaly.model.Anomaly;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -30,8 +28,7 @@ public class StatusHistory {
     private int id;
 
     @NotNull
-    @NotEmpty
-    private String status;
+    private CarStatus status;
 
     @NotNull
     private Date date;
@@ -40,7 +37,7 @@ public class StatusHistory {
     @ManyToOne
     private Car car;
 
-    public StatusHistory(@NotNull @NotEmpty String status, @NotNull Date date, @NotNull Car car) {
+    public StatusHistory(@NotNull CarStatus status, @NotNull Date date, @NotNull Car car) {
         this.status = status;
         this.date = date;
         this.car = car;
