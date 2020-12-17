@@ -50,6 +50,15 @@
           <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
+      <v-list-item link to="/about-project">
+        <v-list-item-icon>
+          <v-icon color="white">mdi-puzzle-edit</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>About Project</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
     <template v-slot:append>
       <div class="pa-2">
@@ -78,4 +87,7 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-list-item--active {
+}
+</style>

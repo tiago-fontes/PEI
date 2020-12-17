@@ -70,7 +70,6 @@ export default {
   data() {
     return {
       cars: [],
-      allCars: [],
       onlineCars: [],
       offlineCars: [],
       anomalies: []
@@ -83,7 +82,7 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        this.allCars = res.data;
+        this.cars = res.data;
         res.data.map(car => {
           if (car.status == "OFFLINE") {
             this.offlineCars.push(car);
@@ -91,7 +90,6 @@ export default {
             this.onlineCars.push(car);
           }
         });
-        this.cars = this.allCars;
       })
       .catch(err => {
         console.log(err.response);
