@@ -263,7 +263,6 @@ export default {
         show: false,
         message: null,
         timeout: 5000,
-        success: false,
         color: null
       }
     };
@@ -279,7 +278,7 @@ export default {
         this.email = res.data.email;
       })
       .catch(err => {
-        console.log(err.response);
+        this.changeSnackbar(err.message, "error");
       });
   },
   methods: {
@@ -290,17 +289,11 @@ export default {
         .then(res => {
           console.log(res);
           this.changePasswordDialog = false;
-          this.snackbar.show = true;
-          this.snackbar.message = "Password successfully changed";
-          this.snackbar.success = false;
-          this.snackbar.color = "success";
+          this.changeSnackbar("Password successfully changed", "success");
         })
         .catch(err => {
           this.changePasswordDialog = false;
-          this.snackbar.show = true;
-          this.snackbar.message = err.message;
-          this.snackbar.success = false;
-          this.snackbar.color = "error";
+          this.changeSnackbar(err.message, "error");
         });
     },
     changeProfile: function() {
@@ -309,18 +302,17 @@ export default {
         .then(res => {
           console.log(res);
           this.editUserDialog = false;
-          this.snackbar.show = true;
-          this.snackbar.message = "Profile successfully changed";
-          this.snackbar.success = false;
-          this.snackbar.color = "success";
+          this.changeSnackbar("Profile successfully changed", "success");
         })
         .catch(err => {
           this.editUserDialog = false;
-          this.snackbar.show = true;
-          this.snackbar.message = err.message;
-          this.snackbar.success = false;
-          this.snackbar.color = "error";
+          this.changeSnackbar(err.message, "error");
         });
+    },
+    changeSnackbar(message, success, color) {
+      this.snackbar.show = true;
+      this.snackbar.message = message;
+      this.snackbar.color = color;
     }
   }
 };
