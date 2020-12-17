@@ -15,6 +15,7 @@
             color="green"
             icon="mdi-car"
             description="RideCare On-line"
+            :value="onlineCars.length"
           />
         </v-col>
         <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
@@ -22,6 +23,7 @@
             color="red"
             icon="mdi-robot-dead"
             description="RideCare Off-line"
+            :value="offlineCars.length"
           />
         </v-col>
         <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
@@ -29,10 +31,16 @@
             color="#f7d02e"
             icon="mdi-signal-off"
             description="Sensors Disabled"
+            value="0"
           />
         </v-col>
         <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
-          <DashboardCard color="orange" icon="mdi-alert" description="Events" />
+          <DashboardCard
+            color="orange"
+            icon="mdi-alert"
+            description="Events"
+            :value="anomalies.length"
+          />
         </v-col>
       </v-row>
       <v-row class="mt-12">
@@ -61,7 +69,11 @@ export default {
   },
   data() {
     return {
-      cars: []
+      cars: [],
+      allCars: [],
+      onlineCars: [],
+      offlineCars: [],
+      anomalies: []
     };
   },
   created() {
@@ -71,11 +83,37 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        this.cars = res.data;
+        this.allCars = res.data;
+        res.data.map(car => {
+          if (car.status == "OFFLINE") {
+            this.offlineCars.push(car);
+          } else {
+            this.onlineCars.push(car);
+          }
+        });
+        this.cars = this.allCars;
       })
       .catch(err => {
         console.log(err.response);
       });
+
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/latest`)
+      .then(res => {
+        this.anomalies = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  methods: {
+    updateTable(cardDescription) {
+      if (cardDescription == "Ride-Care Online") {
+        this.cars = this.onlineCars;
+      } else if (cardDescription == "Ride-Care Online") {
+        this.cars = this.offlineCars;
+      }
+    }
   }
 };
 </script>

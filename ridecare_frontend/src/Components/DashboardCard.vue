@@ -3,7 +3,7 @@
     <v-container>
       <v-row class="ma-0" justify="center">
         <v-col align-self="center" class="text-center">
-          <h1>6</h1>
+          <h1>{{ value }}</h1>
         </v-col>
         <v-col align-self="center" class="text-center">
           <v-icon size="75">{{ icon }}</v-icon>
@@ -21,7 +21,7 @@
 <script>
 export default {
   name: "DashboardCard",
-  props: ["color", "icon", "description", "info"]
+  props: ["color", "icon", "description", "info", "value"]
 };
 </script>
 
