@@ -3,6 +3,7 @@ import { Bar } from "vue-chartjs";
 
 export default {
   extends: Bar,
+  props: ["data"],
   mounted() {
     this.renderChart(
       {
@@ -24,7 +25,7 @@ export default {
           {
             label: "Events/Anomalies",
             backgroundColor: "#1D2430",
-            data: [3, 4, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3]
+            data: this.data
           }
         ]
       },

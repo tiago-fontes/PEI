@@ -48,7 +48,7 @@
           <SimpleTable :cars="cars" />
         </v-col>
         <v-col class="text-center" cols="12" sm="12" md="6" lg="6">
-          <BarChart />
+          <BarChart :data="anomaliesByMonth" />
         </v-col>
       </v-row>
     </v-container>
@@ -74,7 +74,8 @@ export default {
       cars: [],
       onlineCars: [],
       offlineCars: [],
-      anomalies: []
+      anomalies: [],
+      anomaliesByMonth: [3, 4, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3]
     };
   },
   created() {
