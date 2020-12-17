@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col class="py-0">
           <v-card width="100%" elevation="0">
             <v-card-text>
               <v-container>
@@ -53,13 +53,13 @@
       <v-row>
         <v-col
           cols="12"
-          class="text-center text-sm-left text-h6 font-weight-bold"
+          class="text-center text-sm-left text-h6 font-weight-bold pb-0"
         >
           Project Version
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col class="py-0">
           <v-card width="100%" elevation="0">
             <v-card-text>
               <v-container>
