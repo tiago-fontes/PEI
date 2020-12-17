@@ -61,6 +61,13 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesByDate(authorizationToken, date);
     }
 
+    @GetMapping(path="/history")
+    public List<AnomalyShowDto> getAnomaliesBetweenDates(@RequestHeader("Authorization") String authorizationToken,
+                                                         @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,
+                                                         @RequestParam("finalDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date finalDate){
+        return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
