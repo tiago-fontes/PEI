@@ -48,7 +48,7 @@
                 <router-link
                   :to="{
                     name: 'CarDetails',
-                    params: { carID: item.licensePlate }
+                    params: { carID: item.id }
                   }"
                 >
                   <v-btn

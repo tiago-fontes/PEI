@@ -8,7 +8,8 @@
           lg="11"
           class="text-center text-sm-left text-h6 font-weight-bold"
         >
-          AA-BB-CC <span class="text-caption font-weight-thin">2019</span>
+          {{ car.licensePlate }}
+          <span class="text-caption font-weight-thin">{{ car.year }}</span>
         </v-col>
         <v-col cols="12" sm="2" lg="1">
           <v-btn
@@ -29,7 +30,7 @@
             contain
             max-height="300"
             max-width="253"
-            src="../../assets/mercedes.jpg"
+            :src="car.image"
           ></v-img>
         </v-col>
         <v-col
@@ -40,8 +41,8 @@
           class="d-flex justify-center align-center"
         >
           <v-container>
-            <v-row justify="center">Mercedes Benz</v-row>
-            <v-row justify="center">Class A 180</v-row>
+            <v-row justify="center">{{ car.brand }}</v-row>
+            <v-row justify="center">{{ car.model }}</v-row>
             <v-row justify="center">
               <v-col
                 cols="12"
@@ -49,10 +50,13 @@
                 md="4"
                 lg="4"
                 class="d-flex justify-center pa-1"
-                >5 Doors</v-col
+                >{{ car.numberOfDoors }} Doors /
+                {{ car.numberOfSeats }} Seats</v-col
               >
-              <v-col class="d-flex justify-center pa-1">Automatic</v-col>
-              <v-col class="d-flex justify-center pa-1">Diesel</v-col>
+              <v-col class="d-flex justify-center pa-1">{{
+                car.transmission
+              }}</v-col>
+              <v-col class="d-flex justify-center pa-1">{{ car.fuel }}</v-col>
             </v-row>
           </v-container>
         </v-col>
@@ -67,11 +71,14 @@
                   <v-container>
                     <v-row>
                       <v-col>Status</v-col>
-                      <v-col
-                        ><v-icon color="green"
-                          >mdi-checkbox-blank-circle</v-icon
-                        ></v-col
-                      >
+                      <v-col>
+                        <v-icon v-if="car.status == 'OFFLINE'" color="red">
+                          mdi-checkbox-blank-circle
+                        </v-icon>
+                        <v-icon v-else color="green">
+                          mdi-checkbox-blank-circle
+                        </v-icon>
+                      </v-col>
                     </v-row>
                     <v-row>
                       <v-col>Last Validation</v-col>
@@ -99,8 +106,25 @@
             <v-card-title> Events/Anomalies </v-card-title>
             <v-data-table
               :headers="headerEventsandAnomalies"
-              :items="eventAndAnomalies"
+              :items="car.anomalies"
             >
+              <template v-slot:[`item.actions`]="{ item }">
+                <router-link
+                  :to="{
+                    name: 'CarDetails',
+                    params: { carID: item.id }
+                  }"
+                >
+                  <v-btn
+                    tile
+                    small
+                    text
+                    class="text-decoration-underline text-capitalize"
+                    color="primary"
+                    >View Details</v-btn
+                  >
+                </router-link>
+              </template>
             </v-data-table>
           </v-card>
         </v-col>
@@ -121,8 +145,12 @@ export default {
   mounted() {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => {
+        this.car = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   data() {
     return {
@@ -134,16 +162,17 @@ export default {
         {
           text: "Event/Anomaly",
           sortable: false,
-          value: "eventOrAnomaly",
+          value: "classification",
           align: "center"
         },
         {
           text: "Date/Hour",
           sortable: false,
-          value: "dateAndHour",
+          value: "measurements[0].timeValue",
           align: "center"
         }
       ],
+      car: {},
       sensors: [],
       eventAndAnomalies: [],
       snackbar: {

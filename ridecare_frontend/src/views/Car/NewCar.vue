@@ -202,7 +202,6 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-btn tile color="primary" @click="stepper = 4"> Next </v-btn>
               <v-btn tile text @click="stepper = stepper - 1"> Previous </v-btn>
             </v-stepper-content>
           </v-stepper>
@@ -260,7 +259,12 @@ export default {
           licensePlateRules: [v => !!v || "The License Plate is Required"],
           brandRules: [v => !!v || "The Brand is Required"],
           modelRules: [v => !!v || "The Model is Required"],
-          yearRules: [v => !!v || "The Year is Required"]
+          yearRules: [
+            v => !!v || "The Year is Required",
+            v =>
+              (!isNaN(parseFloat(v)) && v >= 1900 && v <= 2050) ||
+              "The Year must be a integer between 1900 and 2050"
+          ]
         }
       },
       carCharacteristicsForm: {

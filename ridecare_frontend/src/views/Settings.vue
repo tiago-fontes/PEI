@@ -162,7 +162,7 @@ export default {
           name: "Gabriela Martins",
           number: "A81987",
           img:
-            "https://www.rufustoursandtravels.com/wp-content/uploads/2019/02/219969.png"
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
         },
         {
           name: "João Costa",
@@ -204,7 +204,7 @@ export default {
           name: "Rafaela Silva",
           number: "A79034",
           img:
-            "https://www.rufustoursandtravels.com/wp-content/uploads/2019/02/219969.png"
+            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
         },
         {
           name: "Rui Santos",

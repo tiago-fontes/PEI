@@ -3,8 +3,9 @@
     <v-app-bar-nav-icon @click.stop="$emit('toggle-drawer')" />
     <v-toolbar-title>RideCare</v-toolbar-title>
     <v-spacer></v-spacer>
-    <span class="font-weight-light font-italic text--primary hidden-sm-and-down"
-      >Share Now</span
+    <span
+      class="font-weight-light font-italic text--primary hidden-sm-and-down"
+      >{{ activeUser.companyName }}</span
     >
     <v-btn tile icon class="mx-2">
       <v-badge color="red" dot overlap>
@@ -15,12 +16,19 @@
 </template>
 
 <script>
+import { authComputed } from "../store/helpers.js";
+
 export default {
   name: "NavBar",
   data() {
     return {};
   },
-  methods: {}
+  computed: {
+    ...authComputed,
+    activeUser() {
+      return this.$store.state.user;
+    }
+  }
 };
 </script>
 
