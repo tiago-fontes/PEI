@@ -1,6 +1,7 @@
 package com.peiload.ridecare.user.controller;
 
-import com.peiload.ridecare.user.dto.UserSetDto;
+import com.peiload.ridecare.user.dto.PasswordEditDto;
+import com.peiload.ridecare.user.dto.UserEditDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -33,8 +34,13 @@ public class UserController {
     //TODO: remover opção de editar password desta função e criar um endpoint novo para isso em que é necessário meter a password antiga
     //TODO: verificar mensagem de erros quando é enviado um campo vazio ou quando o campo de email tem um email invalido
     @PatchMapping
-    public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody UserSetDto userSetDto){
-        this.userService.editUser(authorizationToken, userSetDto);
+    public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody UserEditDto userEditDto){
+        this.userService.editUser(authorizationToken, userEditDto);
+    }
+
+    @PatchMapping(path="/change/password")
+    public void editPassword(@RequestHeader("Authorization") String authorizationToken, @RequestBody PasswordEditDto passwordEditDto){
+        this.userService.editPassword(authorizationToken, passwordEditDto);
     }
 
     @DeleteMapping
