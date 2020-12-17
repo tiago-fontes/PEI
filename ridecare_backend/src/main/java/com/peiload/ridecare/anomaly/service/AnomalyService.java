@@ -10,17 +10,22 @@ import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
 import com.peiload.ridecare.anomaly.repository.MeasurementRepository;
+import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -98,6 +103,31 @@ public class AnomalyService {
        return userAnomalies.stream().filter(anomaly -> DateUtils.isSameDay(anomaly.getMeasurements().get(0).getDate(),date)
                || DateUtils.isSameDay(anomaly.getMeasurements().get(anomaly.getMeasurements().size()-1).getDate(),date)
             ).map(AnomalyShowDto::new).collect(Collectors.toList());
+    }
+
+    public List<AnomalyShowDto> getAnomaliesBetweenDates(String authorizationToken, Date initialDate, Date finalDate){
+        String email = jtu.getEmailFromAuthorizationString(authorizationToken);
+        User user = userService.findByEmail(email);
+
+        List<Car> userCars = user.getCars();
+        List<Anomaly> userAnomalies = anomalyRepository.findAllByCarIn(userCars);
+        List<AnomalyShowDto> history = new ArrayList<>();
+
+        for(int i = 0; i < userAnomalies.size(); i++){
+            List<Measurement> measurements = userAnomalies.get(i).getMeasurements();
+            //como basta uma data estar depois da initialDate, verifica a mais recente
+            if(measurements.get(measurements.size()-1).getDate().after(initialDate)){
+                //como basta uma data estar antes da finalDate, verifica a mais antiga
+                if(measurements.get(0).getDate().before(finalDate)){
+                    history.add(new AnomalyShowDto(userAnomalies.get(i)));
+                }
+                else{
+                    return history;
+                }
+            }
+        }
+
+        return history;
     }
 
     public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {

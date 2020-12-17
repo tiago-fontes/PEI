@@ -3,7 +3,6 @@ package com.peiload.ridecare.car.controller;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryRequestDto;
 import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.service.CarService;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +77,11 @@ public class CarController {
         this.carService.deleteCar(authorizationToken, carId);
     }
 
+    @GetMapping(path="/{carId}/currentStatus")
+    public StatusHistoryShowDto getCurrentStatus(@PathVariable int carId){
+        return this.carService.getCurrentStatus(carId);
+    }
+
     @GetMapping(path="/{carId}/history")
     public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(@PathVariable int carId,
                                                                    @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,
@@ -86,8 +89,9 @@ public class CarController {
         return this.carService.getStatusHistoryBetweenDates(carId, initialDate, finalDate);
     }
 
-    /*@GetMapping(path="/history")
-    public List<StatusHistory> getStatusHistory(){
-
-    }*/
+    @GetMapping(path="/{carId}/history/latest")
+    public List<StatusHistoryShowDto> getLatestStatusHistory(@PathVariable int carId,
+                                                      @RequestParam("hours") int hours){
+        return this.carService.getLatestStatusHistory(carId, hours);
+    }
 }

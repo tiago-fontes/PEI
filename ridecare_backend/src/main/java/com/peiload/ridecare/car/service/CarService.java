@@ -3,7 +3,6 @@ package com.peiload.ridecare.car.service;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryRequestDto;
 import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.model.CarStatus;
@@ -14,7 +13,6 @@ import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -58,14 +56,15 @@ public class CarService {
     public List<CarShowDto> getOnlineCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+        List<Car> cars = this.carRepository.findAllByUser(user);
+        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.ONLINE)).map(CarShowDto::new).collect(Collectors.toList());
     }
-
 
     public List<CarShowDto> getOfflineCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
-        return this.carRepository.findAllByUserAndStatus(user, CarStatus.ONLINE).stream().map(CarShowDto::new).collect(Collectors.toList());
+        List<Car> cars = this.carRepository.findAllByUser(user);
+        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.OFFLINE)).map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
@@ -80,6 +79,8 @@ public class CarService {
             String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
+            StatusHistory sh = new StatusHistory(CarStatus.OFFLINE, new Date(), car);
+            car.getStatusHistory().add(sh);
             this.carRepository.save(car);
             return new CarShowDto(car);
         } else {
@@ -142,6 +143,11 @@ public class CarService {
         }
     }
 
+    public StatusHistoryShowDto getCurrentStatus(int carId){
+        Car car = findById(carId);
+        return new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
+    }
+
     public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(int carId, Date initialDate, Date finalDate) {
         Car car = findById(carId);
         List<StatusHistoryShowDto> history = new ArrayList<>();
@@ -155,6 +161,22 @@ public class CarService {
                     return history;
                 }
             }
+        }
+
+        return history;
+    }
+
+    public List<StatusHistoryShowDto> getLatestStatusHistory(int carId, int hours) {
+        Car car = findById(carId);
+        List<StatusHistoryShowDto> history = new ArrayList<>();
+
+        Date initialDate = new Date(System.currentTimeMillis() - (hours * 60 * 60 * 1000));
+
+        List<StatusHistory> shList = car.getStatusHistory();
+
+        for(int i = car.getStatusHistory().size()-1; i >= 0 && shList.get(i).getDate().after(initialDate); i--){
+            StatusHistory sh = shList.get(i);
+            history.add(new StatusHistoryShowDto(sh));
         }
 
         return history;

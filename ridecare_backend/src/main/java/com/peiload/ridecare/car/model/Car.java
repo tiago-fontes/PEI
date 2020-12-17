@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,8 +38,6 @@ public class Car {
     @NotNull
     private int sensorId;
 
-    @NotNull
-    private CarStatus status;
 
     @NotNull
     @NotEmpty
@@ -65,12 +64,11 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<Anomaly> anomalies;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<StatusHistory> statusHistory;
 
     public Car(CarCreateDto car, User user) {
         this.sensorId = car.getSensorId();
-        this.status = CarStatus.OFFLINE;
         this.licensePlate = car.getLicensePlate();
         this.user = user;
         this.image = car.getImage();

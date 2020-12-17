@@ -54,10 +54,18 @@ public class AnomalyController {
         return this.anomalyService.getLatestAnomaliesCar(authorizationToken, carId);
     }
 
+    //TODO: criar função para devolver lista de anomalias entre 2 datas
     @GetMapping(path="/date/")
     public List<AnomalyShowDto> getAnomaliesByDate(@RequestHeader("Authorization") String authorizationToken, @RequestParam("date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
         return this.anomalyService.getAnomaliesByDate(authorizationToken, date);
+    }
+
+    @GetMapping(path="/history")
+    public List<AnomalyShowDto> getAnomaliesBetweenDates(@RequestHeader("Authorization") String authorizationToken,
+                                                         @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,
+                                                         @RequestParam("finalDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date finalDate){
+        return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
     @PostMapping
@@ -66,7 +74,7 @@ public class AnomalyController {
         this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
     }
 
-    //TODO mudar esta função
+    //TODO mudar esta função, temos que ver como vai ser para a anomalia ser marcada como vista (botão?)
     @PatchMapping(path="/{anomalyId}/viewed")
     public void setAnomalyAsViewed(@PathVariable int anomalyId){
         this.anomalyService.setAnomalyAsViewed(anomalyId);
