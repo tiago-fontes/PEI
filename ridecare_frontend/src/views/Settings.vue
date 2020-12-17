@@ -30,19 +30,164 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12">
-                    <v-btn
-                      tile
-                      block
-                      outlined
-                      color="primary"
-                      class="text-capitalize"
-                      >Edit</v-btn
+                    <v-dialog
+                      v-model="editUserDialog"
+                      persistent
+                      max-width="600px"
                     >
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          tile
+                          block
+                          outlined
+                          color="primary"
+                          class="text-capitalize"
+                          v-on="on"
+                          >Edit</v-btn
+                        >
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span
+                            class="text-center text-sm-left text-h6 font-weight-bold"
+                            >Change Profile</span
+                          >
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container>
+                            <v-form @submit.prevent="changeProfile">
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="editUserForm.email"
+                                    label="Email"
+                                    type="text"
+                                    color="primary"
+                                  />
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="editUserForm.companyName"
+                                    label="Company Name"
+                                    type="text"
+                                    color="primary"
+                                  />
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-btn
+                                  text
+                                  small
+                                  color="primary"
+                                  class="text-capitalize"
+                                  @click="editUserDialog = false"
+                                >
+                                  Close
+                                </v-btn>
+                                <v-btn
+                                  tile
+                                  small
+                                  color="primary"
+                                  class="text-capitalize"
+                                  type="submit"
+                                >
+                                  Save
+                                </v-btn>
+                              </v-row>
+                            </v-form>
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
+                    </v-dialog>
                   </v-col>
                   <v-col cols="12" class="pt-0">
-                    <v-btn tile block color="primary" class="text-capitalize"
-                      >Change Password</v-btn
+                    <v-dialog
+                      v-model="changePasswordDialog"
+                      persistent
+                      max-width="600px"
                     >
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          tile
+                          block
+                          color="primary"
+                          class="text-capitalize"
+                          v-on="on"
+                          >Change Password</v-btn
+                        >
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span
+                            class="text-center text-sm-left text-h6 font-weight-bold"
+                            >Change Password</span
+                          >
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container>
+                            <v-form @submit.prevent="changePassword">
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="changePasswordForm.actualPassword"
+                                    label="Actual Password"
+                                    type="password"
+                                    color="primary"
+                                    required
+                                  />
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="changePasswordForm.newPassword"
+                                    label="New Password"
+                                    type="password"
+                                    color="primary"
+                                    required
+                                  />
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="
+                                      changePasswordForm.repeatNewPassword
+                                    "
+                                    label="Repeat New Password"
+                                    type="password"
+                                    color="primary"
+                                    required
+                                  />
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-btn
+                                  text
+                                  small
+                                  color="primary"
+                                  class="text-capitalize"
+                                  @click="changePasswordDialog = false"
+                                >
+                                  Close
+                                </v-btn>
+                                <v-btn
+                                  tile
+                                  small
+                                  color="primary"
+                                  class="text-capitalize bl-1"
+                                  type="submit"
+                                >
+                                  Save
+                                </v-btn>
+                              </v-row>
+                            </v-form>
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
+                    </v-dialog>
                   </v-col>
                 </v-row>
               </v-container>
@@ -81,6 +226,15 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-snackbar
+      v-model="snackbar.show"
+      :timeout="snackbar.timeout"
+      top
+      right
+      :color="snackbar.color"
+    >
+      {{ snackbar.message }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -93,7 +247,25 @@ export default {
   data() {
     return {
       companyName: "",
-      email: ""
+      email: "",
+      changePasswordDialog: false,
+      editUserDialog: false,
+      editUserForm: {
+        companyName: null,
+        email: null
+      },
+      changePasswordForm: {
+        actualPassword: "",
+        newPassword: "",
+        repeatNewPassword: ""
+      },
+      snackbar: {
+        show: false,
+        message: null,
+        timeout: 5000,
+        success: false,
+        color: null
+      }
     };
   },
   created() {
@@ -109,6 +281,47 @@ export default {
       .catch(err => {
         console.log(err.response);
       });
+  },
+  methods: {
+    changePassword: function() {
+      let data = { password: this.changePasswordForm.newPassword };
+      axios
+        .patch(`${process.env.VUE_APP_ROOT_API}/user`, data)
+        .then(res => {
+          console.log(res);
+          this.changePasswordDialog = false;
+          this.snackbar.show = true;
+          this.snackbar.message = "Password successfully changed";
+          this.snackbar.success = false;
+          this.snackbar.color = "success";
+        })
+        .catch(err => {
+          this.changePasswordDialog = false;
+          this.snackbar.show = true;
+          this.snackbar.message = err.message;
+          this.snackbar.success = false;
+          this.snackbar.color = "error";
+        });
+    },
+    changeProfile: function() {
+      axios
+        .patch(`${process.env.VUE_APP_ROOT_API}/user`, this.editUserForm)
+        .then(res => {
+          console.log(res);
+          this.editUserDialog = false;
+          this.snackbar.show = true;
+          this.snackbar.message = "Profile successfully changed";
+          this.snackbar.success = false;
+          this.snackbar.color = "success";
+        })
+        .catch(err => {
+          this.editUserDialog = false;
+          this.snackbar.show = true;
+          this.snackbar.message = err.message;
+          this.snackbar.success = false;
+          this.snackbar.color = "error";
+        });
+    }
   }
 };
 </script>

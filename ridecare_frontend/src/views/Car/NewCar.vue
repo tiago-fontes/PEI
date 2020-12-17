@@ -262,7 +262,7 @@ export default {
           yearRules: [
             v => !!v || "The Year is Required",
             v =>
-              (!isNaN(parseFloat(v)) && v >= 1900 && v <= 2050) ||
+              (!isNaN(parseInt(v)) && v >= 1900 && v <= 2050) ||
               "The Year must be a integer between 1900 and 2050"
           ]
         }
@@ -297,7 +297,7 @@ export default {
       snackbar: {
         show: false,
         message: null,
-        timeout: 3500,
+        timeout: 5000,
         success: false,
         color: null
       }
@@ -327,12 +327,13 @@ export default {
           this.snackbar.color = "success";
         })
         .catch(err => {
-          console.log(err);
-          /*this.resetForms();
+          console.log(err.response.data.message);
+          this.resetForms();
           this.snackbar.show = true;
-          this.snackbar.message = err.message;
+          this.snackbar.message =
+            err.response.data.message + "Please Try Again";
           this.snackbar.success = false;
-          this.snackbar.color = "error";*/
+          this.snackbar.color = "error";
         });
     },
     resetForms() {

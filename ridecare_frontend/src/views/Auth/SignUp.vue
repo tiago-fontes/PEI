@@ -84,8 +84,8 @@
         </v-form>
       </v-card-text>
     </v-card>
-    <v-bottom-sheet v-model="sheet" persistent
-      ><v-sheet class="text-center" height="200px">
+    <v-bottom-sheet v-model="sheet" persistent>
+      <v-sheet class="text-center" height="200px">
         <div class="pt-12 mb-6">
           {{ message }}
         </div>
@@ -94,8 +94,8 @@
             Log in
           </v-btn>
         </router-link>
-      </v-sheet></v-bottom-sheet
-    >
+      </v-sheet>
+    </v-bottom-sheet>
   </div>
 </template>
 
