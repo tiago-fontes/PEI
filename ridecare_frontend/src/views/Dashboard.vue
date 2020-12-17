@@ -48,7 +48,7 @@
           <SimpleTable :cars="cars" />
         </v-col>
         <v-col class="text-center" cols="12" sm="12" md="6" lg="6">
-          Graph
+          <BarChart />
         </v-col>
       </v-row>
     </v-container>
@@ -60,12 +60,14 @@ import axios from "../../axios";
 import MainLayoutVue from "../Layouts/MainLayout.vue";
 import SimpleTable from "../Components/SimpleTable.vue";
 import DashboardCard from "../Components/DashboardCard.vue";
+import BarChart from "../Components/BarChart";
 
 export default {
   name: "Dashboard",
   components: {
     SimpleTable,
-    DashboardCard
+    DashboardCard,
+    BarChart
   },
   data() {
     return {
