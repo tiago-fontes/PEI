@@ -67,11 +67,24 @@ public class UserService {
         User user = findByEmail(email);
 
         if(userEditDto.getEmail() != null){
-            user.setEmail(userEditDto.getEmail());
+            if(!(userEditDto.getEmail().isBlank())){
+                user.setEmail(userEditDto.getEmail());
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email must not be blank!");
+            }
         }
+
+
         if(userEditDto.getCompanyName() != null){
-            user.setCompanyName(userEditDto.getCompanyName());
+            if(!(userEditDto.getCompanyName().isBlank())){
+                user.setCompanyName(userEditDto.getCompanyName());
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company name must not be blank!");
+            }
         }
+
 
         this.userRepository.save(user);
     }
