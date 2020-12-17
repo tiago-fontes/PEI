@@ -77,6 +77,11 @@ public class CarController {
         this.carService.deleteCar(authorizationToken, carId);
     }
 
+    @GetMapping(path="/{carId}/currentStatus")
+    public StatusHistoryShowDto getCurrentStatus(@PathVariable int carId){
+        return this.carService.getCurrentStatus(carId);
+    }
+
     @GetMapping(path="/{carId}/history")
     public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(@PathVariable int carId,
                                                                    @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,

@@ -5,6 +5,7 @@ import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.repository.CarRepository;
+import com.peiload.ridecare.car.repository.StatusHistoryRepository;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.unitTest.car.model.TestCar;
@@ -41,6 +42,8 @@ public class CarServiceTest {
     @Mock
     private CarRepository carRepositoryMock;
     @Mock
+    private StatusHistoryRepository statusHistoryRepositoryMock;
+    @Mock
     private UserService userServiceMock;
 
     @InjectMocks
@@ -48,7 +51,7 @@ public class CarServiceTest {
 
     @BeforeEach
     public void setup(){
-        testObj = new CarService(carRepositoryMock, jwtTokenUtilMock, userServiceMock);
+        testObj = new CarService(carRepositoryMock, statusHistoryRepositoryMock, jwtTokenUtilMock, userServiceMock);
     }
 
     @Test

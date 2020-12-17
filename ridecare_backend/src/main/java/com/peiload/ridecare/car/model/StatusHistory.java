@@ -12,12 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -41,4 +39,10 @@ public class StatusHistory {
     @NotNull
     @ManyToOne
     private Car car;
+
+    public StatusHistory(@NotNull @NotEmpty String status, @NotNull Date date, @NotNull Car car) {
+        this.status = status;
+        this.date = date;
+        this.car = car;
+    }
 }

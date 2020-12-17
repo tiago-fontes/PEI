@@ -35,6 +35,9 @@ public class CarShowDto {
 
     private List<AnomalyShowDto> anomalies;
 
+    //TODO mudar nome depois de corrigir problema do status
+    StatusHistoryShowDto statuss;
+
 
     public CarShowDto(Car car) {
         this.id = car.getId();
@@ -59,5 +62,7 @@ public class CarShowDto {
         else {
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
+
+        this.statuss = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
     }
 }

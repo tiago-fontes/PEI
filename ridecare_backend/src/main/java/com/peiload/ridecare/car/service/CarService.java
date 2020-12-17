@@ -9,13 +9,12 @@ import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.repository.CarRepository;
+import com.peiload.ridecare.car.repository.StatusHistoryRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -28,13 +27,15 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final StatusHistoryRepository statusHistoryRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
+    public CarService(CarRepository carRepository, StatusHistoryRepository statusHistoryRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
         this.carRepository = carRepository;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
+        this.statusHistoryRepository = statusHistoryRepository;
     }
 
     public Car findById(int carId) {
@@ -82,6 +83,7 @@ public class CarService {
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
             this.carRepository.save(car);
+            this.statusHistoryRepository.save(new StatusHistory("offline", new Date(), car));
             return new CarShowDto(car);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There's already a car with this license plate.");
@@ -141,6 +143,11 @@ public class CarService {
         if (carEditDto.getFuel() != null) {
             car.setFuel(carEditDto.getFuel());
         }
+    }
+
+    public StatusHistoryShowDto getCurrentStatus(int carId){
+        Car car = findById(carId);
+        return new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
     }
 
     public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(int carId, Date initialDate, Date finalDate) {
