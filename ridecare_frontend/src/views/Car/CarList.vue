@@ -115,6 +115,7 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
+        console.log(res);
         let cars = res.data;
         this.cars = cars.map(car => {
           return {
@@ -122,7 +123,7 @@ export default {
             licensePlate: car.licensePlate,
             brand: car.brand,
             nEventsOrAnomalies: car.anomalies.length,
-            status: "Online"
+            status: car.status.toLowerCase()
           };
         });
       })
@@ -211,10 +212,10 @@ export default {
     filteredItems() {
       if (this.statusFilter != null) {
         return this.cars.filter(item => {
-          if (this.statusFilter == "Only On-line Device") {
-            return item.status == "Online";
+          if (this.statusFilter == "Only Off-line Device") {
+            return item.status.toUpperCase() == "OFFLINE";
           } else if (this.statusFilter == "Only On-line Device") {
-            return item.status == "Offline";
+            return item.status.toUpperCase() == "ONLINE";
           } else if (this.statusFilter == "All Cars") {
             return this.cars;
           }
