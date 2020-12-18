@@ -39,6 +39,22 @@ const routes = [
     }
   },
   {
+    path: "/events-anomalies",
+    name: "AnomalyList",
+    component: () => import("@/views/Anomaly/AnomalyList.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/events-anomalies/:anomalyID/details",
+    name: "AnomalyDetails",
+    component: () => import("@/views/Anomaly/AnomalyDetails.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: "/settings",
     name: "Settings",
     component: () => import("@/views/Settings.vue"),

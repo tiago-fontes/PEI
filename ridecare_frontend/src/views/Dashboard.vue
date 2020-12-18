@@ -48,7 +48,14 @@
           <SimpleTable :cars="cars" />
         </v-col>
         <v-col class="text-center" cols="12" sm="12" md="6" lg="6">
-          <BarChart :data="anomaliesByMonth" />
+          <v-carousel hide-delimiters>
+            <v-carousel-item>
+              <BarChart :data="anomaliesByMonth" />
+            </v-carousel-item>
+            <v-carousel-item>
+              <PieChart />
+            </v-carousel-item>
+          </v-carousel>
         </v-col>
       </v-row>
     </v-container>
@@ -61,13 +68,15 @@ import MainLayoutVue from "../Layouts/MainLayout.vue";
 import SimpleTable from "../Components/SimpleTable.vue";
 import DashboardCard from "../Components/DashboardCard.vue";
 import BarChart from "../Components/BarChart";
+import PieChart from "../Components/PieChart";
 
 export default {
   name: "Dashboard",
   components: {
     SimpleTable,
     DashboardCard,
-    BarChart
+    BarChart,
+    PieChart
   },
   data() {
     return {
@@ -75,7 +84,7 @@ export default {
       onlineCars: [],
       offlineCars: [],
       anomalies: [],
-      anomaliesByMonth: [3, 4, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3]
+      anomaliesByMonth: [3, 3, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3]
     };
   },
   created() {

@@ -6,6 +6,8 @@ import vuetify from "./plugins/vuetify";
 import "@babel/polyfill";
 import axios from "../axios";
 
+import "leaflet/dist/leaflet.css";
+
 Vue.config.productionTip = false;
 
 new Vue({

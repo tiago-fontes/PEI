@@ -32,15 +32,24 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/">
+        <v-list-item link to="/my-cars/new-car">
           <v-list-item-icon>
-            <v-icon color="white">mdi-alert</v-icon>
+            <v-icon color="white">mdi-tooltip-plus</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>Events</v-list-item-title>
+            <v-list-item-title>New Car</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
+
+      <v-list-item link to="/events-anomalies">
+        <v-list-item-icon>
+          <v-icon color="white">mdi-alert</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Events</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-list-item link to="/settings">
         <v-list-item-icon>
@@ -87,7 +96,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-list-item--active {
-}
-</style>
+<style scoped></style>
