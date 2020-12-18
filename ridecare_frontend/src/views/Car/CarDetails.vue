@@ -93,7 +93,9 @@
                     </v-row>
                     <v-row>
                       <v-col>Last Validation</v-col>
-                      <v-col>{{ car.status.date }}</v-col>
+                      <v-col>{{
+                        new Date(car.status.date).toLocaleString("en-UK")
+                      }}</v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>

@@ -6,7 +6,7 @@
           <span class="text-subtitle-2">Car(License Plate):</span> AA-AA-AA
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Classification:</span> Smoked Detected
+          <span class="text-subtitle-2">Classification:</span> Smoke Detected
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4" class="text-caption">
           <span class="text-subtitle-2">Data and Hour:</span> 2020/12/17

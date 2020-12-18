@@ -24,10 +24,12 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col> Coordenador: André Ferreira </v-col>
+                  <v-col>
+                    Coordinator: Prof. André Ferreira (UMinho and Bosch)
+                  </v-col>
                 </v-row>
                 <v-row>
-                  <v-col class="pt-0" cols="12"> Participantes: </v-col>
+                  <v-col class="pt-0" cols="12"> Team: </v-col>
                   <v-col class="pt-0" cols="12">
                     <v-container>
                       <v-row class="d-flex justify-center">
@@ -82,7 +84,7 @@ export default {
           name: "Gabriela Martins",
           number: "A81987",
           img:
-            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+            "https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/6620618271548234969-512.png"
         },
         {
           name: "João Costa",
@@ -124,7 +126,7 @@ export default {
           name: "Rafaela Silva",
           number: "A79034",
           img:
-            "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
+            "https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/6620618271548234969-512.png"
         },
         {
           name: "Rui Santos",

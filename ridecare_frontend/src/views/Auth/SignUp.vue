@@ -35,7 +35,7 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="email"
-                  label="E-mail"
+                  label="Email"
                   type="text"
                   color="primary"
                   :rules="emailRules"

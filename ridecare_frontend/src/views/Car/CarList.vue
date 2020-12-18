@@ -23,8 +23,8 @@
             <v-select
               label="Filter"
               :items="[
-                'Only On-line Device',
-                'Only Off-line Device',
+                'Only On-line Devices',
+                'Only Off-line Devices',
                 'All Cars'
               ]"
               v-model="statusFilter"
@@ -146,7 +146,7 @@ export default {
         },
         { text: "Brand", sortable: false, value: "brand", align: "center" },
         {
-          text: "Nº of Eventes/Anomalies",
+          text: "Nº of Events/Anomalies",
           value: "nEventsOrAnomalies",
           align: "center"
         },
@@ -212,9 +212,9 @@ export default {
     filteredItems() {
       if (this.statusFilter != null) {
         return this.cars.filter(item => {
-          if (this.statusFilter == "Only Off-line Device") {
+          if (this.statusFilter == "Only Off-line Devices") {
             return item.status.toUpperCase() == "OFFLINE";
-          } else if (this.statusFilter == "Only On-line Device") {
+          } else if (this.statusFilter == "Only On-line Devices") {
             return item.status.toUpperCase() == "ONLINE";
           } else if (this.statusFilter == "All Cars") {
             return this.cars;
