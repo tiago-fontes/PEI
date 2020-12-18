@@ -26,7 +26,7 @@
             </v-row>
             <v-row justify="end">
               <v-btn tile color="primary" class="text-capitalize">
-                Marcar como vista
+                Mark as seen
               </v-btn>
             </v-row>
           </v-container>
