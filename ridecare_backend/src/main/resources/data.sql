@@ -19,7 +19,7 @@ INSERT INTO measurement (altitude, date, gas, humidity, car_location, pm10, pm25
 INSERT INTO measurement (altitude, date, gas, humidity, car_location, pm10, pm25, pressure, temperature, anomaly_id) VALUES (112, "2020-12-4 12:35:15", 0.12, 0.97, "52 52", 20, 35, 1, 15, 6);
 INSERT INTO car (id, sensor_id, license_plate, brand, fuel, model, number_of_doors, number_of_seats, transmission, year, user_id) VALUES (5, 4, "66-ZZ-66", "Alfa Romeo", "Diesel", "Giulia", 5, 5, "Manual", 2015, 2);
 INSERT INTO anomaly (viewed, classification, car_id) VALUES (false, "smoke", 5);
-INSERT INTO measurement (altitude, date, gas, humidity, car_location, pm10, pm25, pressure, temperature, anomaly_id) VALUES (112, "2020-12-4 12:35:50", 0.12, 0.97, "51 51", 14, 27, 1, 15, 7);
+INSERT INTO measurement (altitude, date, gas, humidity, car_location, pm10, pm25, pressure, temperature, anomaly_id) VALUES (112, "2020-12-03 22:15:10", 0.12, 0.97, "51 51", 14, 27, 1, 15, 7);
 INSERT INTO status_history (date, status, car_id) VALUES ("2020-12-4 10:50:00", 1, 1);
 INSERT INTO status_history (date, status, car_id) VALUES ("2020-12-4 11:50:00", 0, 1);
 INSERT INTO status_history (date, status, car_id) VALUES ("2020-12-4 12:50:00", 1, 1);

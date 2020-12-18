@@ -1,5 +1,6 @@
 package com.peiload.ridecare.unitTest.user.model;
 
+import com.peiload.ridecare.user.dto.UserEditDto;
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.model.User;
@@ -42,6 +43,15 @@ public class TestUser {
                 .password("test2")
                 .build();
     }
+
+    public static UserEditDto getUserEditDto() {
+        return UserEditDto.builder()
+                .email("testUser22@email.com")
+                .companyName("Company Test22")
+                .build();
+    }
+
+
 
     public static List<User> getUsersList(){
         return Arrays.asList(getUser1(), getUser2());

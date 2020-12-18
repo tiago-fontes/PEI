@@ -19,10 +19,16 @@ public class AnomalyShowDto {
     private String classification;
     private List<MeasurementShowDto> measurements;
 
+    private String licensePlate;
+    private int carId;
+
     public AnomalyShowDto(Anomaly anomaly) {
         this.id = anomaly.getId();
         this.classification = anomaly.getClassification();
         this.viewed = anomaly.getViewed();
         this.measurements = anomaly.getMeasurements().stream().map(MeasurementShowDto::new).collect(Collectors.toList());
+
+        this.licensePlate = anomaly.getCar().getLicensePlate();
+        this.carId = anomaly.getCar().getId();
     }
 }

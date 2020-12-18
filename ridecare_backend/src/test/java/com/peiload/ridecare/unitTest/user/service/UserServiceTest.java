@@ -2,6 +2,7 @@ package com.peiload.ridecare.unitTest.user.service;
 
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.unitTest.user.model.TestUser;
+import com.peiload.ridecare.user.dto.UserEditDto;
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.repository.UserRepository;
@@ -167,15 +168,15 @@ class UserServiceTest {
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 
-        UserSetDto userSetDto = TestUser.getUserSetDto2();
+        UserEditDto userEditDto = TestUser.getUserEditDto();
 
-        testObj.editUser("Bearer token", userSetDto);
+        testObj.editUser("Bearer token", userEditDto);
 
         verify(userRepositoryMock, times(1)).save(
                 argThat(u -> {
                     assertThat(u).isNotNull();
-                    Assertions.assertThat(u.getEmail()).isEqualTo(userSetDto.getEmail());
-                    Assertions.assertThat(u.getCompanyName()).isEqualTo(userSetDto.getCompanyName());
+                    Assertions.assertThat(u.getEmail()).isEqualTo(userEditDto.getEmail());
+                    Assertions.assertThat(u.getCompanyName()).isEqualTo(userEditDto.getCompanyName());
                     return true;
                 })
         );
@@ -187,9 +188,9 @@ class UserServiceTest {
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer token")).thenReturn(user1.getEmail());
         when(userRepositoryMock.findByEmail(user1.getEmail())).thenReturn(Optional.ofNullable(null));
 
-        UserSetDto userSetDto = TestUser.getUserSetDto2();
+        UserEditDto userEditDto = TestUser.getUserEditDto();
 
-        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userSetDto));
+        Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.editUser("Bearer token", userEditDto));
 
         assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"User does not exist.\"", exception.getMessage());
 

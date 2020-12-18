@@ -4,35 +4,28 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
+import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.model.Measurement;
 import com.peiload.ridecare.anomaly.repository.AnomalyRepository;
 import com.peiload.ridecare.anomaly.repository.MeasurementRepository;
-import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.Car;
-import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -171,14 +164,11 @@ public class AnomalyService {
         }
     }
 
-    public List<MeasurementShowDto> getMeasurements(int anomalyId, int numberOfMeasurements){
-        Anomaly anomaly = this.findById(anomalyId);
-        String licensePlate = anomaly.getCar().getLicensePlate();
+    public List<MeasurementShowDto> getMeasurements(String path, String licensePlate, Date date, int numberOfMeasurements){
 
-        Date anomalyDate = anomaly.getMeasurements().get(0).getDate();
-        long secs = (anomalyDate.getTime())/1000;
+        long secs = (date.getTime())/1000;
 
-        String url = "http://cehum.ilch.uminho.pt/datalake/history/" + licensePlate + "/" + secs + "/" + numberOfMeasurements;
+        String url = "http://cehum.ilch.uminho.pt/datalake/" + path + "/"+ licensePlate + "/" + secs + "/" + numberOfMeasurements;
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
@@ -193,5 +183,24 @@ public class AnomalyService {
 
         return measurements;
     }
+
+    public DetailedAnomalyShowDto getDetailedAnomaly(int anomalyId, int numberOfMeasurements){
+        Anomaly anomaly = this.findById(anomalyId);
+        String licensePlate = anomaly.getCar().getLicensePlate();
+
+        List<Measurement> measurements = anomaly.getMeasurements();
+
+        Date beginning = measurements.get(0).getDate();
+        List<MeasurementShowDto> beforeAnomaly = getMeasurements("history", licensePlate, beginning, numberOfMeasurements);
+        Collections.reverse(beforeAnomaly);
+
+        Date end = measurements.get(measurements.size()-1).getDate();
+        List<MeasurementShowDto> afterAnomaly = getMeasurements("recent", licensePlate, end, numberOfMeasurements);
+
+
+        return new DetailedAnomalyShowDto(anomaly, beforeAnomaly, afterAnomaly);
+    }
+
+
 
 }

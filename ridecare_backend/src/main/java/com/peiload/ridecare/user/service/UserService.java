@@ -1,6 +1,8 @@
 package com.peiload.ridecare.user.service;
 
 import com.peiload.ridecare.common.JwtTokenUtil;
+import com.peiload.ridecare.user.dto.PasswordEditDto;
+import com.peiload.ridecare.user.dto.UserEditDto;
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.model.User;
@@ -8,6 +10,8 @@ import com.peiload.ridecare.user.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -58,21 +62,44 @@ public class UserService {
         }
     }
 
-    public void editUser(String authorizationToken, UserSetDto userSetDto) {
+    public void editUser(String authorizationToken, UserEditDto userEditDto) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = findByEmail(email);
 
-        if(userSetDto.getEmail() != null){
-            user.setEmail(userSetDto.getEmail());
-        }
-        if(userSetDto.getCompanyName() != null){
-            user.setCompanyName(userSetDto.getCompanyName());
-        }
-        if(userSetDto.getPassword() != null){
-            user.setPassword(passwordEncoder.encode(userSetDto.getPassword()));
+        if(userEditDto.getEmail() != null){
+            if(!(userEditDto.getEmail().isBlank())){
+                user.setEmail(userEditDto.getEmail());
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email must not be blank!");
+            }
         }
 
+
+        if(userEditDto.getCompanyName() != null){
+            if(!(userEditDto.getCompanyName().isBlank())){
+                user.setCompanyName(userEditDto.getCompanyName());
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company name must not be blank!");
+            }
+        }
+
+
         this.userRepository.save(user);
+    }
+
+    public void editPassword(String authorizationToken, PasswordEditDto passwordEditDto){
+        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
+        User user = findByEmail(email);
+
+        if(passwordEncoder.matches(passwordEditDto.getOldPassword(), user.getPassword())){
+            user.setPassword(passwordEncoder.encode(passwordEditDto.getNewPassword()));
+            this.userRepository.save(user);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Old password is incorrect");
+        }
     }
 
     public void deleteUser(String authorizationToken) {
