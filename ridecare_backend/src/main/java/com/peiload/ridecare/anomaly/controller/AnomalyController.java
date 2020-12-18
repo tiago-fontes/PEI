@@ -1,5 +1,6 @@
 package com.peiload.ridecare.anomaly.controller;
 
+import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
@@ -81,7 +82,7 @@ public class AnomalyController {
     }
 
     @GetMapping(path="/{anomalyId}/detailed")
-    public List<MeasurementShowDto> getMeasurements(@PathVariable int anomalyId, @RequestParam(value = "numberOfMeasurements", required = false, defaultValue = "5") int numberOfMeasurements){
-        return this.anomalyService.getMeasurements(anomalyId, numberOfMeasurements);
+    public DetailedAnomalyShowDto getMeasurements(@PathVariable int anomalyId, @RequestParam(value = "numberOfMeasurements", required = false, defaultValue = "5") int numberOfMeasurements){
+        return this.anomalyService.getDetailedAnomaly(anomalyId, numberOfMeasurements);
     }
 }
