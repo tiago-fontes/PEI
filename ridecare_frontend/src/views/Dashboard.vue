@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
+        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
           <DashboardCard
             color="green"
             icon="mdi-car"
@@ -18,7 +18,7 @@
             :value="onlineCars.length"
           />
         </v-col>
-        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
+        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
           <DashboardCard
             color="red"
             icon="mdi-robot-dead"
@@ -26,15 +26,17 @@
             :value="offlineCars.length"
           />
         </v-col>
-        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
+        <!--
+          <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
           <DashboardCard
             color="#f7d02e"
             icon="mdi-signal-off"
             description="Sensors Disabled"
             value="0"
-          />
-        </v-col>
-        <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
+          /> </v-col
+        >
+        -->
+        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
           <DashboardCard
             color="orange"
             icon="mdi-alert"
@@ -67,8 +69,8 @@ import axios from "../../axios";
 import MainLayoutVue from "../Layouts/MainLayout.vue";
 import SimpleTable from "../Components/SimpleTable.vue";
 import DashboardCard from "../Components/DashboardCard.vue";
-import BarChart from "../Components/BarChart";
-import PieChart from "../Components/PieChart";
+import BarChart from "../Components/Charts/BarChart";
+import PieChart from "../Components/Charts/PieChart";
 
 export default {
   name: "Dashboard",

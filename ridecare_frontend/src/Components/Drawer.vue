@@ -23,7 +23,7 @@
           <v-list-item-title>Cars</v-list-item-title>
         </template>
 
-        <v-list-item link to="/my-cars">
+        <v-list-item link to="/my-cars" exact>
           <v-list-item-icon>
             <v-icon color="white">mdi-car</v-icon>
           </v-list-item-icon>

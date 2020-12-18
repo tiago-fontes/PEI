@@ -123,7 +123,7 @@ export default {
             licensePlate: car.licensePlate,
             brand: car.brand,
             nEventsOrAnomalies: car.anomalies.length,
-            status: car.status.toLowerCase()
+            status: car.status.status.toLowerCase()
           };
         });
       })

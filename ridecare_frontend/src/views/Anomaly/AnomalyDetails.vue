@@ -5,7 +5,8 @@
         <v-col
           cols="12"
           class="text-center text-sm-left text-h6 font-weight-bold"
-          >Event / Anomaly
+          >Event / Anomaly -
+          <span class="text-subtitle-2 light-green--text">VIEWED</span>
         </v-col>
       </v-row>
       <v-row>
@@ -46,7 +47,7 @@
 <script>
 import MainLayoutVue from "../../Layouts/MainLayout.vue";
 import ValueDetails from "../../Components/Anomaly/ValueDetails";
-import LineChart from "../../Components/Anomaly/LineChart";
+import LineChart from "../../Components/Charts/LineChart";
 import GeographicDetails from "../../Components/Anomaly/GeographicDetails";
 //import axios from "../../../axios";
 

@@ -72,7 +72,10 @@
                     <v-row>
                       <v-col>Status</v-col>
                       <v-col>
-                        <v-icon v-if="car.status == 'OFFLINE'" color="red">
+                        <v-icon
+                          v-if="car.status.status === 'OFFLINE'"
+                          color="red"
+                        >
                           mdi-checkbox-blank-circle
                         </v-icon>
                         <v-icon v-else color="green">
@@ -82,21 +85,10 @@
                     </v-row>
                     <v-row>
                       <v-col>Last Validation</v-col>
-                      <v-col>2020-12-03 10:30:00</v-col>
+                      <v-col>{{ car.status.date }}</v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>
-              </v-card>
-            </v-row>
-            <v-row>
-              <v-card elevation="0" width="100%">
-                <v-card-title> Sensors </v-card-title>
-                <v-data-table
-                  :headers="headerSensor"
-                  :items="sensors"
-                  hide-default-footer
-                >
-                </v-data-table>
               </v-card>
             </v-row>
           </v-container>
@@ -147,6 +139,7 @@ export default {
       .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
       .then(res => {
         this.car = res.data;
+        console.log(res.data.status.status);
       })
       .catch(err => {
         console.log(err);
@@ -154,10 +147,6 @@ export default {
   },
   data() {
     return {
-      headerSensor: [
-        { text: "Sensor", sortable: false, value: "sensor", align: "center" },
-        { text: "Status", sortable: false, value: "status", align: "center" }
-      ],
       headerEventsandAnomalies: [
         {
           text: "Event/Anomaly",
@@ -172,8 +161,9 @@ export default {
           align: "center"
         }
       ],
-      car: {},
-      sensors: [],
+      car: {
+        status: {}
+      },
       eventAndAnomalies: [],
       snackbar: {
         show: false,
