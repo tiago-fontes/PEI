@@ -26,16 +26,6 @@
             :value="offlineCars.length"
           />
         </v-col>
-        <!--
-          <v-col cols="12" xs="5" sm="5" md="3" lg="3" xl="2">
-          <DashboardCard
-            color="#f7d02e"
-            icon="mdi-signal-off"
-            description="Sensors Disabled"
-            value="0"
-          /> </v-col
-        >
-        -->
         <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
           <DashboardCard
             color="orange"
@@ -98,7 +88,7 @@ export default {
       .then(res => {
         this.cars = res.data;
         res.data.map(car => {
-          if (car.status == "OFFLINE") {
+          if (car.status.status == "OFFLINE") {
             this.offlineCars.push(car);
           } else {
             this.onlineCars.push(car);

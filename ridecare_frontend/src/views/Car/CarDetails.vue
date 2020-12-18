@@ -27,10 +27,18 @@
       <v-row class="mt-4">
         <v-col cols="12" sm="6" md="6" lg="6" class="d-flex justify-center">
           <v-img
+            v-if="car.image != ''"
             contain
             max-height="300"
             max-width="253"
             :src="car.image"
+          ></v-img>
+          <v-img
+            v-else
+            contain
+            max-height="300"
+            max-width="253"
+            src="../../assets/car.png"
           ></v-img>
         </v-col>
         <v-col
@@ -139,7 +147,7 @@ export default {
       .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
       .then(res => {
         this.car = res.data;
-        console.log(res.data.status.status);
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);

@@ -19,15 +19,18 @@
               <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on">
-                    <v-icon v-if="car.anomalies.length > 0" color="orange"
+                    <v-icon v-if="car.status.status == 'OFFLINE'" color="red"
                       >mdi-checkbox-blank-circle</v-icon
                     >
-                    <v-icon v-else-if="car.anomalies.length == 0" color="green"
+                    <v-icon v-else color="green"
                       >mdi-checkbox-blank-circle</v-icon
                     >
                   </span>
                 </template>
-                <span>Car Offline</span>
+                <span v-if="car.status.status == 'OFFLINE'">Car Offline</span>
+                <span v-else-if="car.status.status == 'ONLINE'"
+                  >Car Online</span
+                >
               </v-tooltip>
             </td>
           </tr>
