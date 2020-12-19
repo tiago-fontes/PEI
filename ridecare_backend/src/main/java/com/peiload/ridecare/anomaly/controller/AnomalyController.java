@@ -8,6 +8,9 @@ import com.peiload.ridecare.anomaly.service.AnomalyService;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,10 +72,17 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
+    @SendTo("/topic/greetings")
+    public String send(@Payload String message) {
+        return message;
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
         this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
+        send("Tudo");
+
     }
 
     //TODO mudar esta função, temos que ver como vai ser para a anomalia ser marcada como vista (botão?)
