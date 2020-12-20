@@ -4,6 +4,8 @@ import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
+import com.peiload.ridecare.car.service.CarService;
+import com.peiload.ridecare.user.model.User;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,10 +30,12 @@ import java.util.List;
 
 public class AnomalyController {
     private final AnomalyService anomalyService;
+    private final CarService carService;
     private final SimpMessagingTemplate webSocket;
 
-    public AnomalyController(AnomalyService anomalyService, SimpMessagingTemplate webSocket){
+    public AnomalyController(AnomalyService anomalyService, CarService carService, SimpMessagingTemplate webSocket){
         this.anomalyService = anomalyService;
+        this.carService = carService;
         this.webSocket = webSocket;
     }
 
@@ -75,7 +79,8 @@ public class AnomalyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createAnomaly(@RequestHeader("carId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
         this.anomalyService.createAnomaly(carId, measurementSetDto);
-        webSocket.convertAndSend("/topic/notification", new String("Notification Sent!"));
+        User user = this.carService.findUserByCarId(carId);
+        webSocket.convertAndSend("/queue/" + user.getCompanyName(), new String("Notification Sent!"));
     }
 
     //TODO mudar esta função, temos que ver como vai ser para a anomalia ser marcada como vista (botão?)
