@@ -31,9 +31,11 @@ import java.util.List;
 
 public class AnomalyController {
     private final AnomalyService anomalyService;
+    private final  SocketController socketController;
 
     public AnomalyController(AnomalyService anomalyService){
         this.anomalyService = anomalyService;
+        socketController = new SocketController();
     }
 
     @GetMapping(path="/all")
@@ -72,16 +74,13 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
-    @SendTo("/topic/greetings")
-    public String send(@Payload String message) {
-        return message;
-    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
         this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
-        send("Tudo");
+        this.socketController.send("Tudo");
 
     }
 
