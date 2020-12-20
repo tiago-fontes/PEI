@@ -1,16 +1,13 @@
 package com.peiload.ridecare.anomaly.controller;
 
+import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
-import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
-import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +28,11 @@ import java.util.List;
 
 public class AnomalyController {
     private final AnomalyService anomalyService;
-    private final  SocketController socketController;
+    private final SimpMessagingTemplate webSocket;
 
-    public AnomalyController(AnomalyService anomalyService){
+    public AnomalyController(AnomalyService anomalyService, SimpMessagingTemplate webSocket){
         this.anomalyService = anomalyService;
-        socketController = new SocketController();
+        this.webSocket = webSocket;
     }
 
     @GetMapping(path="/all")
@@ -74,14 +71,11 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
-        this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
-        this.socketController.send("Tudo");
-
+    public void createAnomaly(@RequestHeader("carId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
+        this.anomalyService.createAnomaly(carId, measurementSetDto);
+        webSocket.convertAndSend("/topic/notification", new String("Notification Sent!"));
     }
 
     //TODO mudar esta função, temos que ver como vai ser para a anomalia ser marcada como vista (botão?)

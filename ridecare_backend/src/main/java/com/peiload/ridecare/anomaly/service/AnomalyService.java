@@ -123,7 +123,7 @@ public class AnomalyService {
         return history;
     }
 
-    public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
+    public void createAnomaly(int carId, MeasurementSetDto measurementSetDto) {
         Car car = this.carService.findById(carId);
 
         if(car.getAnomalies().isEmpty()){
