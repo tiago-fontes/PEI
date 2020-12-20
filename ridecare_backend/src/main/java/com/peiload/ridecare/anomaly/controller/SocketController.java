@@ -9,6 +9,7 @@ public class SocketController {
 
     @SendTo("/topic/greetings")
     public String send(@Payload String message) {
+        System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIi");
         return message;
     }
 }

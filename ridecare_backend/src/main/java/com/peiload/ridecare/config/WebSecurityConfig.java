@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(ignorePatterns).permitAll()
-                .anyRequest().permitAll()//.authenticated()//.and().
+                .anyRequest().authenticated()
                 .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint((request, response, e) -> {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
