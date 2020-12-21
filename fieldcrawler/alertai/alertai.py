@@ -12,10 +12,13 @@ import pickle
 import requests
 import traceback
 
+import jobs
+from rqWorker import Workers
+workers = Workers()
 
 SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
 #UNSUP_MODEL = 'alertai/models/isolationforest.sav'
-DB_HOST = 'https://hookb.in/r1o1xk0mnDczWWJVyBKl'
+DB_HOST = 'http://requestbin.net/r/1b0mi5m1'
 
 anomalies = {
         0: "normal",
@@ -46,18 +49,20 @@ class AlertAI:
 
     def processData(self):
         # We must handle with unnecessary columns
+        
         raw_data = self.sensorsData.copy()
-        raw_data.pop('sensors.id')
-        raw_data.pop('sensors.carId')
-        raw_data.pop('sensors.carLocation')
-        raw_data.pop('sensors.timeValue')
-        raw_data.pop('sensors.tags')
-        raw_data.pop('sensors.classification')
+        #print(raw_data)
+        #raw_data.pop('sensors.id')
+        raw_data.pop('carId')
+        raw_data.pop('carLocation')
+        raw_data.pop('timeValue')
+        raw_data.pop('tags')
+        raw_data.pop('classification')
         #Altitude must be ignred due to misconfiguration
-        raw_data.pop('sensors.altitude')
+        raw_data.pop('altitude')
         columns = ['sensors.pm25','sensors.pm10','sensors.temperature','sensors.gas','sensors.humidity','sensors.pressure']
         dataframe = pd.DataFrame([raw_data])
-        if(dataframe['sensors.pm25'].item() <= 0.5):
+        if(dataframe['pm25'].item() <= 0.5):
             pass
         else:
             #Normalization with MinMax Scaler
@@ -96,26 +101,29 @@ class AlertAI:
         'date': str(data.iloc[0]['date']),
         'longitude' : str(data.iloc[0]['longitude']),
         'latitude' : str(data.iloc[0]['latitude']),
-        'pm25' : str(data.iloc[0]['sensors.pm25']),
-        'pm10': str(data.iloc[0]['sensors.pm10']),
-        'temperature' : str(data.iloc[0]['sensors.temperature']),
-        'gas': str(data.iloc[0]['sensors.gas']),
-        'humidity' : str(data.iloc[0]['sensors.humidity']),
-        'pressure' : str(data.iloc[0]['sensors.pressure']),
-        'altitude' : str(data.iloc[0]['sensors.altitude'])
+        'pm25' : str(data.iloc[0]['pm25']),
+        'pm10': str(data.iloc[0]['pm10']),
+        'temperature' : str(data.iloc[0]['temperature']),
+        'gas': str(data.iloc[0]['gas']),
+        'humidity' : str(data.iloc[0]['humidity']),
+        'pressure' : str(data.iloc[0]['pressure']),
+        'altitude' : str(data.iloc[0]['altitude'])
         }
         return final
 
     def prepare2Send(self,classifString):
         #Prepare data before sending to backend
         originalData = self.sensorsData.copy()        
-        originalData.pop('sensors.carId')
-        originalData.pop('sensors.timeValue')
-        originalData.pop('sensors.carLocation')
+        originalData.pop('carId')
+        originalData.pop('timeValue')
+        originalData.pop('carLocation')
         # In PROD environment, next 2 lines deleted
-        originalData.pop('sensors.tags')
-        originalData.pop('sensors.classification')
-        arrangedData = pd.DataFrame(data)
+        originalData.pop('tags')
+        originalData.pop('classification')
+        
+        
+        arrangedData = pd.DataFrame([originalData])
+        
         #Split carlocation to get latitude & longitude separately
         location = self.sensorsData.get('carLocation')
         subStr = location.split(" ")
@@ -134,10 +142,11 @@ class AlertAI:
         #Save in db cloud
         #Sendo to endpoint POST
         try:
-            headers: {"carID" : self.sensorsData.get('carId')}
-            res = requests.post(DB_HOST, json=json,headers=headers)
-            print("Sent to backend :D ")
-            print(res.text)
+            headers = {"carID" : self.sensorsData.get('carId')}
+            workers.queue(jobs.alertCloud, DB_HOST, [json, headers])
+            #res = requests.post(DB_HOST, json=json,headers=headers)
+            #print("Sent to backend :D ")
+            #print(res.text)
         except:
             print("Something went wrong! :( ")
             traceback.print_exc()
