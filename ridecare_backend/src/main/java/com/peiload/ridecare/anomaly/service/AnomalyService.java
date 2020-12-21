@@ -123,13 +123,14 @@ public class AnomalyService {
         return history;
     }
 
-    public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
+    public Optional<Anomaly> createAnomaly(int carId, MeasurementSetDto measurementSetDto) {
         Car car = this.carService.findById(carId);
 
         if(car.getAnomalies().isEmpty()){
             Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
             this.anomalyRepository.save(newAnomaly);
             this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+            return Optional.of(newAnomaly);
         }
         else{
             List<Anomaly> anomalies = car.getAnomalies();
@@ -144,9 +145,11 @@ public class AnomalyService {
                 Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
                 this.anomalyRepository.save(newAnomaly);
                 this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+                return Optional.of(newAnomaly);
             }
             else {
                 this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
+                return Optional.empty();
             }
         }
     }

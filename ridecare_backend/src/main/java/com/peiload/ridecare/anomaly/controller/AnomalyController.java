@@ -1,16 +1,17 @@
 package com.peiload.ridecare.anomaly.controller;
 
+import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
-import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
-import com.peiload.ridecare.anomaly.dto.MeasurementShowDto;
+import com.peiload.ridecare.anomaly.dto.NotificationShowDto;
+import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
+import com.peiload.ridecare.car.service.CarService;
+import com.peiload.ridecare.user.model.User;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/anomaly")
@@ -31,9 +33,13 @@ import java.util.List;
 
 public class AnomalyController {
     private final AnomalyService anomalyService;
+    private final CarService carService;
+    private final SimpMessagingTemplate webSocket;
 
-    public AnomalyController(AnomalyService anomalyService){
+    public AnomalyController(AnomalyService anomalyService, CarService carService, SimpMessagingTemplate webSocket){
         this.anomalyService = anomalyService;
+        this.carService = carService;
+        this.webSocket = webSocket;
     }
 
     @GetMapping(path="/all")
@@ -72,16 +78,15 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
-    @SendTo("/topic/greetings")
-    public String send(@Payload String message) {
-        return message;
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAnomaly(@RequestHeader("Authorization") String authorizationToken, @RequestHeader("CarId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
-        this.anomalyService.createAnomaly(authorizationToken, carId, measurementSetDto);
-        send("Tudo");
+    public void createAnomaly(@RequestHeader("carId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
+        Optional<Anomaly> asd = this.anomalyService.createAnomaly(carId, measurementSetDto);
+        if(asd.isPresent()){
+            User user = this.carService.findUserByCarId(carId);
+            NotificationShowDto notification = new NotificationShowDto(asd.get());
+            webSocket.convertAndSend("/queue/" + user.getCompanyName(), notification);
+        }
 
     }
 
