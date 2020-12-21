@@ -1,7 +1,6 @@
 package com.peiload.ridecare.anomaly.dto;
 
 import com.peiload.ridecare.anomaly.model.Anomaly;
-import com.peiload.ridecare.anomaly.model.Measurement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

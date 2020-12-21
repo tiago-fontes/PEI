@@ -25,7 +25,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -123,13 +127,14 @@ public class AnomalyService {
         return history;
     }
 
-    public void createAnomaly(String authorizationToken, int carId, MeasurementSetDto measurementSetDto) {
+    public Optional<Anomaly> createAnomaly(int carId, MeasurementSetDto measurementSetDto) {
         Car car = this.carService.findById(carId);
 
         if(car.getAnomalies().isEmpty()){
             Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
             this.anomalyRepository.save(newAnomaly);
             this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+            return Optional.of(newAnomaly);
         }
         else{
             List<Anomaly> anomalies = car.getAnomalies();
@@ -144,9 +149,11 @@ public class AnomalyService {
                 Anomaly newAnomaly = new Anomaly(measurementSetDto, car);
                 this.anomalyRepository.save(newAnomaly);
                 this.measurementRepository.save(new Measurement(measurementSetDto, newAnomaly));
+                return Optional.of(newAnomaly);
             }
             else {
                 this.measurementRepository.save(new Measurement(measurementSetDto, lastAnomaly));
+                return Optional.empty();
             }
         }
     }

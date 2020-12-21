@@ -181,4 +181,8 @@ public class CarService {
 
         return history;
     }
+
+    public User findUserByCarId(int carId) {
+        return findById(carId).getUser();
+    }
 }

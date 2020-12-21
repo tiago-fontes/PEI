@@ -6,7 +6,6 @@ import com.peiload.ridecare.user.dto.UserShowDto;
 import com.peiload.ridecare.user.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,8 +33,6 @@ public class UserController {
         return this.userService.getUser(authorizationToken);
     }
 
-    //TODO: remover opção de editar password desta função e criar um endpoint novo para isso em que é necessário meter a password antiga
-    //TODO: verificar mensagem de erros quando é enviado um campo vazio ou quando o campo de email tem um email invalido
     @PatchMapping
     public void editUser(@RequestHeader("Authorization") String authorizationToken, @RequestBody @Valid UserEditDto userEditDto){
         this.userService.editUser(authorizationToken, userEditDto);
