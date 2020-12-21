@@ -1,7 +1,6 @@
 package com.peiload.ridecare.car.repository;
 
 import com.peiload.ridecare.car.model.Car;
-import com.peiload.ridecare.car.model.CarStatus;
 import com.peiload.ridecare.user.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
