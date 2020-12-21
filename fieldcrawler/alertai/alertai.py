@@ -14,7 +14,7 @@ import traceback
 
 
 SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
-UNSUP_MODEL = 'alertai/models/isolationforest.sav'
+#UNSUP_MODEL = 'alertai/models/isolationforest.sav'
 DB_HOST = 'https://hookb.in/r1o1xk0mnDczWWJVyBKl'
 
 anomalies = {
@@ -34,7 +34,7 @@ class AlertAI:
     def start(self):
         #Iniciar modelos e definir configs
         self.sup_model = pickle.load(open(SUP_MODEL, 'rb'))
-        self.unsup_model = pickle.load(open(UNSUP_MODEL, 'rb'))
+        #self.unsup_model = pickle.load(open(UNSUP_MODEL, 'rb'))
         print("Start went good")
         
 
@@ -73,15 +73,14 @@ class AlertAI:
         #Note: DATA[0] -> rawData ; DATA[1] -> MINMAX  ;
         data2Use = data[0]
         #Unsupervised Model Predict
-        unsup_pred = self.unsup_model.predict(data2Use)
-        classific_unsup = unsup_pred[0]
-        if(classific_unsup !=0):
-            #Supervised Model Predict
-            sup_pred = self.sup_model.predict(data2Use)
-            classific_sup = sup_pred[0]
-            # Handle with Event Classification
-            return classific_sup
-        return 0
+        #unsup_pred = self.unsup_model.predict(data2Use)
+        #classific_unsup = unsup_pred[0]
+        #if(classific_unsup !=0):
+        #Supervised Model Predict
+        sup_pred = self.sup_model.predict(data2Use)
+        classific_sup = sup_pred[0]
+        # Handle with Event Classification
+        return classific_sup
 
 
     def handleClassifications(self,data):
