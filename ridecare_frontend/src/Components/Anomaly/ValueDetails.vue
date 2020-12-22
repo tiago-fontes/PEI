@@ -2,35 +2,45 @@
   <div>
     <v-container>
       <v-row>
+        <v-col class="font-weight-bold">Only first Measurment of anomaly</v-col>
+      </v-row>
+      <v-row>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Car(License Plate):</span> AA-AA-AA
+          <span class="text-subtitle-2">Car(License Plate):</span>
+          {{ licensePlate }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Classification:</span> Smoke Detected
+          <span class="text-subtitle-2">Classification:</span>
+          {{ classification }}
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Data and Hour:</span> 2020/12/17
-          23:00:00
+          <span class="text-subtitle-2">Data and Hour:</span>
+          {{ first_measurement.timeValue }}
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Gas:</span> 112302
+          <span class="text-subtitle-2">Gas:</span> {{ first_measurement.gas }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Humidity:</span> 62.7877953468
+          <span class="text-subtitle-2">Humidity:</span>
+          {{ first_measurement.humidity }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">PM 10:</span> 14.20
+          <span class="text-subtitle-2">PM 10:</span>
+          {{ first_measurement.pm10 }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">PM 25:</span> 6.30
+          <span class="text-subtitle-2">PM 25:</span>
+          {{ first_measurement.pm25 }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Pressure:</span> 1019.64309576
+          <span class="text-subtitle-2">Pressure:</span>
+          {{ first_measurement.pressure }}
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
-          <span class="text-subtitle-2">Temperature:</span> 20.234296875
+          <span class="text-subtitle-2">Temperature:</span>
+          {{ first_measurement.temperature }}
         </v-col>
       </v-row>
     </v-container>
@@ -40,7 +50,7 @@
 <script>
 export default {
   name: "ValueDetails",
-  props: ["cars"]
+  props: ["first_measurement", "carId", "classification", "licensePlate"]
 };
 </script>
 

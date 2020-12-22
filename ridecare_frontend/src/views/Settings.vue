@@ -1,6 +1,12 @@
 <template>
   <div class="settings">
-    <v-container>
+    <v-text-field
+      color="primary"
+      loading
+      disabled
+      v-if="loading == true"
+    ></v-text-field>
+    <v-container v-else>
       <v-row>
         <v-col
           cols="12"
@@ -246,6 +252,7 @@ export default {
   name: "Settings",
   data() {
     return {
+      loading: true,
       companyName: "",
       email: "",
       changePasswordDialog: false,
@@ -279,7 +286,8 @@ export default {
       })
       .catch(err => {
         this.changeSnackbar(err.message, "error");
-      });
+      })
+      .finally(() => (this.loading = false));
   },
   methods: {
     changePassword: function() {

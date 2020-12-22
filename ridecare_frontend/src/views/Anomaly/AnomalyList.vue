@@ -1,6 +1,12 @@
 <template>
   <div class="anomaly-list">
-    <v-container>
+    <v-text-field
+      color="primary"
+      loading
+      disabled
+      v-if="loading == true"
+    ></v-text-field>
+    <v-container v-else>
       <v-row>
         <v-col
           cols="12"
@@ -29,8 +35,8 @@
               <template v-slot:[`item.actions`]="{ item }">
                 <router-link
                   :to="{
-                    name: 'AnomalyDetail',
-                    params: { anomalyId: item.id }
+                    name: 'AnomalyDetails',
+                    params: { anomalyID: item.id }
                   }"
                 >
                   <v-btn
@@ -62,7 +68,7 @@
 
 <script>
 import MainLayoutVue from "../../Layouts/MainLayout.vue";
-//import axios from "../../../axios";
+import axios from "../../../axios";
 
 export default {
   name: "AnomalyDetails",
@@ -70,17 +76,20 @@ export default {
     this.$emit("update:layout", MainLayoutVue);
   },
   mounted() {
-    /*axios
-      .get(`${process.env.VUE_APP_ROOT_API}/car`)
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
+        this.anomalies = res.data;
       })
       .catch(err => {
         console.log(err);
-      });*/
+      })
+      .finally(() => (this.loading = false));
   },
   data() {
     return {
+      loading: true,
       search: "",
       headers: [
         {
@@ -96,7 +105,13 @@ export default {
           align: "center"
         },
         { text: "Viewed", value: "viewed", align: "center" },
-        { text: "Data/Hour", value: "timestamp", sortable: false }
+        {
+          text: "Data/Hour",
+          value: "measurements[0].timeValue",
+          sortable: false,
+          align: "center"
+        },
+        { text: "", value: "actions", sortable: false }
       ],
       anomalies: [],
       snackbar: {

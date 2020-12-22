@@ -1,6 +1,12 @@
 <template>
   <div class="car-details">
-    <v-container>
+    <v-text-field
+      color="primary"
+      loading
+      disabled
+      v-if="loading == true"
+    ></v-text-field>
+    <v-container v-else>
       <v-row>
         <v-col
           cols="12"
@@ -153,10 +159,12 @@ export default {
       })
       .catch(err => {
         console.log(err);
-      });
+      })
+      .finally(() => (this.loading = false));
   },
   data() {
     return {
+      loading: true,
       headerEventsandAnomalies: [
         {
           text: "Event/Anomaly",

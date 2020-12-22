@@ -1,6 +1,12 @@
 <template>
   <div class="dashboard">
-    <v-container>
+    <v-text-field
+      color="primary"
+      loading
+      disabled
+      v-if="loading == true"
+    ></v-text-field>
+    <v-container v-else>
       <v-row>
         <v-col
           cols="12"
@@ -72,6 +78,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       cars: [],
       onlineCars: [],
       offlineCars: [],
@@ -86,6 +93,7 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
+        console.log(res);
         this.cars = res.data;
         res.data.map(car => {
           if (car.status.status == "OFFLINE") {
@@ -97,16 +105,18 @@ export default {
       })
       .catch(err => {
         console.log(err.response);
-      });
+      })
+      .finally(() => (this.loading = false));
 
     axios
-      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/latest`)
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
       .then(res => {
         this.anomalies = res.data;
       })
       .catch(err => {
         console.log(err);
-      });
+      })
+      .finally(() => (this.loading = false));
   },
   methods: {
     updateTable(cardDescription) {

@@ -7,8 +7,8 @@
       </l-control>
       <l-marker :latLng="center" :icon="icon">
         <l-popup>
-          <p>Latitude: 47.41322</p>
-          <p>Longitude: -1.219482</p>
+          <p>Latitude: {{ lat }}</p>
+          <p>Longitude: {{ lng }}</p>
         </l-popup>
       </l-marker>
     </l-map>
@@ -28,10 +28,16 @@ export default {
     LMarker,
     LPopup
   },
+  props: ["location"],
   data() {
     return {
+      lat: this.location.carLocation.split(" ")[0],
+      lng: this.location.carLocation.split(" ")[1],
       zoom: 13,
-      center: latLng(47.41322, -1.219482),
+      center: latLng(
+        this.location.carLocation.split(" ")[0],
+        this.location.carLocation.split(" ")[1]
+      ),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

@@ -1,6 +1,12 @@
 <template>
   <div class="car-list">
-    <v-container>
+    <v-text-field
+      color="primary"
+      loading
+      disabled
+      v-if="loading == true"
+    ></v-text-field>
+    <v-container v-else>
       <v-row>
         <v-col
           cols="12"
@@ -132,10 +138,12 @@ export default {
         this.snackbar.message = err.message;
         this.snackbar.success = false;
         this.snackbar.color = "error";
-      });
+      })
+      .finally(() => (this.loading = false));
   },
   data() {
     return {
+      loading: true,
       search: "",
       headers: [
         {
