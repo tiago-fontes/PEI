@@ -43,7 +43,7 @@ class FieldCrawler:
 
     def __init__(self):
 
-        self.readInterval = 1  # seconds
+        self.readInterval = 10  # seconds
 
         self.token2send = ""
 

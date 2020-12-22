@@ -18,7 +18,7 @@ workers = Workers()
 
 SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
 #UNSUP_MODEL = 'alertai/models/isolationforest.sav'
-DB_HOST = 'http://requestbin.net/r/1b0mi5m1'
+DB_HOST = 'http://5c2cdb0d77ac.ngrok.io/anomaly'
 
 anomalies = {
         0: "normal",
@@ -99,8 +99,10 @@ class AlertAI:
         final = {
         'classification' : str(data.iloc[0]['classification']),
         'date': str(data.iloc[0]['date']),
-        'longitude' : str(data.iloc[0]['longitude']),
-        'latitude' : str(data.iloc[0]['latitude']),
+        'carLocation': str(data.iloc[0]['carLocation']),
+        #'longitude' : str(data.iloc[0]['longitude']),
+        #'latitude' : str(data.iloc[0]['latitude']),
+        
         'pm25' : str(data.iloc[0]['pm25']),
         'pm10': str(data.iloc[0]['pm10']),
         'temperature' : str(data.iloc[0]['temperature']),
@@ -116,7 +118,7 @@ class AlertAI:
         originalData = self.sensorsData.copy()        
         originalData.pop('carId')
         originalData.pop('timeValue')
-        originalData.pop('carLocation')
+        #originalData.pop('carLocation')
         # In PROD environment, next 2 lines deleted
         originalData.pop('tags')
         originalData.pop('classification')
@@ -125,10 +127,11 @@ class AlertAI:
         arrangedData = pd.DataFrame([originalData])
         
         #Split carlocation to get latitude & longitude separately
-        location = self.sensorsData.get('carLocation')
-        subStr = location.split(" ")
-        arrangedData['latitude'] = subStr[0]
-        arrangedData['longitude'] = subStr[1]
+        #location = self.sensorsData.get('carLocation')
+        #subStr = location.split(" ")
+        #arrangedData['carLocation'] = location
+        #arrangedData['latitude'] = subStr[0]
+        #arrangedData['longitude'] = subStr[1]
         arrangedData['date'] = self.sensorsData.get('timeValue')
         #Add classification value to array of data
         arrangedData['classification'] = classifString
@@ -142,7 +145,7 @@ class AlertAI:
         #Save in db cloud
         #Sendo to endpoint POST
         try:
-            headers = {"carID" : self.sensorsData.get('carId')}
+            headers = {"licensePlate" : self.sensorsData.get('carId')}
             workers.queue(jobs.alertCloud, DB_HOST, [json, headers])
             #res = requests.post(DB_HOST, json=json,headers=headers)
             #print("Sent to backend :D ")
