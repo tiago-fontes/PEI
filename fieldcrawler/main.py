@@ -26,16 +26,18 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
 PORT1 = "/dev/ttyUSB0"
-#DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake2/api/sensors"
-#DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake/sensors"
 API = "http://0.0.0.0:8085/api"
 
 # EVENTS PY-RQ URL
-#DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake/sensors"
-DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake2/api/sensors"
-TAGS = "Não existência de fumo, vidros fechados, AC ligado"
-CLASSIFICATION = "0"
+#DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
+DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake"
+SESNSORS_HOST = DATALAKE_HOST + "/sensors"
+BOOT_HOST = DATALAKE_HOST + "/raspberry"
 
+TAGS = "Não existência de fumo, vidros fechados, AC desligado"
+CLASSIFICATION = "0"
+CARID = "66-ZZ-66"
+DEVID = "XX"
 
 class FieldCrawler:
 
@@ -47,6 +49,10 @@ class FieldCrawler:
 
         self.sensor1 = None
         self.sensor2 = None
+
+        #Save raspberry boot datatime
+        self.bootTime()
+
         self.ml = alertai.AlertAI()
 
         self.sensorsStart()
@@ -62,11 +68,22 @@ class FieldCrawler:
             print("Trying to start again")
             self.sensorsStart()
 
+    def bootTime(self):
+        try:
+            datetimeNow = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+            data = {'carId': CARID,
+                    'timeValue': datetimeNow
+                    }
+            workers.queue(jobs.bootTime, BOOT_HOST, data)
+            #res = requests.post("http://cehum.ilch.uminho.pt/datalake/api/raspberry", json=data, timeout=3)
+        except:
+            print("Boot time event failed")
+
     def startListen(self):
 
         print("Monitoring Sensors...")
         while True:
-            dicFinal = {'carId': '66-ZZ-66',
+            dicFinal = {'carId': CARID,
                         'carLocation': '41.5608 -8.3968',
                         'timeValue': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
                         'tags': TAGS,
@@ -84,7 +101,8 @@ class FieldCrawler:
             try:
                 self.notifyDataLake(dicFinal)
             except:
-                print("Notify DataLake failed")
+                #print("Notify DataLake failed")
+                pass
             self.notifyAlertAI(dicFinal)
             time.sleep(self.readInterval)
 
@@ -142,8 +160,8 @@ class FieldCrawler:
 
         # self.notifyDataLakeWithAuth(dataDict)
 
-        #res = requests.post(DATALAKE_HOST, json=dataDict, timeout=1)
-        workers.queue(jobs.sensors, DATALAKE_HOST, dataDict)
+        #res = requests.post(SESNSORS_HOST, json=dataDict, timeout=1)
+        workers.queue(jobs.sensors, SESNSORS_HOST, dataDict)
         print('response from server:'+res.text)
 
         #print('i would send to the datalake')
