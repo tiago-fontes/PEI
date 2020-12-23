@@ -6,6 +6,7 @@ import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
 import com.peiload.ridecare.anomaly.dto.NotificationShowDto;
 import com.peiload.ridecare.anomaly.model.Anomaly;
 import com.peiload.ridecare.anomaly.service.AnomalyService;
+import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.car.service.CarService;
 import com.peiload.ridecare.user.model.User;
 import io.swagger.annotations.Api;
@@ -35,10 +36,12 @@ public class AnomalyController {
     private final AnomalyService anomalyService;
     private final CarService carService;
     private final SimpMessagingTemplate webSocket;
+    private final CarRepository carRepository;
 
-    public AnomalyController(AnomalyService anomalyService, CarService carService, SimpMessagingTemplate webSocket){
+    public AnomalyController(AnomalyService anomalyService, CarService carService, CarRepository carRepository,SimpMessagingTemplate webSocket){
         this.anomalyService = anomalyService;
         this.carService = carService;
+        this.carRepository = carRepository;
         this.webSocket = webSocket;
     }
 
@@ -77,9 +80,10 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createAnomaly(@RequestHeader("carId") int carId, @RequestBody MeasurementSetDto measurementSetDto){
+    @PostMapping(path="/create")
+    @ResponseStatus(HttpStatus.OK)
+    public void createAnomaly(@RequestHeader("licensePlate") String licensePlate, @RequestBody MeasurementSetDto measurementSetDto){
+        int carId = this.carRepository.findByLicensePlate(licensePlate).get().getId();
         Optional<Anomaly> asd = this.anomalyService.createAnomaly(carId, measurementSetDto);
         if(asd.isPresent()){
             User user = this.carService.findUserByCarId(carId);

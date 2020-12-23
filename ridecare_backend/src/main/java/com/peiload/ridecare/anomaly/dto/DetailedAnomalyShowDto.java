@@ -20,6 +20,7 @@ public class DetailedAnomalyShowDto {
     private String classification;
     private String licensePlate;
     private int carId;
+    private boolean viewed;
 
     public DetailedAnomalyShowDto(Anomaly anomaly, List<MeasurementShowDto> beforeAnomaly, List<MeasurementShowDto> afterAnomaly) {
         this.beforeAnomaly = beforeAnomaly;
@@ -28,5 +29,6 @@ public class DetailedAnomalyShowDto {
         this.classification = anomaly.getClassification();
         this.licensePlate = anomaly.getCar().getLicensePlate();
         this.carId = anomaly.getCar().getId();
+        this.viewed = anomaly.getViewed();
     }
 }
