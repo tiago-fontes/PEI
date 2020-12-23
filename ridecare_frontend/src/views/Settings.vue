@@ -35,6 +35,7 @@
                   </span>
                 </v-row>
                 <v-row>
+                  <!-- EDIT USER DIALOG -->
                   <v-col cols="12">
                     <v-dialog
                       v-model="editUserDialog"
@@ -63,23 +64,53 @@
                           <v-container>
                             <v-form @submit.prevent="changeProfile">
                               <v-row>
-                                <v-col cols="12">
+                                <v-col cols="11">
                                   <v-text-field
                                     v-model="editUserForm.email"
                                     label="Email"
                                     type="text"
                                     color="primary"
+                                    :disabled="!editUserForm.emailInputEnabled"
                                   />
+                                </v-col>
+                                <v-col cols="1" align-self="center">
+                                  <v-icon
+                                    @click="
+                                      editUserForm.emailInputEnabled = !editUserForm.emailInputEnabled
+                                    "
+                                  >
+                                    {{
+                                      editUserForm.emailInputEnabled
+                                        ? "mdi-close"
+                                        : "mdi-pencil"
+                                    }}
+                                  </v-icon>
                                 </v-col>
                               </v-row>
                               <v-row>
-                                <v-col cols="12">
+                                <v-col cols="11">
                                   <v-text-field
                                     v-model="editUserForm.companyName"
                                     label="Company Name"
                                     type="text"
                                     color="primary"
+                                    :disabled="
+                                      !editUserForm.compNameInputEnabled
+                                    "
                                   />
+                                </v-col>
+                                <v-col cols="1" align-self="center">
+                                  <v-icon
+                                    @click="
+                                      editUserForm.compNameInputEnabled = !editUserForm.compNameInputEnabled
+                                    "
+                                  >
+                                    {{
+                                      editUserForm.compNameInputEnabled
+                                        ? "mdi-close"
+                                        : "mdi-pencil"
+                                    }}
+                                  </v-icon>
                                 </v-col>
                               </v-row>
                               <v-row>
@@ -108,6 +139,7 @@
                       </v-card>
                     </v-dialog>
                   </v-col>
+                  <!-- CHANGE PASSWORD DIALOG -->
                   <v-col cols="12" class="pt-0">
                     <v-dialog
                       v-model="changePasswordDialog"
@@ -266,7 +298,9 @@ export default {
       editUserDialog: false,
       editUserForm: {
         companyName: null,
-        email: null
+        email: null,
+        emailInputEnabled: false,
+        compNameInputEnabled: false
       },
       changePasswordForm: {
         actualPassword: "",
