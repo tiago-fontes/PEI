@@ -133,7 +133,11 @@
                         </v-card-title>
                         <v-card-text>
                           <v-container>
-                            <v-form @submit.prevent="changePassword">
+                            <v-form
+                              ref="changePwdForm"
+                              v-model="changePasswordForm.validity"
+                              @submit.prevent="changePassword"
+                            >
                               <v-row>
                                 <v-col cols="12">
                                   <v-text-field
@@ -153,6 +157,7 @@
                                     type="password"
                                     color="primary"
                                     required
+                                    :rules="changePasswordForm.passwordRules"
                                   />
                                 </v-col>
                               </v-row>
@@ -166,6 +171,7 @@
                                     type="password"
                                     color="primary"
                                     required
+                                    :rules="[passwordConfirmationRule]"
                                   />
                                 </v-col>
                               </v-row>
@@ -185,6 +191,7 @@
                                   color="primary"
                                   class="text-capitalize bl-1"
                                   type="submit"
+                                  :disabled="!changePasswordForm.validity"
                                 >
                                   Save
                                 </v-btn>
@@ -264,7 +271,9 @@ export default {
       changePasswordForm: {
         actualPassword: "",
         newPassword: "",
-        repeatNewPassword: ""
+        passwordRules: [v => !!v || "Password is required."],
+        repeatNewPassword: "",
+        validity: false
       },
       snackbar: {
         show: false,
@@ -321,6 +330,14 @@ export default {
       this.snackbar.show = true;
       this.snackbar.message = message;
       this.snackbar.color = color;
+    }
+  },
+  computed: {
+    passwordConfirmationRule() {
+      return (
+        this.changePasswordForm.newPassword ===
+          this.changePasswordForm.repeatNewPassword || "Passwords must match."
+      );
     }
   }
 };
