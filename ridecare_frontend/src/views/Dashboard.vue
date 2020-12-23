@@ -16,30 +16,80 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
-          <DashboardCard
-            color="green"
-            icon="mdi-car"
-            description="RideCare On-line"
-            :value="onlineCars.length"
-          />
-        </v-col>
-        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
-          <DashboardCard
-            color="red"
-            icon="mdi-robot-dead"
-            description="RideCare Off-line"
-            :value="offlineCars.length"
-          />
-        </v-col>
-        <v-col cols="12" xs="5" sm="5" md="4" lg="4" xl="2">
-          <DashboardCard
-            color="orange"
-            icon="mdi-alert"
-            description="Events"
-            :value="anomalies.length"
-          />
-        </v-col>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-col
+              cols="12"
+              xs="5"
+              sm="5"
+              md="4"
+              lg="4"
+              xl="2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <DashboardCard
+                v-ripple
+                class="dcard"
+                color="green"
+                icon="mdi-car"
+                description="RideCare On-line"
+                :value="onlineCars.length"
+                @click.native="getOnlineCars"
+              />
+            </v-col>
+          </template>
+          <span>Load online cars into the table</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-col
+              cols="12"
+              xs="5"
+              sm="5"
+              md="4"
+              lg="4"
+              xl="2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <DashboardCard
+                v-ripple
+                class="dcard"
+                color="red"
+                icon="mdi-robot-dead"
+                description="RideCare Off-line"
+                :value="offlineCars.length"
+                @click.native="getOfflineCars"
+              />
+            </v-col>
+          </template>
+          <span>Load offline cars into the table</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-col
+              cols="12"
+              xs="5"
+              sm="5"
+              md="4"
+              lg="4"
+              xl="2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <DashboardCard
+                v-ripple
+                color="orange"
+                icon="mdi-alert"
+                description="Events"
+                :value="anomalies.length"
+                @click.native="goToEvents"
+              />
+            </v-col>
+          </template>
+          <span>See events</span>
+        </v-tooltip>
       </v-row>
       <v-row class="mt-12">
         <v-col cols="12" sm="12" md="6" lg="6">
@@ -119,6 +169,33 @@ export default {
       .finally(() => (this.loading = false));
   },
   methods: {
+    getOnlineCars() {
+      axios
+        .get(`${process.env.VUE_APP_ROOT_API}/car/online`)
+        .then(res => {
+          console.log(res);
+          this.cars = res.data;
+        })
+        .catch(err => {
+          console.log(err.response);
+        })
+        .finally(() => (this.loading = false));
+    },
+    getOfflineCars() {
+      axios
+        .get(`${process.env.VUE_APP_ROOT_API}/car/offline`)
+        .then(res => {
+          console.log(res);
+          this.cars = res.data;
+        })
+        .catch(err => {
+          console.log(err.response);
+        })
+        .finally(() => (this.loading = false));
+    },
+    goToEvents() {
+      this.$router.push("/events-anomalies");
+    },
     updateTable(cardDescription) {
       if (cardDescription == "Ride-Care Online") {
         this.cars = this.onlineCars;
@@ -129,3 +206,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.dcard {
+  cursor: pointer;
+}
+</style>
