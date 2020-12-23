@@ -80,7 +80,7 @@ public class AnomalyController {
         return this.anomalyService.getAnomaliesBetweenDates(authorizationToken, initialDate, finalDate);
     }
 
-    @PostMapping
+    @PostMapping(path="/create")
     @ResponseStatus(HttpStatus.OK)
     public void createAnomaly(@RequestHeader("licensePlate") String licensePlate, @RequestBody MeasurementSetDto measurementSetDto){
         int carId = this.carRepository.findByLicensePlate(licensePlate).get().getId();

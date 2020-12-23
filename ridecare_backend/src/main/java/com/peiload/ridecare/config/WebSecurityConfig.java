@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(ignorePatterns).permitAll()
+                .antMatchers("/car/1").hasIpAddress("46.50.58.156")
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint((request, response, e) -> {

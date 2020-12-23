@@ -38,7 +38,6 @@ public class Car {
     @NotNull
     private int sensorId;
 
-
     @NotNull
     @NotEmpty
     private String licensePlate;
@@ -53,9 +52,6 @@ public class Car {
     private int numberOfSeats;
     private String transmission;
     private String fuel;
-
-    private Float latitude;
-    private Float longitude;
 
     @NotNull
     @ManyToOne
@@ -79,9 +75,6 @@ public class Car {
         this.numberOfSeats = car.getNumberOfSeats();
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
-
-        this.latitude = (float) 0;
-        this.latitude = (float) 0;
 
         this.anomalies = new ArrayList<>();
         this.statusHistory = new ArrayList<>();

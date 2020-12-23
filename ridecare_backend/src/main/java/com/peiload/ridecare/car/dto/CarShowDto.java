@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 public class CarShowDto {
     private int id;
     private int sensorId;
-    StatusHistoryShowDto status;
+    private StatusHistoryShowDto status;
     private String licensePlate;
     private String image;
     private String brand;
@@ -49,13 +48,7 @@ public class CarShowDto {
         this.transmission = car.getTransmission();
         this.fuel = car.getFuel();
 
-        this.latitude = car.getLatitude();
-        this.longitude = car.getLongitude();
-
-        if(car.getAnomalies() == null){
-            this.anomalies = new ArrayList<>();
-        }
-        else {
+        if(car.getAnomalies() != null){
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
 
