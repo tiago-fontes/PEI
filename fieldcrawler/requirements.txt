@@ -2,4 +2,8 @@ Python 3+
 pip3 install pyserial
 pip3 install adafruit-circuitpython-bme680
 pip3 install py-sds011
-
+pip3 install redis
+pip3 install rq
+pip3 install pandas
+pip3 install scikit-learn
+sudo apt-get install libatlas-base-dev
