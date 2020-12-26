@@ -5,10 +5,7 @@
 Start all the sensors and manage measuarments data flow
 """
 
-import requests
-import datetime
-import time
-import json
+import requests, datetime, time, json
 from time import gmtime, strftime
 
 #Events Redis system
@@ -19,6 +16,7 @@ from alertai import alertai
 
 from sensors import sensor1
 from sensors import sensor2
+from gpsReceiver import G_MOUSE
 
 workers = Workers()
 
@@ -49,6 +47,7 @@ class FieldCrawler:
 
         self.sensor1 = None
         self.sensor2 = None
+        self.g_mouse = G_MOUSE()
 
         #Save raspberry boot datatime
         self.bootTime()
@@ -83,12 +82,22 @@ class FieldCrawler:
 
         print("Monitoring Sensors...")
         while True:
-            dicFinal = {'carId': CARID,
-                        'carLocation': '41.5608 -8.3968',
+            dicFinal = {'carId': CARID, }
+
+            try:
+                dicFinal.update(self.readG_MOUSE())
+            except:
+                print("G_MOUSE read failed")
+            
+
+            moreInfo =  {            
                         'timeValue': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
                         'tags': TAGS,
                         'classification': CLASSIFICATION
                         }
+
+            dicFinal.update(moreInfo)
+
             try:
                 dicFinal.update(self.readSensor1())
             except:
@@ -106,12 +115,19 @@ class FieldCrawler:
             self.notifyAlertAI(dicFinal)
             time.sleep(self.readInterval)
 
+
+    def readG_MOUSE(self):
+        measurement = self.g_mouse.getMeasurement()
+        dataDict = {'carLocation': measurement["carLocation"]
+                   }
+
+        return dataDict
+
     def readSensor1(self):
         measurement = self.sensor1.getMeasurement()
         dataDict = {'pm25': measurement["pm2.5"],
                     'pm10': measurement["pm10"]
                     }
-        # print(dataDict)
 
         return dataDict
 
@@ -123,9 +139,9 @@ class FieldCrawler:
                     'pressure': measurement["pressure"],
                     'altitude': measurement["altitude"]
                     }
-        # print(dataDict)
 
         return dataDict
+
 
     def verify_token(self, token):
         s = Serializer('rjvZhLKKCC5crnH6AU9m6Q')
@@ -162,7 +178,7 @@ class FieldCrawler:
 
         #res = requests.post(SESNSORS_HOST, json=dataDict, timeout=1)
         workers.queue(jobs.sensors, SESNSORS_HOST, dataDict)
-        print('response from server:'+res.text)
+        #print('response from server:'+res.text)
 
         #print('i would send to the datalake')
         #dictFromResponse = res.json()
