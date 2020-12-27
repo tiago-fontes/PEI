@@ -14,28 +14,28 @@ from flask_httpauth import HTTPTokenAuth, HTTPBasicAuth
 
 #RQ
 from rq import Queue
-from rqWorker import conn
-from app import app
+from rqWorker import Workers
+import jobs
 
+from app import app
 
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
-
-
-q = Queue(connection=conn)
+DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
+SENSORS_HOST = DATALAKE_HOST + "/sensors"
+BOOT_HOST = DATALAKE_HOST + "/raspberry"
 
 apiRoute = Blueprint('api', __name__,  template_folder='views')
+
+workers = Workers()
 
 basicAuth = HTTPBasicAuth()
 tokenAuth = HTTPTokenAuth(scheme='Bearer')
 
-DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api/sensors"
-
 users = {
     "VP-35-44" : "VP-35-44"   
 }
-
 
 @basicAuth.verify_password
 def verify_password(username, password):
@@ -44,7 +44,6 @@ def verify_password(username, password):
     else:
         return False
     
-
 @tokenAuth.verify_token
 def verify_token(token):
     s = Serializer(app.config['SECRET_KEY'])
@@ -56,13 +55,9 @@ def verify_token(token):
             return False # invalid token
     return True    
 
-
 def generate_auth_token(expiration = 600):
         s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
         return s.dumps({ 'id': '123' })
-
-
-
 
 @apiRoute.route('/api/token')
 @basicAuth.login_required
@@ -70,51 +65,24 @@ def get_auth_token():
     token = generate_auth_token()
     return jsonify({ 'token': token.decode('ascii') })
 
-
-
-
-
-@apiRoute.route('/api/sensors', methods=['GET', 'POST'])
+@apiRoute.route('/api/datalake/sensors', methods=['GET', 'POST'])
 @tokenAuth.login_required
-def datalakeSensor():
+def datalakeSensors():
     if request.method == "GET":
-        #return jsonify("https://cehum.ilch.uminho.pt/ridecare/json.load")
-        pass
+        return "online"
     elif request.method == "POST":
-        #request.json / request.data / request.get_json(force=True)
-        #q.enqueue(sensor1, request.json)
-        #request.form['name'] ---> form["sensor"] --> sensor 1 or 2
-        dataDict = request.get_json(force=True)
-        res = requests.post(DATALAKE_HOST, json=dataDict)
-        print('response from server:'+res.text)
-        return jsonify(success=True)
-        #dictFromResponse = res.json()
-        #print(dictFromResponse)
+        workers.queue(jobs.sensors, SENSORS_HOST, request.json)
+        return Response(status=200)
     else:
         return Response(status=404)
 
-
-#@apiRoute.route('/api/dashboard', methods=['GET', 'POST'])
-#def dashboard():
-#    if request.method == "GET":
-#        pass
-#    if request.method == "POST":
-#        pass
-
-#@apiRoute.route('/api/raspberry', methods=['GET', 'POST'])
-#def raspberry():
-#    if request.method == "GET":
-#        pass
-#    if request.method == "POST":
-#        pass
-
-#@apiRoute.route('/api/update', methods=['GET', 'POST'])
-#def update():
-#    if request.method == "GET":
-#        pass
-#    if request.method == "POST":
-#        pass
-
-#@apiRoute.route('/api/sensor1/<string:action>')
-#def sensor1Action(action=None):
-#    pass
+@apiRoute.route('/api/datalake/raspberry', methods=['GET', 'POST'])
+@tokenAuth.login_required
+def raspberry():
+    if request.method == "GET":
+        return "online"
+    elif request.method == "POST":
+        workers.queue(jobs.raspberry, BOOT_HOST, request.json)
+        return Response(status=200)
+    else:
+        return Response(status=404)

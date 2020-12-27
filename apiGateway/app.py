@@ -14,8 +14,6 @@ import os, importlib
 
 import rq_dashboard
 
-import rqWorker
-
 from flask import Flask, g
 from flask_cors import CORS
 

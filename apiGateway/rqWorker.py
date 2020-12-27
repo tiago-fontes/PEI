@@ -5,23 +5,33 @@
 import os
 
 import redis
-from rq import Worker, Queue, Connection
+from rq import Worker, Queue, Connection, Retry
 
-WORKERS = 0
+class Workers:
+    def __init__(self):
+        self.listen = ['default', 'connError']
+        self.redis_url = os.getenv('REDISTOGO_URL', 'redis://127.0.0.1:6379')
+        self.conn = None
+        self.q = None
+        self.connect()
 
-listen = ['high', 'default', 'low']
+    def connect(self):
+        self.conn = redis.from_url(self.redis_url)
+        self.q = Queue(connection=self.conn)
 
-redis_url = os.getenv('REDISTOGO_URL', 'redis://127.0.0.1:6379')
+    def queue(self, func, host, data):
+        #self.q.enqueue(func, host, data, retry=Retry(max=3, interval=[10, 30, 60]))
+        #No retries because if it fails it is enqueue in the connError queue by the job, it would duplicate the event
+        self.q.enqueue(func, host, data)
 
-conn = redis.from_url(redis_url)
 
-def start_worker():
-    with Connection(conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
-        WORKERS += 1
+    #Note: moved this to the worker.py file, run as a service daemon at boot time. Here conflicted with the flask thread
+    def startWorker(self):
+        with Connection(self.conn):
+            worker = Worker(map(Queue, self.listen))
+            worker.work(burst=True)
 
-if __name__ == '__main__':
-    with Connection(conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
+    def countWorkers(self):
+        workers = Worker.all(connection=self.conn)
+        count = len(workers)
+        return count

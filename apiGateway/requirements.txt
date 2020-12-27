@@ -6,4 +6,5 @@ pip3 install rq-dashboard
 pip3 install requests
 pip3 install flask-httpauth
 
-redis>=3
+redis>=3:
+sudo apt install redis-server
