@@ -34,7 +34,7 @@
 
         <v-list-item link to="/my-cars/new-car">
           <v-list-item-icon>
-            <v-icon color="white">mdi-tooltip-plus</v-icon>
+            <v-icon color="white">mdi-plus-circle</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>New Car</v-list-item-title>
