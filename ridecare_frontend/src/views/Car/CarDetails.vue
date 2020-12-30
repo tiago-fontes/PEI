@@ -33,7 +33,7 @@
       <v-row class="mt-4">
         <v-col cols="12" sm="6" md="6" lg="6" class="d-flex justify-center">
           <v-img
-            v-if="car.image != ''"
+            v-if="car.image != null"
             contain
             max-height="300"
             max-width="253"

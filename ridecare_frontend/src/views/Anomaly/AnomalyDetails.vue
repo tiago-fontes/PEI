@@ -12,7 +12,12 @@
           cols="12"
           class="text-center text-sm-left text-h6 font-weight-bold"
           >Event / Anomaly -
-          <span class="text-subtitle-2 light-green--text">VIEWED</span>
+          <span
+            class="text-subtitle-2 light-green--text"
+            v-if="this.anomaly.viewed == true"
+            >VIEWED</span
+          >
+          <span class="text-subtitle-2 red--text" v-else>NOT VIEWED</span>
         </v-col>
       </v-row>
       <v-row>
@@ -92,6 +97,7 @@
                 tile
                 color="primary"
                 class="text-capitalize"
+                v-if="this.anomaly.viewed != true"
                 @click="markAsSeen"
               >
                 Mark as seen
