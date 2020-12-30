@@ -227,7 +227,13 @@
         >
           Update
         </v-btn>
-        <v-btn tile outlined color="warning" class="text-capitalize ml-4">
+        <v-btn
+          tile
+          outlined
+          color="warning"
+          class="text-capitalize ml-4"
+          @click="cancelEdit"
+        >
           Cancel
         </v-btn>
       </v-row>
@@ -318,31 +324,38 @@ export default {
     this.$emit("update:layout", MainLayoutVue);
   },
   mounted() {
-    axios
-      .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
-      .then(res => {
-        let carInfo = res.data;
-
-        this.carMainInfoForm.licensePlate = carInfo.licensePlate;
-        this.carMainInfoForm.brand = carInfo.brand;
-        this.carMainInfoForm.model = carInfo.model;
-        this.carMainInfoForm.year = carInfo.year;
-
-        this.carCharacteristicsForm.numberOfDoors = carInfo.numberOfDoors;
-        this.carCharacteristicsForm.seats = carInfo.numberOfSeats;
-        this.carCharacteristicsForm.transmission = carInfo.transmission;
-        this.carCharacteristicsForm.fuel = carInfo.fuel;
-
-        this.photoBase64 = carInfo.image;
-
-        this.rideCareDeviceForm.rideCareDeviceId = carInfo.sensorId;
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => (this.loading = false));
+    this.loadCarInfo();
   },
   methods: {
+    loadCarInfo() {
+      axios
+        .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
+        .then(res => {
+          let carInfo = res.data;
+
+          this.carMainInfoForm.licensePlate = carInfo.licensePlate;
+          this.carMainInfoForm.brand = carInfo.brand;
+          this.carMainInfoForm.model = carInfo.model;
+          this.carMainInfoForm.year = carInfo.year;
+
+          this.carCharacteristicsForm.numberOfDoors = carInfo.numberOfDoors;
+          this.carCharacteristicsForm.seats = carInfo.numberOfSeats;
+          this.carCharacteristicsForm.transmission = carInfo.transmission;
+          this.carCharacteristicsForm.fuel = carInfo.fuel;
+
+          this.photoBase64 = carInfo.image;
+
+          this.rideCareDeviceForm.rideCareDeviceId = carInfo.sensorId;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => (this.loading = false));
+    },
+    cancelEdit() {
+      this.loadCarInfo();
+      this.stepper = 1;
+    },
     updateCar() {
       var obj = {
         brand: this.carMainInfoForm.brand,
@@ -355,7 +368,7 @@ export default {
         transmission: this.carCharacteristicsForm.transmission,
         year: this.carMainInfoForm.year
       };
-      console.log(obj);
+
       axios
         .patch(
           `${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`,
