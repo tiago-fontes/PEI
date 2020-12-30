@@ -133,7 +133,8 @@ export default {
       onlineCars: [],
       offlineCars: [],
       anomalies: [],
-      anomaliesByMonth: [3, 3, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3]
+      anomaliesByMonth: [3, 3, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3],
+      anomaliesByClassification: []
     };
   },
   created() {
@@ -162,6 +163,8 @@ export default {
       .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
       .then(res => {
         this.anomalies = res.data;
+        this.getAnomaliesByClassification();
+        this.getAnomaliesByMonth();
       })
       .catch(err => {
         console.log(err);
@@ -201,6 +204,38 @@ export default {
         this.cars = this.onlineCars;
       } else if (cardDescription == "Ride-Care Online") {
         this.cars = this.offlineCars;
+      }
+    },
+    getAnomaliesByClassification() {
+      for (let i = 0; i < this.anomalies.length; i++) {
+        let classification = this.anomalies[i].classification;
+        let position = this.anomaliesByClassification.indexOf(
+          a => a.classification == classification
+        );
+
+        if (position == -1) {
+          this.anomaliesByClassification.push({
+            classification: classification,
+            value: 1
+          });
+        } else {
+          this.anomaliesByClassification[position].value += 1;
+        }
+      }
+    },
+    getAnomaliesByMonth() {
+      for (let i = 0; i < this.anomalies.length; i++) {
+        let year = new Date().getFullYear();
+        let anomalyDate = new Date(this.anomalies[i].measurements[0].timeValue);
+
+        if (year == anomalyDate.getFullYear()) {
+          console.log(anomalyDate.getMonth());
+          if (this.anomaliesByMonth[anomalyDate.getMonth()] == undefined) {
+            this.anomaliesByMonth[anomalyDate.getMonth()] = 1;
+          } else {
+            this.anomaliesByMonth[anomalyDate.getMonth()] += 1;
+          }
+        }
       }
     }
   }

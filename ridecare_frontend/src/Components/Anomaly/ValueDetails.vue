@@ -2,12 +2,22 @@
   <div>
     <v-container>
       <v-row>
-        <v-col class="font-weight-bold">Only first Measurment of anomaly</v-col>
+        <v-col class="font-weight-bold"
+          >Only first Measurement of anomaly</v-col
+        >
       </v-row>
       <v-row>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
           <span class="text-subtitle-2">Car(License Plate):</span>
           {{ licensePlate }}
+          <router-link
+            :to="{
+              name: 'CarDetails',
+              params: { carID: carId }
+            }"
+          >
+            <v-icon small>mdi-open-in-new</v-icon>
+          </router-link>
         </v-col>
         <v-col cols="12" sm="6" md="4" lg="4" class="text-caption">
           <span class="text-subtitle-2">Classification:</span>
