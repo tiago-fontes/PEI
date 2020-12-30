@@ -291,7 +291,7 @@ export default {
         rules: {
           numberOfDoorsRules: [v => !!v || "The number of doors is required"],
           seatRules: [
-            v => !!v || "The Seat is Required",
+            v => !!v || "The number of seats is required",
             v => v >= 2 || "The vehicle must have at least 2 seats"
           ],
           transmissionRules: [

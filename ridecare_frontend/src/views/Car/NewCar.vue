@@ -281,12 +281,15 @@ export default {
         transmission: "",
         fuel: "",
         rules: {
-          numberOfDoorsRules: [v => !!v || "The Number of Doors is Required"],
-          seatRules: [v => !!v || "The Seat is Required"],
-          transmissionRules: [
-            v => !!v.length > 0 || "The Transmission is Required"
+          numberOfDoorsRules: [v => !!v || "The number of doors is required"],
+          seatRules: [
+            v => !!v || "The number of seats is required",
+            v => v >= 2 || "The vehicle must have at least 2 seats"
           ],
-          fuelRules: [v => v.length > 0 || "The Fuel is Required"]
+          transmissionRules: [
+            v => !!v.length > 0 || "The transmission is required"
+          ],
+          fuelRules: [v => v.length > 0 || "The fuel is required"]
         }
       },
       carPhotoForm: {
