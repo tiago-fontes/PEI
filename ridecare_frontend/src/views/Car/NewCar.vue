@@ -220,7 +220,13 @@
         >
           Save
         </v-btn>
-        <v-btn tile outlined color="warning" class="text-capitalize ml-4">
+        <v-btn
+          tile
+          outlined
+          color="warning"
+          class="text-capitalize ml-4"
+          @click="cancelNewCar"
+        >
           Cancel
         </v-btn>
       </v-row>
@@ -304,6 +310,9 @@ export default {
     };
   },
   methods: {
+    cancelNewCar() {
+      this.resetForms();
+    },
     saveCar() {
       var obj = {
         brand: this.carMainInfoForm.brand,
