@@ -26,8 +26,13 @@
             color="primary"
             class="text-capitalize"
             block
-            >Edit</v-btn
+            :to="{
+              name: 'CarEdit',
+              params: { carId: this.$route.params.carID }
+            }"
           >
+            Edit
+          </v-btn>
         </v-col>
       </v-row>
       <v-row class="mt-4">

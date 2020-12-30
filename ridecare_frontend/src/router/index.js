@@ -23,6 +23,14 @@ const routes = [
     }
   },
   {
+    path: "/my-cars/:carID/edit",
+    name: "CarEdit",
+    component: () => import("@/views/Car/CarEdit.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: "/my-cars/:carID/details",
     name: "CarDetails",
     component: () => import("@/views/Car/CarDetails.vue"),
