@@ -82,7 +82,8 @@ def classify(model,data):
 def index():
 	return "Simple API with Flask"
 
-@app.route('/capture',methods = ["POST"])
+
+@app.route('/capture',methods = ["GET","POST"])
 def insert_capture():
     req_data = request.get_json()
     capture = Capture(carId=req_data['carId'], carLocation=req_data['carLocation'], timeValue=req_data['timeValue'], pm25=req_data['pm25'],pm10=req_data['pm10'], temperature=req_data['temperature'], gas=req_data['gas'], humidity=req_data['humidity'],pressure=req_data['pressure'], altitude=req_data['altitude'])
@@ -99,11 +100,12 @@ def insert_capture():
     	db.session.add(c)
     	db.session.commit()
 
-	"""
+ 	"""
 
     return "ok"
 
 
 
+
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, host='0.0.0.0',port=5000)
