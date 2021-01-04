@@ -1,0 +1,4 @@
+<h3 style="font-weight:bold;">Dados - Sensor <span style="text-transform: uppercase;">{{=sensor}}</span></h3>
+<p><a class="btn btn-secondary" href="{{=URL('default','getjson')}}" target="_blank">JSON</a> <a class="btn btn-secondary" href="{{=URL('default','getjson')}}" target="_blank">CSV</a></p>
+<br>
+{{=grid}}

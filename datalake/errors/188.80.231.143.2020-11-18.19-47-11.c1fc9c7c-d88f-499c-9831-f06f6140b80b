@@ -1,0 +1,710 @@
+(dp1
+S'output'
+p2
+S"<class 'sqlite3.OperationalError'> duplicate column name: tags"
+p3
+sS'layer'
+p4
+S'/var/www/web2py/applications/datalake/models/sensor2.py'
+p5
+sS'code'
+p6
+S'<code object <module> at 0x7f2cf54587b0, file "/var/www/web2py/applications/datalake/models/sensor2.py", line 3>'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__module__'
+p12
+S"'sqlite3'"
+p13
+sS'__getslice__'
+p14
+S"<method-wrapper '__getslice__' of OperationalError object>"
+p15
+sS'__str__'
+p16
+S"<method-wrapper '__str__' of OperationalError object>"
+p17
+sS'__reduce__'
+p18
+S'<built-in method __reduce__ of OperationalError object>'
+p19
+sS'__dict__'
+p20
+S'{}'
+p21
+sS'__sizeof__'
+p22
+S'<built-in method __sizeof__ of OperationalError object>'
+p23
+sS'__weakref__'
+p24
+S'None'
+p25
+sS'message'
+p26
+S"'duplicate column name: tags'"
+p27
+sS'__init__'
+p28
+S"<method-wrapper '__init__' of OperationalError object>"
+p29
+sS'__setattr__'
+p30
+S"<method-wrapper '__setattr__' of OperationalError object>"
+p31
+sS'__reduce_ex__'
+p32
+S'<built-in method __reduce_ex__ of OperationalError object>'
+p33
+sS'__new__'
+p34
+S'<built-in method __new__ of type object>'
+p35
+sS'__format__'
+p36
+S'<built-in method __format__ of OperationalError object>'
+p37
+sS'__class__'
+p38
+S"<class 'sqlite3.OperationalError'>"
+p39
+sS'__doc__'
+p40
+S'None'
+p41
+sS'__getitem__'
+p42
+S"<method-wrapper '__getitem__' of OperationalError object>"
+p43
+sS'__setstate__'
+p44
+S'<built-in method __setstate__ of OperationalError object>'
+p45
+sS'__getattribute__'
+p46
+S"<method-wrapper '__getattribute__' of OperationalError object>"
+p47
+sS'args'
+p48
+S"('duplicate column name: tags',)"
+p49
+sS'__subclasshook__'
+p50
+S'<built-in method __subclasshook__ of type object>'
+p51
+sS'__unicode__'
+p52
+S'<built-in method __unicode__ of OperationalError object>'
+p53
+sS'__delattr__'
+p54
+S"<method-wrapper '__delattr__' of OperationalError object>"
+p55
+sS'__repr__'
+p56
+S"<method-wrapper '__repr__' of OperationalError object>"
+p57
+sS'__hash__'
+p58
+S"<method-wrapper '__hash__' of OperationalError object>"
+p59
+ssS'evalue'
+p60
+S'duplicate column name: tags'
+p61
+sS'request'
+p62
+cgluon.html
+XML_unpickle
+p63
+(S'sqE\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>sensor1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>default</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/json</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/usr/share/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/json</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>python-requests/2.21.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/datalake/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>48504</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_SCHEME</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/datalake/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>nginx/1.10.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">UWSGI_SCHEME</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/fenomenologia/&#x27;, &#x27;/var/www/web2py/applications/cehum/&#x27;, &#x27;/var/www/web2py/applications/intimacy/&#x27;, &#x27;/var/www/web2py/applications/microrrelatos_xaquinnunez/&#x27;, &#x27;/var/www/web2py/applications/limiares/&#x27;, &#x27;/var/www/web2py/applications/datalake/&#x27;, &#x27;/var/www/web2py/applications/aieti/&#x27;, &#x27;/var/www/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div>139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div>application/json</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/usr/share/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_length</td><td style="vertical-align:top;">:</td><td><div>139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_type</td><td style="vertical-align:top;">:</td><td><div>application/json</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>python-requests/2.21.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_py2</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>193.137.11.51</div></td></tr><tr><td><div>srv-webcehum.scom.uminho.pt</div></td></tr><tr><td><div>srv-webcehum</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/datalake/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>48504</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/datalake/default/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>nginx/1.10.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.node</td><td style="vertical-align:top;">:</td><td><div>srv-webcehum</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.version</td><td style="vertical-align:top;">:</td><td><div>2.0.18</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_node</td><td style="vertical-align:top;">:</td><td><div>srv-webcehum</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_version</td><td style="vertical-align:top;">:</td><td><div>2.0.18</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_original_uri</td><td style="vertical-align:top;">:</td><td><div>/datalake/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.17.1-stable+timestamp.2018.08.06.01.02.56</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x7f2cf7039ed0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7f2cf52930c0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x7f2cf7039ed0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7f2cf52930c0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/datalake/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>api</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/fenomenologia/&#x27;, &#x27;/var/www/web2py/applications/cehum/&#x27;, &#x27;/var/www/web2py/applications/intimacy/&#x27;, &#x27;/var/www/web2py/applications/microrrelatos_xaquinnunez/&#x27;, &#x27;/var/www/web2py/applications/limiares/&#x27;, &#x27;/var/www/web2py/applications/datalake/&#x27;, &#x27;/var/www/web2py/applications/aieti/&#x27;, &#x27;/var/www/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_py2</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>193.137.11.51</div></td></tr><tr><td><div>srv-webcehum.scom.uminho.pt</div></td></tr><tr><td><div>srv-webcehum</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.17.1-stable+timestamp.2018.08.06.01.02.56</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_scheduler</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">method</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2020, 11, 18, 19, 47, 11, 610010)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/datalake/api/sensor1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2020, 11, 18, 19, 47, 11, 610032)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7f2cf90d7d90&gt;</div></td></tr></table></div>'
+tRp64
+sS'frames'
+p65
+(lp66
+(dp67
+S'file'
+p68
+S'/var/www/web2py/gluon/restricted.py'
+p69
+sS'dump'
+p70
+(dp71
+S'environment'
+p72
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AppConfig': <function AppConfig>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, ...}"
+p73
+sS'ccode'
+p74
+S'<code object <module> at 0x7f2cf54587b0, file "/...applications/datalake/models/sensor2.py", line 3>'
+p75
+ssS'lnum'
+p76
+I219
+sS'lines'
+p77
+(dp78
+I214
+S'    if environment is None:'
+p79
+sI215
+S'        environment = {}'
+p80
+sI216
+S"    environment['__file__'] = layer"
+p81
+sI217
+S"    environment['__name__'] = '__restricted__'"
+p82
+sI218
+S'    try:'
+p83
+sI219
+S'        exec(ccode, environment)'
+p84
+sI220
+S'    except HTTP:'
+p85
+sI221
+S'        raise'
+p86
+sI222
+S'    except RestrictedError:'
+p87
+sI223
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p88
+ssS'call'
+p89
+S'(ccode=<code object <module> at 0x7f2cf54587b0, file "/...applications/datalake/models/sensor2.py", line 3>, environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'AppConfig\': <function AppConfig>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, ...}, layer=\'/var/www/web2py/applications/datalake/models/sensor2.py\', scode=<code object <module> at 0x7f2cf54587b0, file "/...applications/datalake/models/sensor2.py", line 3>)'
+p90
+sS'func'
+p91
+S'restricted'
+p92
+sa(dp93
+g68
+S'/var/www/web2py/applications/datalake/models/sensor2.py'
+p94
+sg70
+(dp95
+S'default'
+p96
+S'undefined'
+p97
+sS'Field'
+p98
+S"<class 'pydal.objects.Field'>"
+p99
+ssg76
+I12
+sg77
+(dp100
+I4
+S"                Field('carId', 'string'),"
+p101
+sI5
+S"                Field('carLocation', 'string'),"
+p102
+sI6
+S"                Field('timeValue', 'datetime'),"
+p103
+sI7
+S"                Field('temperature', 'double'),"
+p104
+sI8
+S"                Field('gas', 'integer'),"
+p105
+sI9
+S"                Field('humidity', 'double'),"
+p106
+sI10
+S"                Field('pressure', 'double'),"
+p107
+sI11
+S"                Field('altitude', 'double'),"
+p108
+sI12
+S"                Field('tags', 'string', default='janela aberta')"
+p109
+sI13
+S'               )'
+p110
+ssg89
+S'()'
+p111
+sg91
+S'<module>'
+p112
+sa(dp113
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/base.py'
+p114
+sg70
+(dp115
+S'fields'
+p116
+S'(<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>)'
+p117
+sS'self'
+p118
+S'<DAL uri="sqlite://storage.sqlite">'
+p119
+sS'tablename'
+p120
+S"'sensor2'"
+p121
+sS'kwargs'
+p122
+g21
+sS'table'
+p123
+g97
+sS'self.lazy_define_table'
+p124
+S'<bound method DAL.lazy_define_table of <DAL uri="sqlite://storage.sqlite">>'
+p125
+ssg76
+I590
+sg77
+(dp126
+I585
+S'        if self._lazy_tables:'
+p127
+sI586
+S'            if tablename not in self._LAZY_TABLES or redefine:'
+p128
+sI587
+S'                self._LAZY_TABLES[tablename] = (tablename, fields, kwargs)'
+p129
+sI588
+S'            table = None'
+p130
+sI589
+S'        else:'
+p131
+sI590
+S'            table = self.lazy_define_table(tablename, *fields, **kwargs)'
+p132
+sI591
+S'        if tablename not in self.tables:'
+p133
+sI592
+S'            self.tables.append(tablename)'
+p134
+sI593
+S'        return table'
+p135
+sI594
+S''
+ssg89
+S'(self=<DAL uri="sqlite://storage.sqlite">, tablename=\'sensor2\', *fields=(<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>), **kwargs={})'
+p136
+sg91
+S'define_table'
+p137
+sa(dp138
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/base.py'
+p139
+sg70
+(dp140
+S'polymodel'
+p141
+S'None'
+p142
+ssg76
+I624
+sg77
+(dp143
+I619
+S'            try:'
+p144
+sI620
+S'                GLOBAL_LOCKER.acquire()'
+p145
+sI621
+S'                self._adapter.create_table('
+p146
+sI622
+S'                    table, migrate=migrate,'
+p147
+sI623
+S'                    fake_migrate=fake_migrate,'
+p148
+sI624
+S'                    polymodel=polymodel)'
+p149
+sI625
+S'            finally:'
+p150
+sI626
+S'                GLOBAL_LOCKER.release()'
+p151
+sI627
+S'        else:'
+p152
+sI628
+S'            table._dbt = None'
+p153
+ssg89
+S'(self=<DAL uri="sqlite://storage.sqlite">, tablename=\'sensor2\', *fields=(<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>), **kwargs={})'
+p154
+sg91
+S'lazy_define_table'
+p155
+sa(dp156
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py'
+p157
+sg70
+(dp158
+S'self'
+p159
+S'<pydal.adapters.sqlite.SQLite object>'
+p160
+sS'args'
+p161
+S'(<Table sensor2 (id, carId, carLocation, timeValu...rature, gas, humidity, pressure, altitude, tags)>,)'
+p162
+sS'self.migrator'
+p163
+S'<pydal.migrator.Migrator object>'
+p164
+sS'self.migrator.create_table'
+p165
+S'<bound method Migrator.create_table of <pydal.migrator.Migrator object>>'
+p166
+sS'kwargs'
+p167
+S"{'fake_migrate': False, 'migrate': True, 'polymodel': None}"
+p168
+ssg76
+I798
+sg77
+(dp169
+I800
+S'    def _drop_table_cleanup(self, table):'
+p170
+sI801
+S'        super(SQLAdapter, self)._drop_table_cleanup(table)'
+p171
+sI802
+S'        if table._dbt:'
+p172
+sI793
+S''
+sI794
+S'    def bulk_insert(self, table, items):'
+p173
+sI795
+S'        return [self.insert(table, item) for item in items]'
+p174
+sI796
+S''
+sI797
+S'    def create_table(self, *args, **kwargs):'
+p175
+sI798
+S'        return self.migrator.create_table(*args, **kwargs)'
+p176
+sI799
+S''
+ssg89
+S"(self=<pydal.adapters.sqlite.SQLite object>, *args=(<Table sensor2 (id, carId, carLocation, timeValu...rature, gas, humidity, pressure, altitude, tags)>,), **kwargs={'fake_migrate': False, 'migrate': True, 'polymodel': None})"
+p177
+sg91
+S'create_table'
+p178
+sa(dp179
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/migrator.py'
+p180
+sg70
+(dp181
+S'fake_migrate'
+p182
+S'False'
+p183
+ssg76
+I315
+sg77
+(dp184
+I310
+S'            if sql_fields != sql_fields_old:'
+p185
+sI311
+S'                self.migrate_table('
+p186
+sI312
+S'                    table,'
+p187
+sI313
+S'                    sql_fields, sql_fields_old,'
+p188
+sI314
+S'                    sql_fields_aux, None,'
+p189
+sI315
+S'                    fake_migrate=fake_migrate'
+p190
+sI316
+S'                    )'
+p191
+sI317
+S'        return query'
+p192
+sI318
+S''
+sI319
+S'    def _fix(self, item):'
+p193
+ssg89
+S'(self=<pydal.migrator.Migrator object>, table=<Table sensor2 (id, carId, carLocation, timeValu...rature, gas, humidity, pressure, altitude, tags)>, migrate=True, fake_migrate=False, polymodel=None)'
+p194
+sg91
+g178
+sa(dp195
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/migrator.py'
+p196
+sg70
+(dp197
+S'self'
+p198
+S'<pydal.migrator.Migrator object>'
+p199
+sS'self.adapter.execute'
+p200
+S'<bound method SQLite.wrap of <pydal.adapters.sqlite.SQLite object>>'
+p201
+sS'self.adapter'
+p202
+S'<pydal.adapters.sqlite.SQLite object>'
+p203
+sS'sub_query'
+p204
+S'\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\''
+p205
+ssg76
+I448
+sg77
+(dp206
+I448
+S'                        self.adapter.execute(sub_query)'
+p207
+sI449
+S'                        # Caveat: mysql, oracle and firebird'
+p208
+sI450
+S'                        # do not allow multiple alter table'
+p209
+sI451
+S'                        # in one transaction so we must commit'
+p210
+sI452
+S'                        # partial transactions and'
+p211
+sI443
+S'                    if fake_migrate:'
+p212
+sI444
+S'                        if db._adapter.commit_on_alter_table:'
+p213
+sI445
+S'                            self.save_dbt(table, sql_fields_current)'
+p214
+sI446
+S"                        self.log('faked!\\n', table)"
+p215
+sI447
+S'                    else:'
+p216
+ssg89
+S'(self=<pydal.migrator.Migrator object>, table=<Table sensor2 (id, carId, carLocation, timeValu...rature, gas, humidity, pressure, altitude, tags)>, sql_fields={\'altitude\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'altitude\', \'rname\': \'"altitude"\', \'sortable\': 9, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'carid\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'carId\', \'rname\': \'"carId"\', \'sortable\': 2, \'sql\': \'CHAR(512)\', \'type\': \'string\', \'unique\': False}, \'carlocation\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'carLocation\', \'rname\': \'"carLocation"\', \'sortable\': 3, \'sql\': \'CHAR(512)\', \'type\': \'string\', \'unique\': False}, \'gas\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'gas\', \'rname\': \'"gas"\', \'sortable\': 6, \'sql\': \'INTEGER\', \'type\': \'integer\', \'unique\': False}, \'humidity\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'humidity\', \'rname\': \'"humidity"\', \'sortable\': 7, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'id\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'id\', \'rname\': \'"id"\', \'sortable\': 1, \'sql\': \'INTEGER PRIMARY KEY AUTOINCREMENT\', \'type\': \'id\', \'unique\': False}, \'pressure\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'pressure\', \'rname\': \'"pressure"\', \'sortable\': 8, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'tags\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'tags\', \'rname\': \'"tags"\', \'sortable\': 10, \'sql\': \'CHAR(512)\', \'type\': \'string\', \'unique\': False}, \'temperature\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'temperature\', \'rname\': \'"temperature"\', \'sortable\': 5, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'timevalue\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'timeValue\', \'rname\': \'"timeValue"\', \'sortable\': 4, \'sql\': \'TIMESTAMP\', \'type\': \'datetime\', \'unique\': False}}, sql_fields_old={\'altitude\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'altitude\', \'rname\': \'"altitude"\', \'sortable\': 9, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'altitue\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'altitue\', \'rname\': \'"altitue"\', \'sortable\': 9, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'carid\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'carId\', \'rname\': \'"carId"\', \'sortable\': 2, \'sql\': \'CHAR(512)\', \'type\': \'string\', \'unique\': False}, \'carlocation\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'carLocation\', \'rname\': \'"carLocation"\', \'sortable\': 3, \'sql\': \'CHAR(512)\', \'type\': \'string\', \'unique\': False}, \'gas\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'gas\', \'rname\': \'"gas"\', \'sortable\': 6, \'sql\': \'INTEGER\', \'type\': \'integer\', \'unique\': False}, \'humidity\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'humidity\', \'rname\': \'"humidity"\', \'sortable\': 7, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'id\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'id\', \'rname\': \'"id"\', \'sortable\': 1, \'sql\': \'INTEGER PRIMARY KEY AUTOINCREMENT\', \'type\': \'id\', \'unique\': False}, \'pressure\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'pressure\', \'rname\': \'"pressure"\', \'sortable\': 8, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'temperature\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'temperature\', \'rname\': \'"temperature"\', \'sortable\': 5, \'sql\': \'DOUBLE\', \'type\': \'double\', \'unique\': False}, \'timevalue\': {\'length\': 512, \'notnull\': False, \'raw_rname\': \'timeValue\', \'rname\': \'"timeValue"\', \'sortable\': 4, \'sql\': \'TIMESTAMP\', \'type\': \'datetime\', \'unique\': False}}, sql_fields_aux={\'altitude\': {\'sql\': \'DOUBLE\'}, \'carid\': {\'sql\': \'CHAR(512)\'}, \'carlocation\': {\'sql\': \'CHAR(512)\'}, \'gas\': {\'sql\': \'INTEGER\'}, \'humidity\': {\'sql\': \'DOUBLE\'}, \'id\': {\'sql\': \'INTEGER PRIMARY KEY AUTOINCREMENT\'}, \'pressure\': {\'sql\': \'DOUBLE\'}, \'tags\': {\'sql\': \'CHAR(512)\'}, \'temperature\': {\'sql\': \'DOUBLE\'}, \'timevalue\': {\'sql\': \'TIMESTAMP\'}}, logfile=None, fake_migrate=False)'
+p217
+sg91
+S'migrate_table'
+p218
+sa(dp219
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/__init__.py'
+p220
+sg70
+(dp221
+S'kwargs'
+p222
+g21
+sS'args'
+p223
+S'(<pydal.adapters.sqlite.SQLite object>, \'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\')'
+p224
+sS'f'
+S'<function execute>'
+p225
+ssg76
+I67
+sg77
+(dp226
+I64
+S'            if len(args) > 1:'
+p227
+sI65
+S'                raise ValueError(args[1])'
+p228
+sI66
+S"            raise RuntimeError('no connection available')"
+p229
+sI67
+S'        return f(*args, **kwargs)'
+p230
+sI68
+S'    return wrap'
+p231
+sI69
+S''
+sI70
+S''
+sI71
+S'from .base import SQLAdapter, NoSQLAdapter'
+p232
+sI62
+S'    def wrap(*args, **kwargs):'
+p233
+sI63
+S'        if not args[0].connection:'
+p234
+ssg89
+S'(*args=(<pydal.adapters.sqlite.SQLite object>, \'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\'), **kwargs={})'
+p235
+sg91
+S'wrap'
+p236
+sa(dp237
+g68
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py'
+p238
+sg70
+(dp239
+S'rv'
+p240
+g97
+sS'self'
+p241
+S'<pydal.adapters.sqlite.SQLite object>'
+p242
+sS'args'
+p243
+S'(\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\',)'
+p244
+sS'self.cursor'
+p245
+S'<sqlite3.Cursor object>'
+p246
+sS'command'
+p247
+S'\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\''
+p248
+sS'self.cursor.execute'
+p249
+S'<built-in method execute of sqlite3.Cursor object>'
+p250
+sS'kwargs'
+p251
+g21
+ssg76
+I413
+sg77
+(dp252
+I416
+S'        return rv'
+p253
+sI417
+S''
+sI408
+S'    def execute(self, *args, **kwargs):'
+p254
+sI409
+S'        command = self.filter_sql_command(args[0])'
+p255
+sI410
+S'        handlers = self._build_handlers_for_execution()'
+p256
+sI411
+S'        for handler in handlers:'
+p257
+sI412
+S'            handler.before_execute(command)'
+p258
+sI413
+S'        rv = self.cursor.execute(command, *args[1:], **kwargs)'
+p259
+sI414
+S'        for handler in handlers:'
+p260
+sI415
+S'            handler.after_execute(command)'
+p261
+ssg89
+S'(self=<pydal.adapters.sqlite.SQLite object>, *args=(\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\',), **kwargs={})'
+p262
+sg91
+S'execute'
+p263
+sasS'pyver'
+p264
+S'Python 2.7.12: /usr/local/bin/uwsgi (prefix: /usr)'
+p265
+sS'session'
+p266
+g63
+(S's\x1a\x00\x00\x00<div><table></table></div>'
+tRp267
+sS'etype'
+p268
+S"<class 'sqlite3.OperationalError'>"
+p269
+sS'date'
+p270
+S'Wed Nov 18 19:47:12 2020'
+p271
+sS'response'
+p272
+g63
+(S's\xd8;\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7f2cf61f2298&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_datalake</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-4e8e0247-3beb-41ef-a9b1-55ce409195e1<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>bootstrap4_inline</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/datalake</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>My Sites</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/site</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>This App</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Design</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/design/datalake</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Controller</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/controllers/default.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>View</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/views/default/api.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>DB Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/models/db.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Menu Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/models/menu.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Config.ini</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/private/appconfig.ini</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Layout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/views/layout.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Stylesheet</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/static/css/web2py-bootstrap3.css</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/datalake/appadmin</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Errors</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/errors/datalake</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>About</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/about/datalake</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>web2py.com</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Download</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/download</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Support</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/support</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Demo</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/demo_admin</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Quick Examples</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/examples/default/examples</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>FAQ</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/AlterEgo</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Videos</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/videos/</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Free Applications</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/appliances</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Plugins</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/plugins</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2pyslices.com/</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Documentation</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Online book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Preface</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/00</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Introduction</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/01</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Python</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/02</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Overview</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/03</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>The Core</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/04</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>The Views</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/05</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/06</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Forms and Validators</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/07</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Email and SMS</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/08</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Access Control</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/09</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Services</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/10</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Ajax Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/11</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Components and Plugins</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/12</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Deployment Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/13</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Other Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/14</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Helping web2py</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/15</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Buy web2py\'s book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://stores.lulu.com/web2py</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Community</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>None</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Groups</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/usergroups</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Twitter</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://twitter.com/web2py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Live Chat</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://webchat.freenode.net/?channels=web2py</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">description</td><td style="vertical-align:top;">:</td><td><div>a cool new app</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>web2py</div></td></tr><tr><td><div>python</div></td></tr><tr><td><div>framework</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^default/\\w+\\.py$</div></td></tr><tr><td><div>^default/api/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/datalake/sessions/188.80.231.143-4e8e0247-3beb-41ef-a9b1-55ce409195e1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>c0762cbf4baf7f9af97c051e7fcb8083</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-4e8e0247-3beb-41ef-a9b1-55ce409195e1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">show_toolbar</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>default/api.html</div></td></tr></table></div>'
+tRp273
+sS'locals'
+p274
+(dp275
+S'handlers'
+p276
+S'[<pydal.helpers.classes.TimingHandler object>]'
+p277
+sS'self'
+p278
+S'<pydal.adapters.sqlite.SQLite object>'
+p279
+sg48
+S'(\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\',)'
+p280
+sS'handler'
+p281
+S'<pydal.helpers.classes.TimingHandler object>'
+p282
+sS'command'
+p283
+S'\'ALTER TABLE "sensor2" ADD "tags" CHAR(512);\''
+p284
+sS'kwargs'
+p285
+g21
+sssS'traceback'
+p286
+S'Traceback (most recent call last):\n  File "/var/www/web2py/gluon/restricted.py", line 219, in restricted\n    exec(ccode, environment)\n  File "/var/www/web2py/applications/datalake/models/sensor2.py", line 12, in <module>\n    Field(\'tags\', \'string\', default=\'janela aberta\')\n  File "/var/www/web2py/gluon/packages/dal/pydal/base.py", line 590, in define_table\n    table = self.lazy_define_table(tablename, *fields, **kwargs)\n  File "/var/www/web2py/gluon/packages/dal/pydal/base.py", line 624, in lazy_define_table\n    polymodel=polymodel)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py", line 798, in create_table\n    return self.migrator.create_table(*args, **kwargs)\n  File "/var/www/web2py/gluon/packages/dal/pydal/migrator.py", line 315, in create_table\n    fake_migrate=fake_migrate\n  File "/var/www/web2py/gluon/packages/dal/pydal/migrator.py", line 448, in migrate_table\n    self.adapter.execute(sub_query)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/__init__.py", line 67, in wrap\n    return f(*args, **kwargs)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py", line 413, in execute\n    rv = self.cursor.execute(command, *args[1:], **kwargs)\nOperationalError: duplicate column name: tags\n'
+p287
+s.
