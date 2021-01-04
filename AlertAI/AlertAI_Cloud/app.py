@@ -3,6 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import os
 import pickle
+import glob
+import pandas as pd
+import joblib
+
 
 #init app
 app = Flask(__name__)
@@ -39,9 +43,9 @@ class Algorithm(db.Model):
 #class
 class Classification(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	value = db.Column(db.Integer, nullable=False)
 	capture_id = db.Column(db.Integer, nullable=False)
 	algorithm_id = db.Column(db.Integer, nullable=False)
+	value = db.Column(db.Integer, nullable=False)
 
 
 
@@ -52,6 +56,8 @@ if os.path.exists("alertai.db"):
 #Create all Models on database
 db.create_all()
 
+#Dictionary for Algorithms names and models
+AlgoDict = {}
 
 # Data to initialize database with
 Algorithms = [
@@ -60,20 +66,27 @@ Algorithms = [
     {"name": "RandomForest"},
 ]
 
-# iterate over the Algorithms structure and populate the database
-for alg in Algorithms:
-    a = Algorithm(name=alg.get("name"))
-    db.session.add(a)
-
-db.session.commit()
-
-
-
+def load_models(folder):
+	#Get all models to classify
+    list_algs = os.listdir(folder)
+    #Iterate over Algorithms to classify
+    for alg in list_algs:
+    	alg_file = folder+alg
+    	#model = pickle.load(open(alg_file, 'rb'))
+    	model = joblib.load(alg_file)
+    	name = alg.split(".")[0]
+    	AlgoDict[name] = model
+    	a = Algorithm(name=name)
+    	db.session.add(a)
+    	db.session.commit()
+ 
 #this function will classify received data
 # with all algorithms available
 def classify(model,data):
 	classification = model.predict(data)
-	return classification
+	return classification[0]
+
+
 
 
 
@@ -83,24 +96,21 @@ def index():
 	return "Simple API with Flask"
 
 
-@app.route('/capture',methods = ["GET","POST"])
+@app.route('/capture',methods = ["POST"])
 def insert_capture():
     req_data = request.get_json()
     capture = Capture(carId=req_data['carId'], carLocation=req_data['carLocation'], timeValue=req_data['timeValue'], pm25=req_data['pm25'],pm10=req_data['pm10'], temperature=req_data['temperature'], gas=req_data['gas'], humidity=req_data['humidity'],pressure=req_data['pressure'], altitude=req_data['altitude'])
     db.session.add(capture)
     db.session.commit()
-    """
-    data = ....
-    #Iterate over Algorithms to classify
-    for alg in Algorithms:
-    	a = Algorithm(name=alg.get("name"))
-    	model = pickle.load(open(folder+a+extension, 'rb'))
-    	class = classify(model,data)
-    	c = Classification(.... REVER POR CAUSA DOS IDS)
+    id_capture = capture.id
+    features = [capture.pm25,capture.pm10,capture.temperature,capture.gas,capture.humidity,capture.pressure]
+    data = pd.DataFrame([features])
+    for name in AlgoDict:
+    	classif = classify(AlgoDict[name],data)
+    	id_alg = list(AlgoDict.keys()).index(name)
+    	c = Classification(capture_id=id_capture,algorithm_id=id_alg,value=classif)
     	db.session.add(c)
     	db.session.commit()
-
- 	"""
 
     return "ok"
 
@@ -108,4 +118,7 @@ def insert_capture():
 
 
 if __name__ == "__main__":
+	if os.path.exists("demofile.txt"):
+		os.remove("demofile.txt")
+	load_models(folder)
 	app.run(debug=True, host='0.0.0.0',port=5000)

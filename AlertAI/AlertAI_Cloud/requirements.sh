@@ -17,7 +17,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 sudo apt install docker.io
 
-gcloud compute firewall-rules create alertaicloud --allow tcp:5000,icmp
+gcloud compute firewall-rules create alertaicloud --allow tcp:5000
 
 
 sudo docker build --force-rm -t alertai-cloud .

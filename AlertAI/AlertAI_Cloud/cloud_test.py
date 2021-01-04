@@ -1,7 +1,7 @@
 import requests
 
 #BASE = "http://localhost:5000/"
-BASE = "http://34.76.244.97:5000/"
+BASE = "http://35.187.57.30:5000/"
 
 json = {
 	   'carId': 'VP-35-44',
