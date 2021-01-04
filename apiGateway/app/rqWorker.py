@@ -10,13 +10,19 @@ from rq import Worker, Queue, Connection, Retry
 class Workers:
     def __init__(self):
         self.listen = ['default', 'connError']
-        self.redis_url = os.getenv('REDISTOGO_URL', 'redis://127.0.0.1:6379')
+        #self.redis_url = os.getenv('REDISTOGO_URL', 'redis://0.0.0.0:6379')
+        #self.redis_url = 'redis://0.0.0.0:6379'
+        #self.redis_url = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379')
+        #self.redis_url = 'redis://127.0.0.1:6379'
+        self.host="redis"
+        self.port=6379
         self.conn = None
         self.q = None
         self.connect()
 
     def connect(self):
-        self.conn = redis.from_url(self.redis_url)
+        #self.conn = redis.from_url(self.redis_url)
+        self.conn = redis.Redis(host=self.host, port=self.port, db=0)
         self.q = Queue(connection=self.conn)
 
     def queue(self, func, host, data):

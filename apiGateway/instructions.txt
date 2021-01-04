@@ -1,0 +1,32 @@
+1-Criar network:
+docker network create -d bridge peiNetwork
+
+2-Instalar e correr um redis-server container na mesma network:
+docker run -d --name redis --network="peiNetwork" -p 6379:6379 redis
+
+3-Build docker image:
+docker build -t apigateway .
+
+4-Run container:
+Tipo daemon:
+docker run -d --name apigateway --network="peiNetwork" -p 80:80 apigateway
+
+5-Correr um service worker py-rq em background pelo terminal do container:
+>docker exec -it apigateway bash
+>chmod +x worker.py
+>nohup python3 worker.py &
+(a partri daqui a correrá em background, sair com ctrl+c e exit)
+
+---
+
+Para parar: 
+docker stop apigateway
+
+Para voltar a correr:
+docker start apigateway
+
+Para ver o que está a correr:
+docker ps
+
+Entrar no terminal de um dos containers:
+docker exec -it nameContainer bash
