@@ -38,10 +38,6 @@ public class CarService {
         return this.carRepository.findById(carId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car does not exist."));
     }
 
-    public List<CarShowDto> getAllCars() {
-        return this.carRepository.findAll().stream().map(CarShowDto::new).collect(Collectors.toList());
-    }
-
     public CarShowDto getCarById(String authorizationToken, int carId) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
