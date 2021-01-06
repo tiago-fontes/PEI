@@ -330,8 +330,8 @@ export default {
       };
       axios
         .post(`${process.env.VUE_APP_ROOT_API}/car`, obj)
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
           this.resetForms();
           this.snackbar.show = true;
           this.snackbar.message = "Car successfully created";
@@ -339,7 +339,7 @@ export default {
           this.snackbar.color = "success";
         })
         .catch(err => {
-          console.log(err.response.data.message);
+          //console.log(err.response.data.message);
           this.resetForms();
           this.snackbar.show = true;
           this.snackbar.message =
@@ -368,7 +368,7 @@ export default {
 
       reader.onloadend = () => {
         this.photoBase64 = reader.result;
-        console.log(this.photoBase64);
+        //console.log(this.photoBase64);
       };
     }
   }

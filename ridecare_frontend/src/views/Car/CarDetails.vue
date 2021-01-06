@@ -152,21 +152,6 @@ import axios from "../../../axios";
 
 export default {
   name: "CarDetails",
-  created() {
-    this.$emit("update:layout", MainLayoutVue);
-  },
-  mounted() {
-    axios
-      .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
-      .then(res => {
-        this.car = res.data;
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => (this.loading = false));
-  },
   data() {
     return {
       loading: true,
@@ -197,6 +182,25 @@ export default {
         color: null
       }
     };
+  },
+  created() {
+    this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`)
+      .then(res => {
+        this.car = res.data;
+        //console.log(res.data);
+      })
+      .catch(err => {
+        //console.log(err);
+        this.snackbar.show = true;
+        this.snackbar.success = false;
+        this.snackbar.message = err;
+        this.snackbar.color = "error";
+      })
+      .finally(() => (this.loading = false));
   }
 };
 </script>

@@ -337,8 +337,8 @@ export default {
       let data = { password: this.changePasswordForm.newPassword };
       axios
         .patch(`${process.env.VUE_APP_ROOT_API}/user`, data)
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
           this.changePasswordDialog = false;
           this.changeSnackbar("Password successfully changed", "success");
         })
@@ -350,8 +350,8 @@ export default {
     changeProfile: function() {
       axios
         .patch(`${process.env.VUE_APP_ROOT_API}/user`, this.editUserForm)
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
           this.editUserDialog = false;
           this.changeSnackbar("Profile successfully changed", "success");
         })

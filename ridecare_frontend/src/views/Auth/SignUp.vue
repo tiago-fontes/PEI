@@ -139,7 +139,7 @@ export default {
         password: this.password,
         companyName: this.companyName
       });
-      console.log("user is ->", user);
+      //console.log("user is ->", user);
 
       if (user.error) {
         this.errorMsg = user.error;

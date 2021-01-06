@@ -121,7 +121,7 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        console.log(res);
+        //console.log(res);
         let cars = res.data;
         this.cars = cars.map(car => {
           return {
@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     deleteItem(item) {
-      console.log(item);
+      //console.log(item);
       this.deleteLicensePlate = item.licensePlate;
       this.dialogDelete = true;
     },

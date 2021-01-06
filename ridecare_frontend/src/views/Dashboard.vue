@@ -134,7 +134,8 @@ export default {
       offlineCars: [],
       anomalies: [],
       anomaliesByMonth: [3, 3, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3],
-      anomaliesByClassification: []
+      anomaliesByClassification: [],
+      error: null
     };
   },
   created() {
@@ -144,7 +145,7 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        console.log(res);
+        //console.log(res);
         this.cars = res.data;
         res.data.map(car => {
           if (car.status.status == "OFFLINE") {
@@ -155,7 +156,8 @@ export default {
         });
       })
       .catch(err => {
-        console.log(err.response);
+        //console.log(err.response);
+        this.error = err;
       })
       .finally(() => (this.loading = false));
 
@@ -167,7 +169,8 @@ export default {
         this.getAnomaliesByMonth();
       })
       .catch(err => {
-        console.log(err);
+        //console.log(err);
+        this.error = err;
       })
       .finally(() => (this.loading = false));
   },
@@ -176,11 +179,12 @@ export default {
       axios
         .get(`${process.env.VUE_APP_ROOT_API}/car/online`)
         .then(res => {
-          console.log(res);
+          //console.log(res);
           this.cars = res.data;
         })
         .catch(err => {
-          console.log(err.response);
+          //console.log(err.response);
+          this.error = err;
         })
         .finally(() => (this.loading = false));
     },
@@ -188,11 +192,12 @@ export default {
       axios
         .get(`${process.env.VUE_APP_ROOT_API}/car/offline`)
         .then(res => {
-          console.log(res);
+          //console.log(res);
           this.cars = res.data;
         })
         .catch(err => {
-          console.log(err.response);
+          //console.log(err.response);
+          this.error = err;
         })
         .finally(() => (this.loading = false));
     },
@@ -229,7 +234,7 @@ export default {
         let anomalyDate = new Date(this.anomalies[i].measurements[0].timeValue);
 
         if (year == anomalyDate.getFullYear()) {
-          console.log(anomalyDate.getMonth());
+          //console.log(anomalyDate.getMonth());
           if (this.anomaliesByMonth[anomalyDate.getMonth()] == undefined) {
             this.anomaliesByMonth[anomalyDate.getMonth()] = 1;
           } else {

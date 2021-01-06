@@ -72,21 +72,6 @@ import axios from "../../../axios";
 
 export default {
   name: "AnomalyDetails",
-  created() {
-    this.$emit("update:layout", MainLayoutVue);
-  },
-  mounted() {
-    axios
-      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
-      .then(res => {
-        console.log(res.data);
-        this.anomalies = res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => (this.loading = false));
-  },
   data() {
     return {
       loading: true,
@@ -122,6 +107,25 @@ export default {
         color: null
       }
     };
+  },
+  created() {
+    this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
+      .then(res => {
+        //console.log(res.data);
+        this.anomalies = res.data;
+      })
+      .catch(err => {
+        //console.log(err);
+        this.snackbar.show = true;
+        this.snackbar.success = false;
+        this.snackbar.message = err;
+        this.snackbar.color = "error";
+      })
+      .finally(() => (this.loading = false));
   }
 };
 </script>

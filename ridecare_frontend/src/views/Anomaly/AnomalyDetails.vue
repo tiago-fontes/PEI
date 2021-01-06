@@ -138,23 +138,6 @@ import axios from "../../../axios";
 export default {
   name: "AnomalyDetails",
   components: { ValueDetails, GeographicDetails, LineChart },
-  created() {
-    this.$emit("update:layout", MainLayoutVue);
-  },
-  mounted() {
-    axios
-      .get(
-        `${process.env.VUE_APP_ROOT_API}/anomaly/${this.$route.params.anomalyID}/detailed`
-      )
-      .then(res => {
-        this.anomaly = res.data;
-        this.transformResponse(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => (this.loading = false));
-  },
   data() {
     return {
       loading: true,
@@ -193,6 +176,27 @@ export default {
         temperature: []
       }
     };
+  },
+  created() {
+    this.$emit("update:layout", MainLayoutVue);
+  },
+  mounted() {
+    axios
+      .get(
+        `${process.env.VUE_APP_ROOT_API}/anomaly/${this.$route.params.anomalyID}/detailed`
+      )
+      .then(res => {
+        this.anomaly = res.data;
+        this.transformResponse(res.data);
+      })
+      .catch(err => {
+        //console.log(err);
+        this.snackbar.show = true;
+        this.snackbar.success = false;
+        this.snackbar.message = err;
+        this.snackbar.color = "error";
+      })
+      .finally(() => (this.loading = false));
   },
   methods: {
     transformResponse(data) {
@@ -277,15 +281,15 @@ export default {
         .patch(
           `${process.env.VUE_APP_ROOT_API}/anomaly/${this.$route.params.anomalyID}/viewed`
         )
-        .then(res => {
-          console.log(res.data);
+        .then(() => {
+          //console.log(res.data);
           this.snackbar.show = true;
           this.snackbar.success = true;
           this.snackbar.message = "Event/Anomaly Marked as seen ";
           this.snackbar.color = "success";
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
           this.snackbar.show = true;
           this.snackbar.success = false;
           this.snackbar.message = err;

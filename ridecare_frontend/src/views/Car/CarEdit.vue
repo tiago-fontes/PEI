@@ -348,7 +348,11 @@ export default {
           this.rideCareDeviceForm.rideCareDeviceId = carInfo.sensorId;
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
+          this.snackbar.show = true;
+          this.snackbar.message = err;
+          this.snackbar.success = false;
+          this.snackbar.color = "error";
         })
         .finally(() => (this.loading = false));
     },
@@ -374,8 +378,8 @@ export default {
           `${process.env.VUE_APP_ROOT_API}/car/${this.$route.params.carID}`,
           obj
         )
-        .then(res => {
-          console.log("THEN", res);
+        .then(() => {
+          //console.log("THEN", res);
 
           this.stepper = 1;
 
@@ -385,7 +389,7 @@ export default {
           this.snackbar.color = "success";
         })
         .catch(err => {
-          console.log("ERR", err);
+          //console.log("ERR", err);
 
           this.stepper = 1;
 
@@ -406,7 +410,7 @@ export default {
 
       reader.onloadend = () => {
         this.photoBase64 = reader.result;
-        console.log(this.photoBase64);
+        //console.log(this.photoBase64);
       };
     }
   }
