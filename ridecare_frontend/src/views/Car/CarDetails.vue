@@ -124,8 +124,8 @@
               <template v-slot:[`item.actions`]="{ item }">
                 <router-link
                   :to="{
-                    name: 'CarDetails',
-                    params: { carID: item.id }
+                    name: 'AnomalyDetails',
+                    params: { anomalyID: item.id }
                   }"
                 >
                   <v-btn
@@ -182,7 +182,8 @@ export default {
           sortable: false,
           value: "measurements[0].timeValue",
           align: "center"
-        }
+        },
+        { text: "", value: "actions", sortable: false }
       ],
       car: {
         status: {}
