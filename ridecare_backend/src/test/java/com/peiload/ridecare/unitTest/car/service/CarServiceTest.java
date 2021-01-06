@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CarServiceTest {
+class CarServiceTest {
 
     @Mock
     private JwtTokenUtil jwtTokenUtilMock;
@@ -74,24 +74,11 @@ public class CarServiceTest {
 
     @Test
     void findByIdWhenCarDoesntExist_shouldRaiseAnException() {
-        when(carRepositoryMock.findById(any())).thenReturn((Optional.ofNullable(null)));
+        when(carRepositoryMock.findById(any())).thenReturn((Optional.empty()));
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.findById(0));
 
         assertEquals(HttpStatus.BAD_REQUEST.toString() + " \"Car does not exist.\"", exception.getMessage());
-    }
-
-    @Test
-    void getAllCars_happyPath() {
-        List<Car> carList = TestCar.getCarList();
-        when(carRepositoryMock.findAll()).thenReturn(carList);
-
-        List<CarShowDto> result = testObj.getAllCars();
-
-        assertNotNull(result);
-        assertEquals(carList.size(), result.size());
-        assertEquals(carList.get(0).getId(), result.get(0).getId());
-        assertEquals(carList.get(1).getId(), result.get(1).getId());
     }
 
     @Test
@@ -114,7 +101,7 @@ public class CarServiceTest {
     void createCar_happyPath() {
         User user1 = TestUser.getUser1();
         CarCreateDto car1 = TestCar.getCarCreateDto1();
-        when(carRepositoryMock.findByLicensePlate(car1.getLicensePlate())).thenReturn(Optional.ofNullable(null));
+        when(carRepositoryMock.findByLicensePlate(car1.getLicensePlate())).thenReturn(Optional.empty());
         when(jwtTokenUtilMock.getEmailFromAuthorizationString("Bearer Token")).thenReturn(user1.getEmail());
         when(userServiceMock.findByEmail(user1.getEmail())).thenReturn(user1);
 
