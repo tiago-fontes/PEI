@@ -20,7 +20,7 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
 #DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
-DATALAKE_HOST = "http://34.105.216.153/datalake/api"
+DATALAKE_HOST = "http://34.105.216.153/datalake/default/api"
 SENSORS_HOST = DATALAKE_HOST + "/sensors"
 BOOT_HOST = DATALAKE_HOST + "/raspberry"
 
