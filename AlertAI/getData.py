@@ -22,11 +22,11 @@ def getRawData():
         exit()
         
     r.raw.decode_content = True
-    with open("data/raw_data.csv", 'wb') as f1:
+    with open("data/raw_data_06_01.csv", 'wb') as f1:
         shutil.copyfileobj(r.raw, f1)
     print("Success. Data from both sensors collected")
 
 if __name__ == '__main__':
     getRawData()
-    df = pd.read_csv("data/raw_data.csv")
+    #df = pd.read_csv("data/raw_data.csv")
     #print(df.head())
