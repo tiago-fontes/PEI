@@ -5,9 +5,6 @@
 API router
 """
 
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-
 import requests
 from flask import Blueprint, request, Response, jsonify
 from flask_httpauth import HTTPTokenAuth, HTTPBasicAuth
@@ -22,7 +19,8 @@ from app import app
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
-DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
+#DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
+DATALAKE_HOST = "http://34.105.216.153/datalake/api"
 SENSORS_HOST = DATALAKE_HOST + "/sensors"
 BOOT_HOST = DATALAKE_HOST + "/raspberry"
 
