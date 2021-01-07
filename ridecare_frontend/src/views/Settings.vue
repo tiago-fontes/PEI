@@ -21,18 +21,22 @@
             <v-card width="100%" elevation="0">
               <v-card-text>
                 <v-row>
-                  <span class="font-weight-bold">
-                    Email:
-                    <span class="font-weight-light">{{ this.email }}</span>
-                  </span>
+                  <v-col cols="12">
+                    <span class="font-weight-bold">
+                      Email:
+                      <span class="font-weight-light">{{ this.email }}</span>
+                    </span>
+                  </v-col>
                 </v-row>
                 <v-row>
-                  <span class="font-weight-bold">
-                    Company Name:
-                    <span class="font-weight-light">{{
-                      this.companyName
-                    }}</span>
-                  </span>
+                  <v-col cols="12">
+                    <span class="font-weight-bold">
+                      Company Name:
+                      <span class="font-weight-light">{{
+                        this.companyName
+                      }}</span>
+                    </span>
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -246,16 +250,20 @@
             <v-card width="100%" elevation="0">
               <v-card-text>
                 <v-row>
-                  <span class="font-weight-bold">
-                    Version:
-                    <span class="font-weight-light">1.0.0</span>
-                  </span>
+                  <v-col cols="12">
+                    <span class="font-weight-bold">
+                      Version:
+                      <span class="font-weight-light">1.0.0</span>
+                    </span>
+                  </v-col>
                 </v-row>
                 <v-row>
-                  <span class="font-weight-bold">
-                    Last Update:
-                    <span class="font-weight-light">2020-12-01</span>
-                  </span>
+                  <v-col cols="12">
+                    <span class="font-weight-bold">
+                      Last Update:
+                      <span class="font-weight-light">2020-12-01</span>
+                    </span>
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
