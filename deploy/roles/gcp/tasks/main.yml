@@ -38,6 +38,7 @@
     allowed:
       - ip_protocol: tcp
         ports:
+          - '3000'
           - '8080'
       - ip_protocol: icmp
     network:
@@ -53,6 +54,7 @@
     allowed:
       - ip_protocol: tcp
         ports:
+          - '3000'
           - '8080'
     source_ranges:
       - 10.128.0.0/9

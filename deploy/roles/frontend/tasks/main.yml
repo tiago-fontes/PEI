@@ -1,0 +1,28 @@
+- name: Copy ridecare_frontend directory
+  copy:
+    src: ../ridecare_frontend
+    dest: /
+
+- debug:
+    msg: "backend_ip {{ backend_ip }} with port {{ backend_port }}"
+
+- name: Build ridecare_frontend Dockerfile 
+  docker_image:
+    name: ridecare_frontend_image
+    build:
+      path: /ridecare_frontend/Dockerfile
+      args:
+        VUE_APP_ROOT_API: "{{ backend_ip }}--{{backend_port}}"
+    source: build     
+    state: present
+
+- name: Run ridecare_frontend
+  docker_container:
+    name: ridecare_frontend_container
+    recreate: yes
+    published_ports:   
+      - "3000:80"
+    image: ridecare_frontend_image
+
+- name: Check if container is running
+  shell: docker ps
