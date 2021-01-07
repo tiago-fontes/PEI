@@ -105,7 +105,8 @@ const routes = [
   },
   {
     path: "*",
-    redirect: "/404"
+    redirect: "/404",
+    component: NotFound
   }
 ];
 

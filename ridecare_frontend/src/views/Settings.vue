@@ -17,9 +17,9 @@
       </v-row>
       <v-row>
         <v-col class="py-0">
-          <v-card width="100%" elevation="0">
-            <v-card-text>
-              <v-container>
+          <v-container>
+            <v-card width="100%" elevation="0">
+              <v-card-text>
                 <v-row>
                   <span class="font-weight-bold">
                     Email:
@@ -34,210 +34,202 @@
                     }}</span>
                   </span>
                 </v-row>
-                <v-row>
-                  <!-- EDIT USER DIALOG -->
-                  <v-col cols="12">
-                    <v-dialog
-                      v-model="editUserDialog"
-                      persistent
-                      max-width="600px"
+              </v-card-text>
+            </v-card>
+            <v-row>
+              <!-- EDIT USER DIALOG -->
+              <v-col cols="12">
+                <v-dialog v-model="editUserDialog" persistent max-width="600px">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      tile
+                      block
+                      outlined
+                      color="primary"
+                      class="text-capitalize"
+                      v-on="on"
+                      >Edit</v-btn
                     >
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          tile
-                          block
-                          outlined
-                          color="primary"
-                          class="text-capitalize"
-                          v-on="on"
-                          >Edit</v-btn
-                        >
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span
-                            class="text-center text-sm-left text-h6 font-weight-bold"
-                            >Change Profile</span
-                          >
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-form @submit.prevent="changeProfile">
-                              <v-row>
-                                <v-col cols="11">
-                                  <v-text-field
-                                    v-model="editUserForm.email"
-                                    label="Email"
-                                    type="text"
-                                    color="primary"
-                                    :disabled="!editUserForm.emailInputEnabled"
-                                  />
-                                </v-col>
-                                <v-col cols="1" align-self="center">
-                                  <v-icon
-                                    @click="
-                                      editUserForm.emailInputEnabled = !editUserForm.emailInputEnabled
-                                    "
-                                  >
-                                    {{
-                                      editUserForm.emailInputEnabled
-                                        ? "mdi-close"
-                                        : "mdi-pencil"
-                                    }}
-                                  </v-icon>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="11">
-                                  <v-text-field
-                                    v-model="editUserForm.companyName"
-                                    label="Company Name"
-                                    type="text"
-                                    color="primary"
-                                    :disabled="
-                                      !editUserForm.compNameInputEnabled
-                                    "
-                                  />
-                                </v-col>
-                                <v-col cols="1" align-self="center">
-                                  <v-icon
-                                    @click="
-                                      editUserForm.compNameInputEnabled = !editUserForm.compNameInputEnabled
-                                    "
-                                  >
-                                    {{
-                                      editUserForm.compNameInputEnabled
-                                        ? "mdi-close"
-                                        : "mdi-pencil"
-                                    }}
-                                  </v-icon>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-btn
-                                  text
-                                  small
-                                  color="primary"
-                                  class="text-capitalize"
-                                  @click="editUserDialog = false"
-                                >
-                                  Close
-                                </v-btn>
-                                <v-btn
-                                  tile
-                                  small
-                                  color="primary"
-                                  class="text-capitalize"
-                                  type="submit"
-                                >
-                                  Save
-                                </v-btn>
-                              </v-row>
-                            </v-form>
-                          </v-container>
-                        </v-card-text>
-                      </v-card>
-                    </v-dialog>
-                  </v-col>
-                  <!-- CHANGE PASSWORD DIALOG -->
-                  <v-col cols="12" class="pt-0">
-                    <v-dialog
-                      v-model="changePasswordDialog"
-                      persistent
-                      max-width="600px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          tile
-                          block
-                          color="primary"
-                          class="text-capitalize"
-                          v-on="on"
-                          >Change Password</v-btn
-                        >
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span
-                            class="text-center text-sm-left text-h6 font-weight-bold"
-                            >Change Password</span
-                          >
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-form
-                              ref="changePwdForm"
-                              v-model="changePasswordForm.validity"
-                              @submit.prevent="changePassword"
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span
+                        class="text-center text-sm-left text-h6 font-weight-bold"
+                        >Change Profile</span
+                      >
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-form @submit.prevent="changeProfile">
+                          <v-row>
+                            <v-col cols="11">
+                              <v-text-field
+                                v-model="editUserForm.email"
+                                label="Email"
+                                type="text"
+                                color="primary"
+                                :disabled="!editUserForm.emailInputEnabled"
+                              />
+                            </v-col>
+                            <v-col cols="1" align-self="center">
+                              <v-icon
+                                @click="
+                                  editUserForm.emailInputEnabled = !editUserForm.emailInputEnabled
+                                "
+                              >
+                                {{
+                                  editUserForm.emailInputEnabled
+                                    ? "mdi-close"
+                                    : "mdi-pencil"
+                                }}
+                              </v-icon>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="11">
+                              <v-text-field
+                                v-model="editUserForm.companyName"
+                                label="Company Name"
+                                type="text"
+                                color="primary"
+                                :disabled="!editUserForm.compNameInputEnabled"
+                              />
+                            </v-col>
+                            <v-col cols="1" align-self="center">
+                              <v-icon
+                                @click="
+                                  editUserForm.compNameInputEnabled = !editUserForm.compNameInputEnabled
+                                "
+                              >
+                                {{
+                                  editUserForm.compNameInputEnabled
+                                    ? "mdi-close"
+                                    : "mdi-pencil"
+                                }}
+                              </v-icon>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-btn
+                              text
+                              small
+                              color="primary"
+                              class="text-capitalize"
+                              @click="editUserDialog = false"
                             >
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-text-field
-                                    v-model="changePasswordForm.actualPassword"
-                                    label="Actual Password"
-                                    type="password"
-                                    color="primary"
-                                    required
-                                  />
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-text-field
-                                    v-model="changePasswordForm.newPassword"
-                                    label="New Password"
-                                    type="password"
-                                    color="primary"
-                                    required
-                                    :rules="changePasswordForm.passwordRules"
-                                  />
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-text-field
-                                    v-model="
-                                      changePasswordForm.repeatNewPassword
-                                    "
-                                    label="Repeat New Password"
-                                    type="password"
-                                    color="primary"
-                                    required
-                                    :rules="[passwordConfirmationRule]"
-                                  />
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-btn
-                                  text
-                                  small
-                                  color="primary"
-                                  class="text-capitalize"
-                                  @click="changePasswordDialog = false"
-                                >
-                                  Close
-                                </v-btn>
-                                <v-btn
-                                  tile
-                                  small
-                                  color="primary"
-                                  class="text-capitalize bl-1"
-                                  type="submit"
-                                  :disabled="!changePasswordForm.validity"
-                                >
-                                  Save
-                                </v-btn>
-                              </v-row>
-                            </v-form>
-                          </v-container>
-                        </v-card-text>
-                      </v-card>
-                    </v-dialog>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-          </v-card>
+                              Close
+                            </v-btn>
+                            <v-btn
+                              tile
+                              small
+                              color="primary"
+                              class="text-capitalize"
+                              type="submit"
+                            >
+                              Save
+                            </v-btn>
+                          </v-row>
+                        </v-form>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <!-- CHANGE PASSWORD DIALOG -->
+              <v-col cols="12" class="pt-0">
+                <v-dialog
+                  v-model="changePasswordDialog"
+                  persistent
+                  max-width="600px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      tile
+                      block
+                      color="primary"
+                      class="text-capitalize"
+                      v-on="on"
+                      >Change Password</v-btn
+                    >
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span
+                        class="text-center text-sm-left text-h6 font-weight-bold"
+                        >Change Password</span
+                      >
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-form
+                          ref="changePwdForm"
+                          v-model="changePasswordForm.validity"
+                          @submit.prevent="changePassword"
+                        >
+                          <v-row>
+                            <v-col cols="12">
+                              <v-text-field
+                                v-model="changePasswordForm.actualPassword"
+                                label="Actual Password"
+                                type="password"
+                                color="primary"
+                                required
+                              />
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-text-field
+                                v-model="changePasswordForm.newPassword"
+                                label="New Password"
+                                type="password"
+                                color="primary"
+                                required
+                                :rules="changePasswordForm.passwordRules"
+                              />
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-text-field
+                                v-model="changePasswordForm.repeatNewPassword"
+                                label="Repeat New Password"
+                                type="password"
+                                color="primary"
+                                required
+                                :rules="[passwordConfirmationRule]"
+                              />
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-btn
+                              text
+                              small
+                              color="primary"
+                              class="text-capitalize"
+                              @click="changePasswordDialog = false"
+                            >
+                              Close
+                            </v-btn>
+                            <v-btn
+                              tile
+                              small
+                              color="primary"
+                              class="text-capitalize bl-1"
+                              type="submit"
+                              :disabled="!changePasswordForm.validity"
+                            >
+                              Save
+                            </v-btn>
+                          </v-row>
+                        </v-form>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-col>
       </v-row>
       <v-row>
@@ -250,24 +242,24 @@
       </v-row>
       <v-row>
         <v-col class="py-0">
-          <v-card width="100%" elevation="0">
-            <v-card-text>
-              <v-container>
+          <v-container>
+            <v-card width="100%" elevation="0">
+              <v-card-text>
                 <v-row>
                   <span class="font-weight-bold">
-                    Version
+                    Version:
                     <span class="font-weight-light">1.0.0</span>
                   </span>
                 </v-row>
                 <v-row>
                   <span class="font-weight-bold">
-                    Last Update
+                    Last Update:
                     <span class="font-weight-light">2020-12-01</span>
                   </span>
                 </v-row>
-              </v-container>
-            </v-card-text>
-          </v-card>
+              </v-card-text>
+            </v-card>
+          </v-container>
         </v-col>
       </v-row>
     </v-container>
