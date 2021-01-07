@@ -130,7 +130,7 @@ class CarServiceTest {
 
         Throwable exception = assertThrows(ResponseStatusException.class, () -> testObj.createCar("Bearer Token", carCreateDto));
 
-        assertEquals(HttpStatus.FORBIDDEN.toString() +  " \"There's already a car with this license plate.\"", exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.toString() +  " \"There's already a car with this license plate.\"", exception.getMessage());
     }
 
     @Test
