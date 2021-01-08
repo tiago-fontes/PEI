@@ -10,7 +10,7 @@
   docker_image:
     name: ridecare_frontend_image
     build:
-      path: /ridecare_frontend/Dockerfile
+      path: /ridecare_frontend/
       args:
         VUE_APP_ROOT_API: "{{ backend_ip }}--{{backend_port}}"
     source: build     
