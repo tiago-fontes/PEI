@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VUE_APP_ROOT_API: http://localhost:8080
+        VUE_APP_ROOT_API: http://35.247.41.216:8080
     container_name: ridecare_frontend
     ports:
       - 3000:80
