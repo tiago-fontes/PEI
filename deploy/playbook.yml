@@ -16,10 +16,13 @@
         disk_size: 20
         disks:
           - disk-01
+          - disk-02
         addresses:
           - addr-01
+          - addr-02
         instances:
           - { index: 1, tag: backend, name: backend } 
+          - { index: 2, tag: frontend, name: frontend } 
 
 
 - hosts: all
@@ -34,3 +37,13 @@
   become: yes
   roles:
     - role: backend
+
+- hosts: frontend
+  gather_facts: yes
+  become: yes
+  roles:
+    - {
+      role: frontend,
+      backend_ip: "{{ groups['backend'][0] }}",
+      backend_port: "8080"
+      }
