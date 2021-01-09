@@ -96,4 +96,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-navigation-drawer,
+.v-navigation-drawer--is-mobile,
+.v-navigation-drawer--open {
+  z-index: 1001;
+}
+</style>

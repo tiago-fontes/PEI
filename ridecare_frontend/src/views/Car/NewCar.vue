@@ -209,26 +209,28 @@
       </v-row>
 
       <v-row justify="end">
-        <v-btn
-          tile
-          color="primary"
-          class="text-capitalize"
-          :disabled="
-            !carMainInfoFormValidity || !carCharacteristicsFormValidity
-          "
-          @click="saveCar"
-        >
-          Save
-        </v-btn>
-        <v-btn
-          tile
-          outlined
-          color="warning"
-          class="text-capitalize ml-4"
-          @click="cancelNewCar"
-        >
-          Cancel
-        </v-btn>
+        <v-col cols="12" class="d-flex justify-end">
+          <v-btn
+            tile
+            color="primary"
+            class="text-capitalize"
+            :disabled="
+              !carMainInfoFormValidity || !carCharacteristicsFormValidity
+            "
+            @click="saveCar"
+          >
+            Save
+          </v-btn>
+          <v-btn
+            tile
+            outlined
+            color="warning"
+            class="text-capitalize ml-4"
+            @click="cancelNewCar"
+          >
+            Cancel
+          </v-btn>
+        </v-col>
       </v-row>
     </v-container>
     <v-snackbar
