@@ -51,7 +51,7 @@ class Classification(db.Model):
 
 # Delete database file if it exists currently
 if os.path.exists("alertai.db"):
-    os.remove("alertai.db")
+	os.remove("alertai.db")
 
 #Create all Models on database
 db.create_all()
@@ -61,24 +61,24 @@ AlgoDict = {}
 
 # Data to initialize database with
 Algorithms = [
-    {"name": "SVM"},
-    {"name": "NaiveBayes"},
-    {"name": "RandomForest"},
+	{"name": "SVM"},
+	{"name": "NaiveBayes"},
+	{"name": "RandomForest"},
 ]
 
 def load_models(folder):
 	#Get all models to classify
-    list_algs = os.listdir(folder)
-    #Iterate over Algorithms to classify
-    for alg in list_algs:
-    	alg_file = folder+alg
-    	#model = pickle.load(open(alg_file, 'rb'))
-    	model = joblib.load(alg_file)
-    	name = alg.split(".")[0]
-    	AlgoDict[name] = model
-    	a = Algorithm(name=name)
-    	db.session.add(a)
-    	db.session.commit()
+	list_algs = os.listdir(folder)
+	#Iterate over Algorithms to classify
+	for alg in list_algs:
+		alg_file = folder+alg
+		#model = pickle.load(open(alg_file, 'rb'))
+		model = joblib.load(alg_file)
+		name = alg.split(".")[0]
+		AlgoDict[name] = model
+		a = Algorithm(name=name)
+		db.session.add(a)
+		db.session.commit()
  
 #this function will classify received data
 # with all algorithms available
@@ -98,21 +98,21 @@ def index():
 
 @app.route('/capture',methods = ["POST"])
 def insert_capture():
-    req_data = request.get_json()
-    capture = Capture(carId=req_data['carId'], carLocation=req_data['carLocation'], timeValue=req_data['timeValue'], pm25=req_data['pm25'],pm10=req_data['pm10'], temperature=req_data['temperature'], gas=req_data['gas'], humidity=req_data['humidity'],pressure=req_data['pressure'], altitude=req_data['altitude'])
-    db.session.add(capture)
-    db.session.commit()
-    id_capture = capture.id
-    features = [capture.pm25,capture.pm10,capture.temperature,capture.gas,capture.humidity,capture.pressure]
-    data = pd.DataFrame([features])
-    for name in AlgoDict:
-    	classif = classify(AlgoDict[name],data)
-    	id_alg = list(AlgoDict.keys()).index(name)
-    	c = Classification(capture_id=id_capture,algorithm_id=id_alg,value=classif)
-    	db.session.add(c)
-    	db.session.commit()
+	req_data = request.get_json()
+	capture = Capture(carId=req_data['carId'], carLocation=req_data['carLocation'], timeValue=req_data['timeValue'], pm25=req_data['pm25'],pm10=req_data['pm10'], temperature=req_data['temperature'], gas=req_data['gas'], humidity=req_data['humidity'],pressure=req_data['pressure'], altitude=req_data['altitude'])
+	db.session.add(capture)
+	db.session.commit()
+	id_capture = capture.id
+	features = [capture.pm25,capture.pm10,capture.temperature,capture.gas,capture.humidity,capture.pressure]
+	data = pd.DataFrame([features])
+	for name in AlgoDict:
+		classif = int(classify(AlgoDict[name],data))
+		id_alg = list(AlgoDict.keys()).index(name)
+		c = Classification(capture_id=id_capture,algorithm_id=id_alg,value=classif)
+		db.session.add(c)
+		db.session.commit()
 
-    return "ok"
+	return "ok"
 
 
 
