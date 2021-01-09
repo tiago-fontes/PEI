@@ -6,13 +6,16 @@
 - debug:
     msg: "backend_ip {{ backend_ip }} with port {{ backend_port }}"
 
+- debug:
+    msg: "backend {{ backend_ip }}:{{backend_port}}"
+
 - name: Build ridecare_frontend Dockerfile 
   docker_image:
     name: ridecare_frontend_image
     build:
       path: /ridecare_frontend/
       args:
-        VUE_APP_ROOT_API: "{{ backend_ip }}--{{backend_port}}"
+        VUE_APP_ROOT_API: "http://{{ backend_ip }}:{{backend_port}}"
     source: build     
     state: present
 
