@@ -1,6 +1,9 @@
 FROM node:latest as build-stage
 WORKDIR /app
-ENV VUE_APP_ROOT_API="http://localhost:8080"
+
+ARG VUE_APP_ROOT_API
+ENV VUE_APP_ROOT_API=$VUE_APP_ROOT_API
+
 COPY package*.json ./
 RUN yarn install
 COPY ./ .
