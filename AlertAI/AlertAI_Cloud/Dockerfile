@@ -1,8 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
+    apt install -y python3-pip python-dev
 
 WORKDIR /app
 
@@ -10,7 +9,14 @@ RUN pip install flask
 
 RUN pip install flask-sqlalchemy
 
+RUN pip install pandas
+
+RUN pip install sklearn
+
+RUN pip install joblib
+
 RUN apt install sqlite3
+
 
 COPY . /app
 
