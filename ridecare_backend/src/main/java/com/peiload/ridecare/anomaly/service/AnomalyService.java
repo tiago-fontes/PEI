@@ -42,8 +42,8 @@ public class AnomalyService {
     private final UserService userService;
     private final CarService carService;
 
-    @Value("${ridecare.datalake.link}")
-    public String datalakeLink;
+    @Value("${ridecare.datalake.url}")
+    public String datalakeURL;
 
     public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
@@ -177,7 +177,7 @@ public class AnomalyService {
 
         long secs = (date.getTime())/1000;
 
-        String url = datalakeLink + path + "/"+ licensePlate + "/" + secs + "/" + numberOfMeasurements;
+        String url = datalakeURL + path + "/"+ licensePlate + "/" + secs + "/" + numberOfMeasurements;
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
