@@ -31,6 +31,8 @@
 ## Run Application
 
 - On the backend_deploy directory:
+		
+		export ANSIBLE_HOST_KEY_CHECKING=False
 
 		ansible-playbook playbook.yml
 
