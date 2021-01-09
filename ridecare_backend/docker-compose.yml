@@ -21,6 +21,11 @@ services:
     build:
       context: .
       dockerfile: dockerfile
+    environment:
+      DB_USER: ridecare
+      DB_PASSWORD: ridecare
+      DB_DATABASE: ridecare_db
+      DATALAKE_URL: http://34.105.216.153/datalake/
     container_name: ridecare_backend
     depends_on:
       mysql:

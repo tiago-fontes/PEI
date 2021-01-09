@@ -2,6 +2,7 @@ package com.peiload.ridecare.integrationTest.user;
 
 import com.peiload.ridecare.integrationTest.common.ITUtils;
 import com.peiload.ridecare.login.model.JwtRequest;
+import com.peiload.ridecare.user.dto.PasswordEditDto;
 import com.peiload.ridecare.user.dto.UserSetDto;
 import com.peiload.ridecare.user.dto.UserShowDto;
 import io.restassured.RestAssured;
@@ -19,6 +20,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @RunWith(SpringRunner.class)
@@ -42,7 +44,6 @@ class UserIT {
     private static final String loginPath = "/login";
     private static final String registerPath = "/register";
 
-
     @BeforeEach
     public void setUp(){
         RestAssured.port = port;
@@ -50,7 +51,7 @@ class UserIT {
 
     @Test
     @Order(1)
-    void createUser(){
+    void createUser_happyPath(){
         userSetDto = UserSetDto.builder()
                 .companyName(COMPANY_NAME)
                 .email(EMAIL)
@@ -77,7 +78,7 @@ class UserIT {
         RestAssured.given()
                 .contentType(ContentType.JSON).body(body)
                 .post(registerPath)
-                .then().statusCode(403);
+                .then().statusCode(401);
     }
 
     @Test
@@ -111,7 +112,8 @@ class UserIT {
     @Test
     @Order(5)
     void editUser(){
-        UserSetDto userSetDto = UserSetDto.builder().password(NEW_PASSWORD).build();
+        String newCompanyName = ITUtils.randomString(10);
+        UserSetDto userSetDto = UserSetDto.builder().companyName(newCompanyName).build();
         String body = ITUtils.asJsonString(userSetDto);
 
         RestAssured.given()
@@ -119,6 +121,33 @@ class UserIT {
                 .contentType(ContentType.JSON)
                 .body(body)
                 .patch(userPath)
+                .then().statusCode(200);
+
+        Response response = RestAssured.given()
+                .header("Authorization", "Bearer "+ userToken)
+                .get(userPath)
+                .then().statusCode(200).extract().response();
+
+        UserShowDto result = response.then().statusCode(200).extract().as(UserShowDto.class);
+
+        assertNotNull(result);
+        assertEquals(newCompanyName, result.getCompanyName());
+    }
+
+    @Test
+    @Order(5)
+    void changePassword(){
+        PasswordEditDto passwordEditDto = PasswordEditDto.builder()
+                .oldPassword(PASSWORD)
+                .newPassword(NEW_PASSWORD)
+                .build();
+        String body = ITUtils.asJsonString(passwordEditDto);
+
+        RestAssured.given()
+                .header("Authorization", "Bearer "+ userToken)
+                .contentType(ContentType.JSON)
+                .body(body)
+                .patch(userPath + "/change/password")
                 .then().statusCode(200);
     }
 
@@ -150,7 +179,6 @@ class UserIT {
         userToken = response.body().jsonPath().getString("token");
     }
 
-
     @Test
     @Order(8)
     void deleteUser(){
@@ -160,7 +188,6 @@ class UserIT {
                 .delete(userPath)
                 .then().statusCode(204);
     }
-
 
     @Test
     @Order(9)
@@ -175,7 +202,6 @@ class UserIT {
                 .then().statusCode(403);
     }
 
-
     @Test
     @Order(10)
     void deleteUserAgain_shouldRaiseAnException(){
@@ -183,8 +209,6 @@ class UserIT {
                 .header("Authorization", "Bearer " + userToken)
                 .when()
                 .delete(userPath)
-                .then().statusCode(403);
+                .then().statusCode(401);
     }
-
-
 }

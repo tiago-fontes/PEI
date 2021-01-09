@@ -17,6 +17,7 @@ import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,8 @@ public class AnomalyService {
     private final UserService userService;
     private final CarService carService;
 
-
+    @Value("${ridecare.datalake.url}")
+    public String datalakeURL;
 
     public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
@@ -175,7 +177,7 @@ public class AnomalyService {
 
         long secs = (date.getTime())/1000;
 
-        String url = "http://cehum.ilch.uminho.pt/datalake/" + path + "/"+ licensePlate + "/" + secs + "/" + numberOfMeasurements;
+        String url = datalakeURL + path + "/"+ licensePlate + "/" + secs + "/" + numberOfMeasurements;
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});

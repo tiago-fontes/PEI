@@ -4,7 +4,6 @@ import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
 import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
-import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.service.CarService;
 import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,11 +32,6 @@ public class CarController {
 
     public CarController(CarService carService){
         this.carService = carService;
-    }
-
-    @GetMapping(path="/all")
-    public List<CarShowDto> getAllCars(){
-        return this.carService.getAllCars();
     }
 
     @GetMapping

@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @RunWith(SpringRunner.class)
@@ -31,6 +32,10 @@ class CarIT {
 
     @LocalServerPort
     private int port;
+
+    private static final String EMAIL = ITUtils.randomString(10) + "@email.com";
+    private static final String COMPANY_NAME = ITUtils.randomString(10);
+    private static final String PASSWORD = ITUtils.randomString(10);
 
     private static final String LICENSE_PLATE = ITUtils.randomString(2) + "-" + ITUtils.randomString(2) + "-" + ITUtils.randomString(2);
     private static final String IMAGE = ITUtils.randomString(10);
@@ -43,21 +48,12 @@ class CarIT {
     private static final String FUEL = ITUtils.randomString(10);
     private static final String NEW_BRAND = ITUtils.randomString(10);
 
-    private static final String EMAIL = ITUtils.randomString(10) + "@email.com";
-    private static final String COMPANY_NAME = ITUtils.randomString(10);
-    private static final String PASSWORD = ITUtils.randomString(10);
-
+    private static int carId;
 
     private static String userToken;
-
     private static String userToken2;
-    private static String licensePlate2;
-    private static int carId2;
-
 
     private static CarCreateDto carCreateDto;
-
-    private static int carId;
 
     private static final String carPath = "/car";
 
@@ -68,13 +64,6 @@ class CarIT {
 
     @Test
     @Order(1)
-    void createLoginUser(){
-        ITUtils.createUser(COMPANY_NAME, EMAIL, PASSWORD);
-        userToken = ITUtils.loginUser(EMAIL, PASSWORD);
-    }
-
-    @Test
-    @Order(2)
     void createCarWithoutAuthorizationKey_shouldRaiseAnException(){
         carCreateDto = CarCreateDto.builder()
                 .licensePlate(LICENSE_PLATE)
@@ -93,12 +82,16 @@ class CarIT {
         RestAssured.given()
                 .contentType(ContentType.JSON).body(body)
                 .post(carPath)
-                .then().statusCode(403);
+                .then().statusCode(401);
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     void createCar_happyPath(){
+        //Create and Login User
+        ITUtils.createUser(COMPANY_NAME, EMAIL, PASSWORD);
+        userToken = ITUtils.loginUser(EMAIL, PASSWORD);
+
         String body = ITUtils.asJsonString(carCreateDto);
 
         Response response = RestAssured.given()
@@ -122,8 +115,9 @@ class CarIT {
         assertEquals(FUEL, car.getFuel());
     }
 
+    //Create a car with an existing licence plate should raise an exception
     @Test
-    @Order(4)
+    @Order(3)
     void createCarAgain_shouldRaiseAnException(){
         String body = ITUtils.asJsonString(carCreateDto);
 
@@ -131,11 +125,11 @@ class CarIT {
                 .header("Authorization", "Bearer "+ userToken)
                 .contentType(ContentType.JSON).body(body)
                 .post(carPath)
-                .then().statusCode(403);
+                .then().statusCode(400);
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     void getUserCars_happyPath(){
         Response response = RestAssured.given()
                 .header("Authorization", "Bearer "+ userToken)
@@ -148,7 +142,7 @@ class CarIT {
     }
 
     @Test
-    @Order(6)
+    @Order(5)
     void editCar_happyPath(){
         CarEditDto carEditDto = CarEditDto.builder()
                 .brand(NEW_BRAND)
@@ -163,28 +157,31 @@ class CarIT {
                 .pathParam("carId", carId)
                 .patch(carPath + "/{carId}")
                 .then().statusCode(200);
+
+        //Get car and check the brand has changed
+        Response response = RestAssured.given()
+                .header("Authorization", "Bearer "+ userToken)
+                .pathParam("carId", carId)
+                .get(carPath + "/{carId}")
+                .then().extract().response();
+
+        CarShowDto result = response.then().statusCode(200).extract().as(CarShowDto.class);
+
+        assertNotNull(result);
+        assertEquals(NEW_BRAND, result.getBrand());
     }
 
     @Test
-    @Order(7)
-    void createLoginUser2AndCreateCar2(){
+    @Order(6)
+    void editCarFromOtherUser_shouldRaiseAnException(){
+        //Create another user
         String company = ITUtils.randomString(10);
         String email = ITUtils.randomString(10) + "@email.com";
         String password = ITUtils.randomString(10);
-
         ITUtils.createUser(company, email, password);
-
         userToken2 = ITUtils.loginUser(email, password);
-        licensePlate2 = ITUtils.randomString(2) + "-" + ITUtils.randomString(2) + "-" + ITUtils.randomString(2);
 
-        CarShowDto car = ITUtils.createCar(licensePlate2, userToken2);
-        carId2 = car.getId();
-    }
-
-    //verificar
-    @Test
-    @Order(8)
-    void editCarFromOtherUser_shouldRaiseAnException(){
+        //Try to edit another user's car and get denied
         CarEditDto carEditDto = CarEditDto.builder()
                 .brand(NEW_BRAND)
                 .build();
@@ -192,17 +189,16 @@ class CarIT {
         String body = ITUtils.asJsonString(carEditDto);
 
         RestAssured.given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + userToken2)
                 .contentType(ContentType.JSON)
                 .body(body)
-                .pathParam("id", carId2)
+                .pathParam("id", carId)
                 .patch(carPath + "/{id}")
                 .then().statusCode(403);
     }
 
-    //verificar
     @Test
-    @Order(9)
+    @Order(7)
     void editCarThatDoesntExist_shouldRaiseAnException(){
         CarEditDto carEditDto = CarEditDto.builder()
                 .brand(NEW_BRAND)
@@ -214,13 +210,24 @@ class CarIT {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(ContentType.JSON)
                 .body(body)
-                .pathParam("id", 321312)
-                .patch(carPath + "/{id}")
+                .pathParam("carId", 321312)
+                .patch(carPath + "/{carId}")
                 .then().statusCode(400);
     }
 
     @Test
-    @Order(10)
+    @Order(8)
+    void deleteCarFromOtherUser_shouldRaiseAnException(){
+        RestAssured.given()
+                .header("Authorization", "Bearer " + userToken2)
+                .when()
+                .pathParam("carId", carId)
+                .delete(carPath + "/{carId}")
+                .then().statusCode(403);
+    }
+
+    @Test
+    @Order(9)
     void deleteCar_happyPath(){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
@@ -231,7 +238,7 @@ class CarIT {
     }
 
     @Test
-    @Order(11)
+    @Order(10)
     void deleteCarAgain_shouldRaiseAnException(){
         RestAssured.given()
                 .header("Authorization", "Bearer " + userToken)
@@ -241,26 +248,8 @@ class CarIT {
                 .then().statusCode(400);
     }
 
-    //verificar
     @Test
-    @Order(12)
-    void deleteCarFromOtherUser_shouldRaiseAnException(){
-        RestAssured.given()
-                .header("Authorization", "Bearer " + userToken)
-                .when()
-                .pathParam("carId", carId2)
-                .delete(carPath + "/{carId}")
-                .then().statusCode(403);
-    }
-
-    @Test
-    @Order(13)
-    void deleteCar2(){
-        ITUtils.deleteCar(userToken2, carId2);
-    }
-
-    @Test
-    @Order(14)
+    @Order(11)
     void deleteUsers(){
         ITUtils.deleteUser(userToken);
         ITUtils.deleteUser(userToken2);

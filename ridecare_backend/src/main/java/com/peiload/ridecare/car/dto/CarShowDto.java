@@ -51,7 +51,8 @@ public class CarShowDto {
         if(car.getAnomalies() != null){
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
-
-        this.status = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
+        if(car.getStatusHistory() != null) {
+            this.status = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size() - 1));
+        }
     }
 }
