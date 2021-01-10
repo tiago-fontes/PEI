@@ -181,4 +181,14 @@ public class CarService {
     public User findUserByCarId(int carId) {
         return findById(carId).getUser();
     }
+
+    public Boolean verify(String licensePlate, int sensorId) {
+        Optional<Car> car = this.carRepository.findByLicensePlate(licensePlate);
+        if(car.isEmpty()){
+            return false;
+        }
+        else{
+            return (car.get().getSensorId() == sensorId);
+        }
+    }
 }
