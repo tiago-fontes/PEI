@@ -15,7 +15,7 @@
   
 - name: Create a network
   docker_network:
-    name: backend_mysql
+    name: backend_network
     driver: bridge
 
 - name: Run mysql docker-compose

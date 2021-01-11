@@ -3,6 +3,11 @@
     path: /ridecare_backend/target
     state: directory
 
+- name: Creates directory
+  file:
+    path: /ridecare_backend/nginx/
+    state: directory
+
 - name: Copy jar file
   copy:
     src: ../ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
@@ -18,9 +23,18 @@
     src: ../ridecare_backend/docker-compose-backend.yml
     dest: /ridecare_backend/docker-compose.yml
 
+- name: Copy nginx files
+  copy:
+    src: ../ridecare_backend/nginx/{{ item }}
+    dest: /ridecare_backend/nginx/{{ item }}
+  loop:
+    - Dockerfile
+    - nginx.conf
+
 - name: Run docker-compose
   docker_compose:
     project_src: /ridecare_backend
     files:
       - "docker-compose.yml"
     state: present
+    restarted: yes
