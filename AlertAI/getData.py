@@ -22,7 +22,7 @@ def getRawData():
         exit()
         
     r.raw.decode_content = True
-    with open("data/raw_data_06_01.csv", 'wb') as f1:
+    with open("data/raw_data_com_lixo.csv", 'wb') as f1:
         shutil.copyfileobj(r.raw, f1)
     print("Success. Data from both sensors collected")
 
