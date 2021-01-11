@@ -1,9 +1,11 @@
-
-
-- name: Install Required Software
+- name: Install apt utilities, certificates and curl
   apt:
     name: ['python-apt', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
     state: latest
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
 
 - name: Add Docker Repo Key
   apt_key: 
@@ -16,19 +18,19 @@
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
     state: present
 
-- name: Install Required Software
+- name: Install Pip and Docker
   apt:
     name: ['python3-pip','docker-ce']
     state: latest
 
-- name: Docker User Permitions
+- name: Add Docker User Permitions
   command: usermod -aG docker ${USER}
 
-- name: Download and Install docker-compose
+- name: Download docker-compose
   get_url: 
     url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: u+x
 
-- name: Install docker-py for ansible docker modules
+- name: Install docker-compose
   command: pip3 install docker docker-compose

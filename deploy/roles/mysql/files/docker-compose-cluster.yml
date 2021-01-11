@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+    wso2-mysqlfailover:
+        image: robinong79/mysqlfailover:1.6.4
+        networks:
+            - mysqlcluster
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MASTER=mysql_master
+        deploy:
+            mode: replicated
+            replicas: 1
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+
+    wso2-mysqlrouter:
+        image: robinong79/mysqlrouter:2.0.4
+        ports:
+            - "3306:3306"            
+        networks:
+            - mysqlcluster
+        environment:
+            - MLOGGER_LEVEL=ERROR
+            - MYSQLROUTER_BINDPORT=3306
+            - DESTINATIONS=mysql_master:3307,mysql_slave:3308
+        deploy:
+            mode: replicated
+            replicas: 2
+            update_config:
+                parallelism: 1
+                delay: 60s
+            restart_policy:
+                condition: none
+                max_attempts: 5
+
+networks:
+    mysqlcluster:
+        external: true
+

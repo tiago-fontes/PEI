@@ -1,0 +1,22 @@
+version: '2.1'
+services:
+  spring_boot:
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      DB_IP: mysql
+      DB_USER: ridecare
+      DB_PASSWORD: ridecare
+      DB_DATABASE: ridecare_db
+      DATALAKE_URL: http://34.105.216.153/datalake/
+    container_name: ridecare_backend
+    networks:
+      - backend_mysql
+    ports:
+      - 8080:8080
+
+networks:
+  backend_mysql:
+    external: true
+

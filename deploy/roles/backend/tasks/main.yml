@@ -15,7 +15,7 @@
 
 - name: Copy docker-compose file
   copy:
-    src: ../ridecare_backend/docker-compose.yml
+    src: ../ridecare_backend/docker-compose-backend.yml
     dest: /ridecare_backend/docker-compose.yml
 
 - name: Run docker-compose

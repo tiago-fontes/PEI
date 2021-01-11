@@ -1,0 +1,26 @@
+- name: Creates directory
+  file:
+    path: /mysql
+    state: directory
+
+- name: Copy docker-compose file
+  copy:
+    src: roles/mysql/files/docker-compose.yml
+    dest: /mysql/docker-compose.yml
+
+- name: Pull mysql docker image
+  docker_image:
+    name: mysql:latest
+    source: pull
+  
+- name: Create a network
+  docker_network:
+    name: backend_mysql
+    driver: bridge
+
+- name: Run mysql docker-compose
+  docker_compose:
+    project_src: /mysql
+    files:
+      - "docker-compose.yml"
+    state: present
