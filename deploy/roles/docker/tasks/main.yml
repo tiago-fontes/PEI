@@ -1,9 +1,13 @@
 
 
-- name: Install Required Software
+- name: Install apt utilities, certificates and curl
   apt:
     name: ['python-apt', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
     state: latest
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
 
 - name: Add Docker Repo Key
   apt_key: 

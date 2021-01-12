@@ -1,5 +1,5 @@
 [Unit]
-Description=Example systemd service.
+Description=Systemd service for backend.
 
 [Service]
 Type=simple

@@ -1,3 +1,3 @@
-cd ../../ridecare_backend
+cd /ridecare_backend
 
 sudo docker-compose up
