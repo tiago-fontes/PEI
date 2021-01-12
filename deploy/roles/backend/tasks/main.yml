@@ -24,3 +24,22 @@
     files:
       - "docker-compose.yml"
     state: present
+
+- name: Copy ridecare_backend.sh
+  copy:
+    src: ridecare_backend.sh
+    dest: /usr/bin/ridecare_backend.sh
+
+- name: Make it an executable
+  shell: sudo chmod +x /usr/bin/ridecare_backend.sh
+
+- name: Copy backendservice.service
+  copy:
+    src: backendservice.service
+    dest: /etc/systemd/system/backendservice.service
+
+- name: Give permissions to backendservice.service
+  shell: sudo chmod 644 /etc/systemd/system/backendservice.service
+
+- name: Ensure that the service starts whenever the system boots
+  shell: sudo systemctl enable backendservice
