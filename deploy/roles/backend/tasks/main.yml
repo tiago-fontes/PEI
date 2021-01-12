@@ -1,24 +1,24 @@
-- name: Creates directory
+- name: Create ridecare_backend directory
   file:
     path: /ridecare_backend/target
     state: directory
 
-- name: Creates directory
+- name: Create nginx directory
   file:
     path: /ridecare_backend/nginx/
     state: directory
 
-- name: Copy jar file
+- name: Copy backend jar file
   copy:
     src: ../ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
     dest: /ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
 
-- name: Copy dockerfile
+- name: Copy backend dockerfile
   copy:
     src: ../ridecare_backend/dockerfile
     dest: /ridecare_backend/dockerfile
 
-- name: Copy docker-compose file
+- name: Copy backend docker-compose file
   copy:
     src: ../ridecare_backend/docker-compose-backend.yml
     dest: /ridecare_backend/docker-compose.yml
@@ -31,7 +31,7 @@
     - Dockerfile
     - nginx.conf
 
-- name: Run docker-compose
+- name: Run backend docker-compose
   docker_compose:
     project_src: /ridecare_backend
     files:
