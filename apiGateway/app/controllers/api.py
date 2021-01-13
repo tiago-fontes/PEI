@@ -31,31 +31,36 @@ workers = Workers()
 basicAuth = HTTPBasicAuth()
 tokenAuth = HTTPTokenAuth(scheme='Bearer')
 
-users = {
-    "VP-35-44" : "VP-35-44"   
-}
+#users = {
+#    "VP-35-44" : "VP-35-44"   
+#}
 
 @basicAuth.verify_password
 def verify_password(username, password):
-    if username in users:
-        return users.get(username) == password
+    requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId"+password, timeout=3)
+    if res.text == "true":
+        return True
     else:
         return False
+ #   if username in users:
+ #       return users.get(username) == password
+ #   else:
+ #       return False
     
 @tokenAuth.verify_token
 def verify_token(token):
     s = Serializer(app.config['SECRET_KEY'])
     try:
-            data = s.loads(token)
+        data = s.loads(token)
     except SignatureExpired:
-            return False # valid token, but expired
+        return False # valid token, but expired
     except BadSignature:
-            return False # invalid token
-    return True    
+        return False # invalid token
+    return True
 
 def generate_auth_token(expiration = 600):
-        s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
-        return s.dumps({ 'id': '123' })
+    s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+    return s.dumps({ 'id': '123' })
 
 @apiRoute.route('/api/token')
 @basicAuth.login_required
