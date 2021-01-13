@@ -3,6 +3,11 @@
     path: /ridecare_backend/target
     state: directory
 
+- name: Create Database Scripts directory to store initialization files
+  file:
+    path: /ridecare_backend/databaseScripts
+    state: directory
+
 - name: Create nginx directory
   file:
     path: /ridecare_backend/nginx/
@@ -23,6 +28,14 @@
     src: ../ridecare_backend/docker-compose-backend.yml
     dest: /ridecare_backend/docker-compose.yml
 
+- name: Copy database script files (init.sql and schema.sql)
+  copy:
+    src: ../ridecare_backend/databaseScripts/{{ item }}
+    dest: /ridecare_backend/databaseScripts/{{ item }}
+  loop:
+    - init.sql
+    - schema.sql
+
 - name: Copy nginx files
   copy:
     src: ../ridecare_backend/nginx/{{ item }}
@@ -30,6 +43,11 @@
   loop:
     - Dockerfile
     - nginx.conf
+
+- name: Pull mysql docker latest image
+  docker_image:
+    name: mysql:latest
+    source: pull
 
 - name: Run backend docker-compose
   docker_compose:
