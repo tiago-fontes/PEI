@@ -25,7 +25,7 @@
 
 - name: Copy backend docker-compose file
   copy:
-    src: ../ridecare_backend/docker-compose-backend.yml
+    src: ../ridecare_backend/docker-compose-cloud.yml
     dest: /ridecare_backend/docker-compose.yml
 
 - name: Copy database script files (init.sql and schema.sql)
