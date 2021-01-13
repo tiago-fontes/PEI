@@ -80,6 +80,7 @@
             >
               <DashboardCard
                 v-ripple
+                class="dcard"
                 color="orange"
                 icon="mdi-alert"
                 description="Events"
