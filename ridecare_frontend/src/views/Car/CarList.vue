@@ -171,7 +171,7 @@ export default {
       },
       statusFilter: null,
       dialogDelete: false,
-      deleteLicensePlate: null
+      deleteCarId: null
     };
   },
   watch: {
@@ -181,14 +181,14 @@ export default {
   },
   methods: {
     deleteItem(item) {
-      //console.log(item);
-      this.deleteLicensePlate = item.licensePlate;
+      console.log(item);
+      this.deleteCarId = item.id;
       this.dialogDelete = true;
     },
     deleteItemConfirm() {
       axios
         .delete(
-          `${process.env.VUE_APP_ROOT_API}/car/${this.deleteLicensePlate}`
+          `${process.env.VUE_APP_ROOT_API}/car/${this.deleteCarId}`
         )
         .then(res => {
           this.cars = this.cars.filter(function(el) {
@@ -196,7 +196,7 @@ export default {
             return el.licensePlate != licensePlate;
           });
           this.dialogDelete = false;
-          this.deleteLicensePlate = null;
+          this.deleteCarId = null;
           this.snackbar.show = true;
           this.snackbar.success = true;
           this.snackbar.message = "Car successfully deleted";
