@@ -23,7 +23,37 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  computed: {
+    activeUser() {
+      return this.$store.state.user;
+    }
+  },
+  mounted() {
+    this.connect();
+  },
+  methods: {
+    async connect() {
+      await this.$store.dispatch("connectSocket");
+
+      this.$store.state.stompClient.connect(
+        {},
+        frame => {
+          console.log("Connected: " + frame);
+          this.$store.state.stompClient.subscribe(
+            `/queue/${this.activeUser.companyName}`,
+            tick => {
+              console.log("TICK: " + tick);
+              console.log("BODY", tick.body);
+              //this.received_messages.push(JSON.parse(tick.body).content);
+            }
+          );
+        },
+        error => {
+          console.log("ERROR DETECTED", error);
+        }
+      );
+    }
+  }
 };
 </script>
 

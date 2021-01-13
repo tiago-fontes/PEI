@@ -2,11 +2,16 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "../../axios";
 
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    socket: new SockJS(`${process.env.VUE_APP_ROOT_API}/notifications`),
+    stompClient: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -20,6 +25,15 @@ export default new Vuex.Store({
       localStorage.removeItem("user");
       // clears state and axios headers by reloading the current page
       location.reload();
+    },
+    SETUP_SOCKET(state, stompClient) {
+      state.stompClient = stompClient;
+    },
+    DISCONNECT_SOCKET(state) {
+      state.stompClient.disconnect();
+
+      state.socket = null;
+      state.stompClient = null;
     }
   },
   actions: {
@@ -39,7 +53,17 @@ export default new Vuex.Store({
       });
     },
     logout({ commit }) {
+      commit("DISCONNECT_SOCKET");
       commit("CLEAR_USER_DATA");
+    },
+    connectSocket({ commit }) {
+      let stompClient = Stomp.over(this.state.socket);
+      if (stompClient) {
+        commit("SETUP_SOCKET", stompClient);
+      }
+    },
+    disconnectSocket({ commit }) {
+      commit("DISCONNECT_SOCKET");
     }
   },
   modules: {},
