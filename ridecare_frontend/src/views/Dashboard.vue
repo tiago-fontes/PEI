@@ -4,9 +4,9 @@
       color="primary"
       loading
       disabled
-      v-if="loading == true"
+      v-if="loadingAnomalies == true && loadingCars == true"
     ></v-text-field>
-    <v-container v-else>
+    <v-container v-else-if="loadingAnomalies == false && loadingCars == false">
       <v-row>
         <v-col
           cols="12"
@@ -101,7 +101,9 @@
               <BarChart :data="anomaliesByMonth" />
             </v-carousel-item>
             <v-carousel-item>
-              <PieChart />
+              <PieChart
+                :anomaliesByClassification="anomaliesByClassification"
+              />
             </v-carousel-item>
           </v-carousel>
         </v-col>
@@ -128,12 +130,13 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loadingCars: true,
+      loadingAnomalies: true,
       cars: [],
       onlineCars: [],
       offlineCars: [],
       anomalies: [],
-      anomaliesByMonth: [3, 3, 5, 4, 4, 5, 3, 7, 9, 10, 5, 3],
+      anomaliesByMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       anomaliesByClassification: [],
       error: null
     };
@@ -159,7 +162,7 @@ export default {
         //console.log(err.response);
         this.error = err;
       })
-      .finally(() => (this.loading = false));
+      .finally(() => (this.loadingCars = false));
 
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/all`)
@@ -172,7 +175,7 @@ export default {
         //console.log(err);
         this.error = err;
       })
-      .finally(() => (this.loading = false));
+      .finally(() => (this.loadingAnomalies = false));
   },
   methods: {
     getOnlineCars() {
@@ -230,7 +233,8 @@ export default {
     },
     getAnomaliesByMonth() {
       for (let i = 0; i < this.anomalies.length; i++) {
-        let year = new Date().getFullYear();
+        // TODO: REMOVE '-1'
+        let year = new Date().getFullYear() - 1;
         let anomalyDate = new Date(this.anomalies[i].measurements[0].timeValue);
 
         if (year == anomalyDate.getFullYear()) {
