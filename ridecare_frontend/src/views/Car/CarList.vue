@@ -187,9 +187,7 @@ export default {
     },
     deleteItemConfirm() {
       axios
-        .delete(
-          `${process.env.VUE_APP_ROOT_API}/car/${this.deleteCarId}`
-        )
+        .delete(`${process.env.VUE_APP_ROOT_API}/car/${this.deleteCarId}`)
         .then(res => {
           this.cars = this.cars.filter(function(el) {
             let licensePlate = res.config.url.split("/").slice(-1)[0];
