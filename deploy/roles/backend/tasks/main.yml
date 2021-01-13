@@ -59,7 +59,7 @@
 
 - name: Copy ridecare_backend.sh
   copy:
-    src: ridecare_backend.sh
+    src: roles/backend/files/ridecare_backend.sh
     dest: /usr/bin/ridecare_backend.sh
 
 - name: Make it an executable
@@ -67,7 +67,7 @@
 
 - name: Copy backendservice.service
   copy:
-    src: backendservice.service
+    src: roles/backend/files/backendservice.service
     dest: /etc/systemd/system/backendservice.service
 
 - name: Give permissions to backendservice.service
