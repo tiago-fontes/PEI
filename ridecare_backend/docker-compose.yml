@@ -22,6 +22,7 @@ services:
       context: .
       dockerfile: dockerfile
     environment:
+      DB_IP: mysql
       DB_USER: ridecare
       DB_PASSWORD: ridecare
       DB_DATABASE: ridecare_db

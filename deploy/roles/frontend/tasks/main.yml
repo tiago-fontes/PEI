@@ -3,12 +3,6 @@
     src: ../ridecare_frontend
     dest: /
 
-- debug:
-    msg: "backend_ip {{ backend_ip }} with port {{ backend_port }}"
-
-- debug:
-    msg: "backend {{ backend_ip }}:{{backend_port}}"
-
 - name: Build ridecare_frontend Dockerfile 
   docker_image:
     name: ridecare_frontend_image
@@ -32,7 +26,7 @@
 
 - name: Copy ridecare_frontend.sh
   copy:
-    src: ridecare_frontend.sh
+    src: roles/frontend/files/ridecare_frontend.sh
     dest: /usr/bin/ridecare_frontend.sh
 
 - name: Make it an executable
@@ -40,7 +34,7 @@
 
 - name: Copy frontendservice.service
   copy:
-    src: frontendservice.service
+    src: roles/frontend/files/frontendservice.service
     dest: /etc/systemd/system/frontendservice.service
 
 - name: Give permissions to frontendservice.service

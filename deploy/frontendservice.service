@@ -1,9 +1,0 @@
-[Unit]
-Description=Systemd service for frontend.
-
-[Service]
-Type=simple
-ExecStart=/bin/bash /usr/bin/ridecare_frontend.sh
-
-[Install]
-WantedBy=multi-user.target

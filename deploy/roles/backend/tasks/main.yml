@@ -1,33 +1,65 @@
-- name: Creates directory
+- name: Create ridecare_backend directory
   file:
     path: /ridecare_backend/target
     state: directory
 
-- name: Copy jar file
+- name: Create Database Scripts directory to store initialization files
+  file:
+    path: /ridecare_backend/databaseScripts
+    state: directory
+
+- name: Create nginx directory
+  file:
+    path: /ridecare_backend/nginx/
+    state: directory
+
+- name: Copy backend jar file
   copy:
     src: ../ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
     dest: /ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
 
-- name: Copy dockerfile
+- name: Copy backend dockerfile
   copy:
     src: ../ridecare_backend/dockerfile
     dest: /ridecare_backend/dockerfile
 
-- name: Copy docker-compose file
+- name: Copy backend docker-compose file
   copy:
-    src: ../ridecare_backend/docker-compose.yml
+    src: ../ridecare_backend/docker-compose-cloud.yml
     dest: /ridecare_backend/docker-compose.yml
 
-- name: Run docker-compose
+- name: Copy database script files (init.sql and schema.sql)
+  copy:
+    src: ../ridecare_backend/databaseScripts/{{ item }}
+    dest: /ridecare_backend/databaseScripts/{{ item }}
+  loop:
+    - init.sql
+    - schema.sql
+
+- name: Copy nginx files
+  copy:
+    src: ../ridecare_backend/nginx/{{ item }}
+    dest: /ridecare_backend/nginx/{{ item }}
+  loop:
+    - Dockerfile
+    - nginx.conf
+
+- name: Pull mysql docker latest image
+  docker_image:
+    name: mysql:latest
+    source: pull
+
+- name: Run backend docker-compose
   docker_compose:
     project_src: /ridecare_backend
     files:
       - "docker-compose.yml"
     state: present
+    restarted: yes
 
 - name: Copy ridecare_backend.sh
   copy:
-    src: ridecare_backend.sh
+    src: roles/backend/files/ridecare_backend.sh
     dest: /usr/bin/ridecare_backend.sh
 
 - name: Make it an executable
@@ -35,7 +67,7 @@
 
 - name: Copy backendservice.service
   copy:
-    src: backendservice.service
+    src: roles/backend/files/backendservice.service
     dest: /etc/systemd/system/backendservice.service
 
 - name: Give permissions to backendservice.service

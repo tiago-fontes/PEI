@@ -31,7 +31,6 @@
     - { role: users, payload: users.yml }
     - { role: docker }
 
-
 - hosts: backend
   gather_facts: yes
   become: yes
