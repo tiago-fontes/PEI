@@ -26,7 +26,7 @@ services:
       DB_USER: ridecare
       DB_PASSWORD: ridecare
       DB_DATABASE: ridecare_db
-      DATALAKE_URL: http://34.105.216.153/datalake/
+      DATALAKE_URL: http://cehum.ilch.uminho.pt/datalake/
     container_name: ridecare_backend
     depends_on:
       mysql:
