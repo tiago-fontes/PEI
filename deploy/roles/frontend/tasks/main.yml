@@ -20,3 +20,25 @@
     published_ports:   
       - "3000:80"
     image: ridecare_frontend_image
+
+- name: Check if container is running
+  shell: docker ps
+
+- name: Copy ridecare_frontend.sh
+  copy:
+    src: ridecare_frontend.sh
+    dest: /usr/bin/ridecare_frontend.sh
+
+- name: Make it an executable
+  shell: sudo chmod +x /usr/bin/ridecare_frontend.sh
+
+- name: Copy frontendservice.service
+  copy:
+    src: frontendservice.service
+    dest: /etc/systemd/system/frontendservice.service
+
+- name: Give permissions to frontendservice.service
+  shell: sudo chmod 644 /etc/systemd/system/frontendservice.service
+
+- name: Ensure that the service starts whenever the system boots
+  shell: sudo systemctl enable frontendservice
