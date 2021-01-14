@@ -22,18 +22,20 @@ workers = Workers()
 
 
 PORT1 = "/dev/ttyUSB0"
-API = "http://0.0.0.0:8085/api"
+#API = "http://0.0.0.0:8085/api"
+API = "http://35.189.102.211/api"
 
 # EVENTS PY-RQ URL
 #DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
-DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake"
-SESNSORS_HOST = DATALAKE_HOST + "/sensors"
-BOOT_HOST = DATALAKE_HOST + "/raspberry"
+#DATALAKE_HOST = "http://miradascruzadas.ilch.uminho.pt/api/datalake"
+API_HOST = "http://35.189.102.211/api"
+SESNSORS_HOST = API_HOST + "/datalake/sensors"
+BOOT_HOST = API_HOST + "/datalake/raspberry"
 
-TAGS = "Não existência de fumo, vidros fechados, AC desligado"
-CLASSIFICATION = "0"
-CARID = "66-ZZ-66"
-DEVID = "XX"
+#TAGS = "Não existência de fumo, vidros fechados, AC desligado"
+#CLASSIFICATION = "0"
+CARID = "AA-11-AA"
+#DEVID = "2"
 
 class FieldCrawler:
 
@@ -69,10 +71,12 @@ class FieldCrawler:
         try:
             datetimeNow = strftime("%Y-%m-%d %H:%M:%S", gmtime())
             data = {'carId': CARID,
+                    'deviceId': '',
                     'timeValue': datetimeNow
                     }
             workers.queue(jobs.bootTime, BOOT_HOST, data)
-            #res = requests.post("http://cehum.ilch.uminho.pt/datalake/api/raspberry", json=data, timeout=3)
+            #res = requests.post("http://34.105.216.153/datalake/default/api/raspberry", json=data, timeout=3)
+            #print(res.text)
         except:
             print("Boot time event failed")
 
@@ -86,12 +90,10 @@ class FieldCrawler:
                 dicFinal.update(self.readG_MOUSE())
             except:
                 print("G_MOUSE read failed")
-            
 
-            moreInfo =  {            
-                        'timeValue': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
-                        'tags': TAGS,
-                        'classification': CLASSIFICATION
+
+            moreInfo =  {
+                        'timeValue': strftime("%Y-%m-%d %H:%M:%S", gmtime())
                         }
 
             dicFinal.update(moreInfo)
@@ -115,8 +117,13 @@ class FieldCrawler:
 
 
     def readG_MOUSE(self):
-        measurement = self.g_mouse.getMeasurement()
-        dataDict = {'carLocation': measurement["carLocation"]
+        try:
+            measurement = self.g_mouse.getMeasurement()
+            mesValue = measurement["carLocation"]
+        except:
+            mesValue = ""
+        dataDict = {
+                    'carLocation': mesValue
                    }
 
         return dataDict
@@ -144,11 +151,13 @@ class FieldCrawler:
     def notifyDataLakeWithAuth(self, dataDict):
         session = requests.Session()
         session.auth = ('VP-35-44', 'VP-35-44')
-
+        user = "VP-35-44"
+        id ="VP-35-44"
+        
         # requests post with token auth
         my_headers = {'Authorization': 'Bearer ' + self.token2send}
-        res = requests.post(API + "/sensors", json=dataDict, headers=my_headers)
-
+        res = requests.post(API + "/datalake/sensors", json=dataDict, headers=my_headers)
+        print(res.text)
         # token expired or is invalid
         if (res.text == "Unauthorized Access"):
             try:
@@ -162,25 +171,19 @@ class FieldCrawler:
 
             except:
                print("Error")
-            
             print('response from server:'+res.text)
 
     def notifyDataLake(self, dataDict):
-
         #self.notifyDataLakeWithAuth(dataDict)
-
         #res = requests.post(SESNSORS_HOST, json=dataDict, timeout=1)
         workers.queue(jobs.sensors, SESNSORS_HOST, dataDict)
-        #print('response from server:'+res.text)
 
-        #print('i would send to the datalake')
-        #dictFromResponse = res.json()
-        # print(dictFromResponse)
 
     def notifyAlertAI(self, dataDict):
         
         # CALL MONITOR ALERT (WITH PYTHON-RQ EVENTS MANAGER p.e.)
         self.ml.update(dataDict)
+        #pass
         
 
     def data2Json(self):

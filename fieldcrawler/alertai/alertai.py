@@ -18,7 +18,7 @@ workers = Workers()
 
 SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
 #UNSUP_MODEL = 'alertai/models/isolationforest.sav'
-DB_HOST = 'http://5c2cdb0d77ac.ngrok.io/anomaly'
+DB_HOST = 'http://35.189.102.211/api/backend/alert'
 
 anomalies = {
         0: "normal",
@@ -56,8 +56,6 @@ class AlertAI:
         raw_data.pop('carId')
         raw_data.pop('carLocation')
         raw_data.pop('timeValue')
-        raw_data.pop('tags')
-        raw_data.pop('classification')
         #Altitude must be ignred due to misconfiguration
         raw_data.pop('altitude')
         columns = ['sensors.pm25','sensors.pm10','sensors.temperature','sensors.gas','sensors.humidity','sensors.pressure']
@@ -120,9 +118,6 @@ class AlertAI:
         originalData.pop('timeValue')
         #originalData.pop('carLocation')
         # In PROD environment, next 2 lines deleted
-        originalData.pop('tags')
-        originalData.pop('classification')
-        
         
         arrangedData = pd.DataFrame([originalData])
         
@@ -146,10 +141,10 @@ class AlertAI:
         #Sendo to endpoint POST
         try:
             headers = {"licensePlate" : self.sensorsData.get('carId')}
-            workers.queue(jobs.alertCloud, DB_HOST, [json, headers])
-            #res = requests.post(DB_HOST, json=json,headers=headers)
+            workers.queue(jobs.alertCloud, DB_HOST, [json, headers])           
+            #res = requests.post("http://34.82.167.68:80/anomaly/create", json=json,headers=headers)
             #print("Sent to backend :D ")
-            #print(res.text)
+            #print(res.status_code)
         except:
             print("Something went wrong! :( ")
             traceback.print_exc()
