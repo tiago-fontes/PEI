@@ -93,7 +93,27 @@ def classify(model,data):
 #Routing
 @app.route('/')
 def index():
-	return "Simple API with Flask"
+	return "Welcome to AlertAI Cloud"
+
+
+#Routing
+@app.route('/models',methods = ["GET"])
+def models():
+	req_data = request.get_json()
+	carid=req_data['carId']
+	timeV = req_data['timeValue']
+	cap = Capture.query.filter_by(carId=carid,timeValue=timeV).first()
+	classifs = Classification.query.filter_by(capture_id=cap.id).all()
+	models = Algorithm.query.all()
+	final_json = {}
+	for cla in classifs:
+		print("ID ALG NA CLASSIF ", cla.algorithm_id)
+		for al in models:
+			print("ID ALG NO ALG ", al.id)
+			if(cla.algorithm_id==al.id):
+				print("SAO MM IGUAIS")
+				final_json[al.name] = cla.value
+	return jsonify(dict(data=final_json)) # or whatever is required
 
 
 @app.route('/capture',methods = ["POST"])
@@ -107,7 +127,7 @@ def insert_capture():
 	data = pd.DataFrame([features])
 	for name in AlgoDict:
 		classif = int(classify(AlgoDict[name],data))
-		id_alg = list(AlgoDict.keys()).index(name)
+		id_alg = list(AlgoDict.keys()).index(name) + 1
 		c = Classification(capture_id=id_capture,algorithm_id=id_alg,value=classif)
 		db.session.add(c)
 		db.session.commit()
@@ -118,7 +138,7 @@ def insert_capture():
 
 
 if __name__ == "__main__":
-	if os.path.exists("demofile.txt"):
-		os.remove("demofile.txt")
+	if os.path.exists(".DS_Store"):
+		os.remove(".DS_Store")
 	load_models(folder)
 	app.run(debug=True, host='0.0.0.0',port=5000)
