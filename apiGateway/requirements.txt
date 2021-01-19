@@ -5,3 +5,6 @@ requests
 rq
 rq-dashboard
 python-daemon
+pycrypto
+itsdangerous
+cryptography
