@@ -7,7 +7,9 @@ from rq import Connection, get_current_job, requeue_job, Queue
 
 API = 'http://35.189.102.211/api'
 USER = 'AA-11-AA'
+USERENCRYPTED = b'dfPhxwwCSBVME8/iVyM2yqgfm24x5uv8buNlBIkYCaVadW/QDTKYTonpVWUY0EpMtyanyItqQCe1zV+S/4KV4d7Yr4Q='
 DEVICEID = '1'
+DEVICEIDENCRYPTED = b'i9sygLphrsTVtnKdVyM2yqgfm24x5uv8buNlBIkYCaVadW/QDTKYTonpVWV55ZGlFthvFXlSDH0TR1B5Ag=='
 token = ''
 
 session = requests.Session()
