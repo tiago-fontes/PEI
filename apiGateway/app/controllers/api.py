@@ -5,9 +5,11 @@
 API router
 """
 
-import requests
+import requests, base64
 from flask import Blueprint, request, Response, jsonify
 from flask_httpauth import HTTPTokenAuth, HTTPBasicAuth
+
+from encryptor import Encryptor
 
 #RQ
 from rq import Queue
@@ -37,7 +39,11 @@ tokenAuth = HTTPTokenAuth(scheme='Bearer')
 
 @basicAuth.verify_password
 def verify_password(username, password):
-    requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId"+password, timeout=3)
+    #encryptor = Encryptor()
+    #username = encryptor.desencryptMsg(username)
+    #password = encryptor.desencryptMsg(password)
+  
+    requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
     if res.text == "true":
         return True
     else:
