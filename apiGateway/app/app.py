@@ -40,13 +40,11 @@ app.config.from_object(rq_dashboard.default_settings)
 app.config["RQ_DASHBOARD_REDIS_URL"] = "redis://redis:6379"
 app.register_blueprint(rq_dashboard.blueprint, url_prefix="/rq")
 
-#g.teste = 'testando'
-
+#g.state = 'true'
 ## Global variables for all pages
 #@app.context_processor
 #def global_data():
-    #g.teste = 'testando'
-    
+    #g.state = 'false'
     #lang = request.args.get("lang", default="pt", type=None)
     #if lang not in ["pt", "en"]:
     #    lang = "pt"

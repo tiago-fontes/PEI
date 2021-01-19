@@ -21,10 +21,11 @@ from app import app
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
-#DATALAKE_HOST = "http://cehum.ilch.uminho.pt/datalake/api"
 DATALAKE_HOST = "http://34.105.216.153/datalake/default/api"
 SENSORS_HOST = DATALAKE_HOST + "/sensors"
 BOOT_HOST = DATALAKE_HOST + "/raspberry"
+ALERTCLOUD = "http://35.205.66.70:5000/capture "
+BACKEND = "http://34.82.167.68:80/anomaly/create"
 
 apiRoute = Blueprint('api', __name__,  template_folder='views')
 
@@ -33,25 +34,17 @@ workers = Workers()
 basicAuth = HTTPBasicAuth()
 tokenAuth = HTTPTokenAuth(scheme='Bearer')
 
-#users = {
-#    "VP-35-44" : "VP-35-44"   
-#}
-
 @basicAuth.verify_password
 def verify_password(username, password):
     #encryptor = Encryptor()
     #username = encryptor.desencryptMsg(username)
     #password = encryptor.desencryptMsg(password)
   
-    requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
+    res = requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
     if res.text == "true":
         return True
     else:
         return False
- #   if username in users:
- #       return users.get(username) == password
- #   else:
- #       return False
     
 @tokenAuth.verify_token
 def verify_token(token):
@@ -80,6 +73,12 @@ def datalakeSensors():
     if request.method == "GET":
         return "online"
     elif request.method == "POST":
+        #Send to AlertCloud
+        try:
+            requests.post(ALERTCLOUD, json=request.json, timeout=3)
+        except:
+            pass
+        #Sendo to Datalake
         workers.queue(jobs.sensors, SENSORS_HOST, request.json)
         return Response(status=200)
     else:
@@ -93,5 +92,22 @@ def raspberry():
     elif request.method == "POST":
         workers.queue(jobs.raspberry, BOOT_HOST, request.json)
         return Response(status=200)
+    else:
+        return Response(status=404)
+
+@apiRoute.route('/api/backend/alert', methods=['GET', 'POST'])
+@tokenAuth.login_required
+def backend():
+    if request.method == "GET":
+        return "online"
+    elif request.method == "POST":
+        try:
+            cleanHeaders = request.headers
+            cleanHeaders.pop("Authorization")
+            # cleanHeaders = {"licensePlate": "AA-11-AA"}
+            requests.post(BACKEND, json=request.json, headers=cleanHeaders, timeout=3)
+            return Response(status=200)
+        except:
+            return Response(status=404)
     else:
         return Response(status=404)
