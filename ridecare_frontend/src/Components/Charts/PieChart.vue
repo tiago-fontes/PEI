@@ -3,6 +3,7 @@ import { Pie } from "vue-chartjs";
 
 export default {
   extends: Pie,
+  props: ["anomaliesByClassification"],
   mounted() {
     this.gradient = this.$refs.canvas
       .getContext("2d")
@@ -20,11 +21,16 @@ export default {
     this.gradient2.addColorStop(1, "rgba(0, 231, 255, 0)");
     this.renderChart(
       {
-        labels: ["Smoke Detected", "Anomaly", "Fire Detected"],
+        labels: this.anomaliesByClassification.map(x => {
+          console.log(x.classification);
+          return x.classification;
+        }),
         datasets: [
           {
             backgroundColor: [this.gradient, this.gradient2, "#00D8FF"],
-            data: [5, 6, 3]
+            data: this.anomaliesByClassification.map(x => {
+              return x.value;
+            })
           }
         ]
       },
