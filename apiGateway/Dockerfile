@@ -7,6 +7,7 @@ RUN pip install --upgrade pip && \
 
 COPY ./app /app
 
-RUN chmod +x /app/worker.py
-RUN nohup python3 worker.py &
+#WORKDIR /app
+#RUN chmod +x worker.py
+#RUN python3 worker.py --daemonize
 #RUN python3 worker.py --daemonize

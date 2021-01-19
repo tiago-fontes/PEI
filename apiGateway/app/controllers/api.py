@@ -16,7 +16,7 @@ from rq import Queue
 from rqWorker import Workers
 import jobs
 
-from app import app
+#from app import app
 
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
@@ -48,7 +48,7 @@ def verify_password(username, password):
     
 @tokenAuth.verify_token
 def verify_token(token):
-    s = Serializer(app.config['SECRET_KEY'])
+    s = Serializer("rjvZhLKKCC5crnH6AU9m6Q")
     try:
         data = s.loads(token)
     except SignatureExpired:
@@ -58,7 +58,7 @@ def verify_token(token):
     return True
 
 def generate_auth_token(expiration = 600):
-    s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+    s = Serializer("rjvZhLKKCC5crnH6AU9m6Q", expires_in = expiration)
     return s.dumps({ 'id': '123' })
 
 @apiRoute.route('/api/token')

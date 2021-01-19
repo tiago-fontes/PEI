@@ -30,3 +30,6 @@ docker ps
 
 Entrar no terminal de um dos containers:
 docker exec -it nameContainer bash
+
+Iniciar container no boot e em caso de restart do docker:
+docker update --restart always CONTAINER-NAME

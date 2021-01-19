@@ -14,6 +14,9 @@ import os, importlib
 
 import rq_dashboard
 
+from worker import makeWorker
+from rqWorker import Workers
+
 from flask import Flask, g
 from flask_cors import CORS
 
@@ -39,6 +42,13 @@ for filename in os.listdir(controllers):
 app.config.from_object(rq_dashboard.default_settings)
 app.config["RQ_DASHBOARD_REDIS_URL"] = "redis://redis:6379"
 app.register_blueprint(rq_dashboard.blueprint, url_prefix="/rq")
+
+
+# Create Workers
+#workers = Workers()
+#nWorkers = workers.countWorkers()
+#if nWorkers == 0:
+#    d = makeWorker(daemon=True, burst=False)
 
 #g.state = 'true'
 ## Global variables for all pages

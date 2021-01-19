@@ -41,3 +41,8 @@ class Workers:
         workers = Worker.all(connection=self.conn)
         count = len(workers)
         return count
+
+#if __name__ == '__main__':
+#    worker = Workers()
+#    n = worker.countWorkers()
+#    print(n)

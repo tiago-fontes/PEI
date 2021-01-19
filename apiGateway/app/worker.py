@@ -10,6 +10,9 @@ listen = ['default', 'connError']
 #redis_url = 'redis://0.0.0.0:6379'
 #redis_url = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379')
 #redis_url = 'redis://127.0.0.1:6379'
+#host="127.0.0.1"
+
+#Adapted for Docker: "redis" = container name in the network
 host="redis"
 port=6379
 
@@ -23,7 +26,7 @@ def worker(burst=False):
 
 def daemonize():
     with daemon.DaemonContext():
-        work()
+        worker(burst=False)
 
 def makeWorker(daemon=False, burst=False):
     if daemon:
