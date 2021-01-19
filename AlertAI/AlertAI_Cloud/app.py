@@ -97,7 +97,7 @@ def index():
 
 
 #Routing
-@app.route('/models',methods = ["GET"])
+@app.route('/models',methods = ["POST"])
 def models():
 	req_data = request.get_json()
 	carid=req_data['carId']
@@ -107,11 +107,8 @@ def models():
 	models = Algorithm.query.all()
 	final_json = {}
 	for cla in classifs:
-		print("ID ALG NA CLASSIF ", cla.algorithm_id)
 		for al in models:
-			print("ID ALG NO ALG ", al.id)
 			if(cla.algorithm_id==al.id):
-				print("SAO MM IGUAIS")
 				final_json[al.name] = cla.value
 	return jsonify(dict(data=final_json)) # or whatever is required
 
