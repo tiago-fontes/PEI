@@ -4,3 +4,4 @@ flask-cors
 requests
 rq
 rq-dashboard
+python-daemon

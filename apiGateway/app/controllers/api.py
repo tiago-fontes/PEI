@@ -40,7 +40,7 @@ def verify_password(username, password):
     #username = encryptor.desencryptMsg(username)
     #password = encryptor.desencryptMsg(password)
   
-    res = requests.get("http://35.247.41.216:8080/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
+    res = requests.get("http://34.82.167.68/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
     if res.text == "true":
         return True
     else:
@@ -102,9 +102,7 @@ def backend():
         return "online"
     elif request.method == "POST":
         try:
-            cleanHeaders = request.headers
-            cleanHeaders.pop("Authorization")
-            # cleanHeaders = {"licensePlate": "AA-11-AA"}
+            cleanHeaders = {"licensePlate": request.headers["licensePlate"]}
             requests.post(BACKEND, json=request.json, headers=cleanHeaders, timeout=3)
             return Response(status=200)
         except:

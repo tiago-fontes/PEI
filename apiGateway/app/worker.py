@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-import redis, os
+import redis, os, daemon, sys
 from rq import Worker, Queue, Connection
 
 listen = ['default', 'connError']
@@ -16,9 +16,28 @@ port=6379
 #conn = redis.from_url(redis_url)
 conn = redis.Redis(host=host, port=port, db=0)
 
-if __name__ == '__main__':
+def worker(burst=False):
     with Connection(conn):
         worker = Worker(list(map(Queue, listen)))
-        worker.work()
-        #burst = corre todos os jobs e morre / false = fica sempre à escuta de novos
-        #worker.work(burst=True)
+        worker.work(burst=burst)
+
+def daemonize():
+    with daemon.DaemonContext():
+        work()
+
+def makeWorker(daemon=False, burst=False):
+    if daemon:
+        daemonize()
+    else:
+        worker(burst=burst)
+
+if __name__ == '__main__':
+    d = False
+    params = sys.argv
+    if len(params) > 1:
+        if params[1] == "--daemonize":
+            d = True
+
+    makeWorker(daemon=d)
+
+
