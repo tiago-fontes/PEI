@@ -108,3 +108,4 @@ src/.DS_Store
 .DS_Store
 
 .vscode
+ridecare_frontend/package-lock.json

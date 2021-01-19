@@ -333,7 +333,7 @@ export default {
       .finally(() => (this.loading = false));
   },
   methods: {
-    changePassword: function () {
+    changePassword: function() {
       let data = { password: this.changePasswordForm.newPassword };
       axios
         .patch(`${process.env.VUE_APP_ROOT_API}/user`, data)
@@ -347,7 +347,7 @@ export default {
           this.changeSnackbar(err.message, "error");
         });
     },
-    changeProfile: function () {
+    changeProfile: function() {
       axios
         .patch(`${process.env.VUE_APP_ROOT_API}/user`, this.editUserForm)
         .then(() => {

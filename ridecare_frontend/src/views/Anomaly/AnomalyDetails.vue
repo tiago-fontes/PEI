@@ -118,6 +118,14 @@
             </v-row>
           </v-container>
         </v-tab-item>
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col class="font-weight-bold">Nome do Algoritmo</v-col>
+              <v-col class="font-weight-light">Resultado do Algoritmo</v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
       </v-tabs-items>
     </v-container>
     <v-snackbar
@@ -145,7 +153,7 @@ export default {
   data() {
     return {
       loading: true,
-      items: ["Values Details", "Geographic Details"],
+      items: ["Values Details", "Geographic Details", "Other Algorithms"],
       tabs: null,
       snackbar: {
         show: false,
@@ -178,7 +186,8 @@ export default {
         humidity: [],
         pressure: [],
         temperature: []
-      }
+      },
+      otherAlgorithms: {}
     };
   },
   created() {
