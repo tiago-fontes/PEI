@@ -93,3 +93,4 @@ class Encryptor:
 
         # return the passphrase
         return key
+
