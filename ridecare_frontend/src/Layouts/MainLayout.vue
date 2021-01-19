@@ -2,6 +2,31 @@
   <div id="wrapper">
     <Drawer ref="drawer" />
     <NavBar @toggle-drawer="$refs.drawer.drawer = !$refs.drawer.drawer" />
+    <v-snackbar
+      v-if="activeMessage"
+      v-model="show"
+      top
+      right
+      timeout="4000"
+      color="#fdc500"
+      text
+    >
+      <v-row dense justify="center" align="center">
+        <v-icon left color="#fdc500">mdi-bell</v-icon>
+        <router-link
+          v-if="activeMessage"
+          :to="{
+            name: 'AnomalyDetails',
+            params: { anomalyID: activeMessage.id }
+          }"
+        >
+          New event detected on {{ activeMessage.licensePlate }}
+        </router-link>
+        <v-btn text small @click.native="show = false" class="ml-2">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-row>
+    </v-snackbar>
     <div id="main_wrapper">
       <v-main class="MainLayout__main">
         <slot />
@@ -21,7 +46,10 @@ export default {
     NavBar
   },
   data() {
-    return {};
+    return {
+      show: false,
+      activeMessage: null
+    };
   },
   computed: {
     activeUser() {
@@ -34,17 +62,15 @@ export default {
   methods: {
     async connect() {
       await this.$store.dispatch("connectSocket");
-
-      this.$store.state.stompClient.connect(
+      let that = this;
+      await this.$store.state.stompClient.connect(
         {},
         frame => {
           console.log("Connected: " + frame);
           this.$store.state.stompClient.subscribe(
             `/queue/${this.activeUser.companyName}`,
             tick => {
-              console.log("TICK: " + tick);
-              console.log("BODY", tick.body);
-              //this.received_messages.push(JSON.parse(tick.body).content);
+              that.showMessage(tick.body);
             }
           );
         },
@@ -52,6 +78,14 @@ export default {
           console.log("ERROR DETECTED", error);
         }
       );
+    },
+    showMessage(msg) {
+      this.show = true;
+      this.activeMessage = JSON.parse(msg);
+      setTimeout(() => {
+        this.show = false;
+        this.activeMessage = null;
+      }, 4000);
     }
   }
 };
