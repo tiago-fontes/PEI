@@ -43,9 +43,11 @@ def sendPost(host, dataDict, headers=None):
 def sensors(host, dataDict):
     try:
         res = sendPost(host, dataDict)
+        
         if (res.text == "Unauthorized Access"):
             tok = createToken()
             res = sendPost(host, dataDict)
+            
         
         if res.status_code != 200:
             raise Exception('Response not 200. Res: ' + str(res.status_code) )
@@ -60,10 +62,10 @@ def sensors(host, dataDict):
         q.enqueue_job(job)
 
 def alertCloud(host, data):
+    #makeLog("alertCloud entrada novo", json.dumps(data[0]))
     try:
         dataDict = data[0]
         headers = data[1]
-        
         res = sendPost(host, dataDict, headers)
         
         if (res.text == "Unauthorized Access"):
@@ -87,7 +89,6 @@ def bootTime(host, dataDict):
         if (res.text == "Unauthorized Access"):
             tok = createToken()
             res = sendPost(host, dataDict)
-        makeLog('boot', res.text)
         if res.status_code != 200:
             raise Exception('Response not 200. Res: ' + str(res.status_code) )
     #if no connection put back on queue

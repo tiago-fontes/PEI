@@ -12,12 +12,12 @@ import pickle
 import requests
 import traceback
 
-import jobs
-from rqWorker import Workers
-workers = Workers()
+#import jobs
+#from rqWorker import Workers
+#workers = Workers()
 
-SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
-#UNSUP_MODEL = 'alertai/models/isolationforest.sav'
+SUP_MODEL = '/home/pi/pei/fieldcrawler/alertai/models/svm_gridsearch.sav'
+#UNSUP_MODEL = '/home/pi/pei/fieldcrawler/alertai/models/isolationforest.sav'
 DB_HOST = 'http://35.189.102.211/api/backend/alert'
 
 anomalies = {
@@ -88,7 +88,7 @@ class AlertAI:
 
     def handleClassifications(self,data):
         typ = self.classifyData(data)
-        if(typ==0):
+        if(typ>0):
             anomalyText = anomalies.get(typ)
             #position 0 for raw data
             self.prepare2Send(anomalyText)
@@ -141,8 +141,11 @@ class AlertAI:
         #Sendo to endpoint POST
         try:
             headers = {"licensePlate" : self.sensorsData.get('carId')}
-            workers.queue(jobs.alertCloud, DB_HOST, [json, headers])           
-            #res = requests.post("http://34.82.167.68:80/anomaly/create", json=json,headers=headers)
+            #workers.queue(jobs.alertCloud, DB_HOST, [json, headers])
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print(json)
+            res = requests.post("http://35.189.102.211/api/backend/alert", json=json, headers=headers)
+            #print(res.status_code)
             #print("Sent to backend :D ")
             #print(res.status_code)
         except:
