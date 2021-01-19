@@ -218,9 +218,11 @@ export default {
     getAnomaliesByClassification() {
       for (let i = 0; i < this.anomalies.length; i++) {
         let classification = this.anomalies[i].classification;
-        let position = this.anomaliesByClassification.indexOf(
-          a => a.classification == classification
-        );
+        let position = this.anomaliesByClassification
+          .map(function(e) {
+            return e.classification;
+          })
+          .indexOf(classification);
 
         if (position == -1) {
           this.anomaliesByClassification.push({
@@ -234,8 +236,7 @@ export default {
     },
     getAnomaliesByMonth() {
       for (let i = 0; i < this.anomalies.length; i++) {
-        // TODO: REMOVE '-1'
-        let year = new Date().getFullYear() - 1;
+        let year = new Date().getFullYear();
         let anomalyDate = new Date(this.anomalies[i].measurements[0].timeValue);
 
         if (year == anomalyDate.getFullYear()) {
