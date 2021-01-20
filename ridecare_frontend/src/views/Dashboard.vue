@@ -4,9 +4,19 @@
       color="primary"
       loading
       disabled
-      v-if="loadingAnomalies == true && loadingCars == true"
+      v-if="
+        loadingAnomalies == true &&
+          loadingCars == true &&
+          loadingAnomaliesNotSeen == true
+      "
     ></v-text-field>
-    <v-container v-else-if="loadingAnomalies == false && loadingCars == false">
+    <v-container
+      v-else-if="
+        loadingAnomalies == false &&
+          loadingCars == false &&
+          loadingAnomaliesNotSeen == false
+      "
+    >
       <v-row>
         <v-col
           cols="12"
@@ -84,7 +94,7 @@
                 color="orange"
                 icon="mdi-alert"
                 description="Events"
-                :value="anomalies.length"
+                :value="anomaliesNotSeen.length"
                 @click.native="goToEvents"
               />
             </v-col>
@@ -133,10 +143,12 @@ export default {
     return {
       loadingCars: true,
       loadingAnomalies: true,
+      loadingAnomaliesNotSeen: true,
       cars: [],
       onlineCars: [],
       offlineCars: [],
       anomalies: [],
+      anomaliesNotSeen: [],
       anomaliesByMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       anomaliesByClassification: [],
       error: null
@@ -177,6 +189,16 @@ export default {
         this.error = err;
       })
       .finally(() => (this.loadingAnomalies = false));
+
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/latest`)
+      .then(res => {
+        this.anomaliesNotSeen = res.data;
+      })
+      .catch(err => {
+        this.error = err;
+      })
+      .finally(() => (this.loadingAnomaliesNotSeen = false));
   },
   methods: {
     getOnlineCars() {
