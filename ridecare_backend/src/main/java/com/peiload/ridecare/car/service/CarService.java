@@ -1,22 +1,26 @@
 package com.peiload.ridecare.car.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
+import com.peiload.ridecare.car.dto.StatusShowDto;
 import com.peiload.ridecare.car.model.Car;
-import com.peiload.ridecare.car.model.CarStatus;
-import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +31,9 @@ public class CarService {
     private final CarRepository carRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
+
+    @Value("${ridecare.datalake.url}")
+    public String datalakeURL;
 
     public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
         this.carRepository = carRepository;
@@ -43,13 +50,15 @@ public class CarService {
         User user = this.userService.findByEmail(email);
         Car car = findById(carId);
         if (car.getUser().getId() == user.getId()) {
+            String status = getCurrentStatus(carId);
+            car.setStatus(status);
             return new CarShowDto(car);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
         }
     }
 
-    public List<CarShowDto> getOnlineCars(String authorizationToken) {
+    /*public List<CarShowDto> getOnlineCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
         User user = this.userService.findByEmail(email);
         List<Car> cars = this.carRepository.findAllByUser(user);
@@ -61,7 +70,7 @@ public class CarService {
         User user = this.userService.findByEmail(email);
         List<Car> cars = this.carRepository.findAllByUser(user);
         return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.OFFLINE)).map(CarShowDto::new).collect(Collectors.toList());
-    }
+    }*/
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
@@ -75,8 +84,6 @@ public class CarService {
             String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
-            StatusHistory sh = new StatusHistory(CarStatus.OFFLINE, new Date(), car);
-            car.getStatusHistory().add(sh);
             this.carRepository.save(car);
             return new CarShowDto(car);
         } else {
@@ -139,43 +146,25 @@ public class CarService {
         }
     }
 
-    public StatusHistoryShowDto getCurrentStatus(int carId){
+    public String getCurrentStatus(int carId){
         Car car = findById(carId);
-        return new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
-    }
+        String licensePlate = car.getLicensePlate();
 
-    public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(int carId, Date initialDate, Date finalDate) {
-        Car car = findById(carId);
-        List<StatusHistoryShowDto> history = new ArrayList<>();
-        for(int i = 0; i < car.getStatusHistory().size(); i++){
-            StatusHistory sh = car.getStatusHistory().get(i);
-            if(sh.getDate().after(initialDate)){
-                if(sh.getDate().before(finalDate)){
-                    history.add(new StatusHistoryShowDto(sh));
-                }
-                else{
-                    return history;
-                }
-            }
+        String url = datalakeURL + "/raspberry/status/"+ licensePlate;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        StatusShowDto status;
+        try {
+            status = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
+        } catch (JsonProcessingException e) {
+            status = new StatusShowDto("offline");
+            e.printStackTrace();
         }
 
-        return history;
-    }
-
-    public List<StatusHistoryShowDto> getLatestStatusHistory(int carId, int hours) {
-        Car car = findById(carId);
-        List<StatusHistoryShowDto> history = new ArrayList<>();
-
-        Date initialDate = new Date(System.currentTimeMillis() - (hours * 60 * 60 * 1000));
-
-        List<StatusHistory> shList = car.getStatusHistory();
-
-        for(int i = car.getStatusHistory().size()-1; i >= 0 && shList.get(i).getDate().after(initialDate); i--){
-            StatusHistory sh = shList.get(i);
-            history.add(new StatusHistoryShowDto(sh));
-        }
-
-        return history;
+        return status.getStatus();
     }
 
     public User findUserByCarId(int carId) {

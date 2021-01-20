@@ -201,11 +201,12 @@ public class AnomalyService {
 
         Date beginning = measurements.get(0).getDate();
         List<MeasurementShowDto> beforeAnomaly = getMeasurements("history", licensePlate, beginning, numberOfMeasurements);
+        beforeAnomaly = beforeAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isAfter(beginning.toInstant().minusMillis(300000))).collect(Collectors.toList());
         Collections.reverse(beforeAnomaly);
 
         Date end = measurements.get(measurements.size()-1).getDate();
         List<MeasurementShowDto> afterAnomaly = getMeasurements("recent", licensePlate, end, numberOfMeasurements);
-
+        afterAnomaly = afterAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isBefore(end.toInstant().plusMillis(300000))).collect(Collectors.toList());
 
         return new DetailedAnomalyShowDto(anomaly, beforeAnomaly, afterAnomaly);
     }

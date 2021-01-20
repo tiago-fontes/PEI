@@ -2,6 +2,7 @@ package com.peiload.ridecare.car.dto;
 
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class CarShowDto {
     private int id;
     private int sensorId;
+    private String statuss;
     private StatusHistoryShowDto status;
     private String licensePlate;
     private String image;
@@ -38,6 +40,7 @@ public class CarShowDto {
     public CarShowDto(Car car) {
         this.id = car.getId();
         this.sensorId = car.getSensorId();
+        this.statuss = car.getStatus();
         this.licensePlate = car.getLicensePlate();
         this.image = car.getImage();
         this.brand = car.getBrand();
@@ -51,8 +54,11 @@ public class CarShowDto {
         if(car.getAnomalies() != null){
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
-        if(car.getStatusHistory() != null) {
-            this.status = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size() - 1));
+        if(car.getStatus().contains("off")){
+            this.status = new StatusHistoryShowDto(CarStatus.OFFLINE);
+        }
+        else{
+            this.status = new StatusHistoryShowDto(CarStatus.ONLINE);
         }
     }
 }
