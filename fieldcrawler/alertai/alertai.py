@@ -20,12 +20,20 @@ SUP_MODEL = 'alertai/models/svm_gridsearch.sav'
 #UNSUP_MODEL = 'alertai/models/isolationforest.sav'
 DB_HOST = 'http://requestbin.net/r/1b0mi5m1'
 
+
+#Here we have declared all the anomalies that RideCare system is able to identify
+# 0 means a normal scenario, so there is nothing anormal in this situatios
+# 1 means smoke detection inside the vehicle, produced for exemple with cigarette
+# 2 means stink detection inside the vehicle, produced for exemple with leftover food, bad smells, etc
 anomalies = {
         0: "normal",
         1: "smoke",
-        #2: "fire",
+        2: "stink",
     }
 
+
+# This class represents all the logic for Classification of raw data and anomaly detection
+# Here we have spcecified the process of handling the received information, classification and report to Backend System
 class AlertAI:
 
     def __init__(self):
@@ -47,12 +55,11 @@ class AlertAI:
         self.readingsLog = self.readingsLog[:10]#limita a 10 últimos logs p.e. para não crescer infinitamente
         self.processData()
 
+
+    # This function is responsible for drop the columns we dont need, in order to get data ready for classification    
     def processData(self):
         # We must handle with unnecessary columns
-        
         raw_data = self.sensorsData.copy()
-        #print(raw_data)
-        #raw_data.pop('sensors.id')
         raw_data.pop('carId')
         raw_data.pop('carLocation')
         raw_data.pop('timeValue')
@@ -65,29 +72,20 @@ class AlertAI:
         if(dataframe['pm25'].item() <= 0.5):
             pass
         else:
-            #Normalization with MinMax Scaler
-            minmax = MinMaxScaler()
-            minmaxData = pd.DataFrame(minmax.fit_transform(dataframe.values), columns=columns, index=dataframe.index)
-            result = [dataframe,minmaxData]
             # Classify data
-            self.handleClassifications(result)
+            self.handleClassifications(dataframe)
 
 
+    # This function is going to callout the Algorithm in order to classify received data
     def classifyData(self,data):
         #Classify
-        #Note: DATA[0] -> rawData ; DATA[1] -> MINMAX  ;
-        data2Use = data[0]
-        #Unsupervised Model Predict
-        #unsup_pred = self.unsup_model.predict(data2Use)
-        #classific_unsup = unsup_pred[0]
-        #if(classific_unsup !=0):
-        #Supervised Model Predict
-        sup_pred = self.sup_model.predict(data2Use)
+        sup_pred = self.sup_model.predict(data)
         classific_sup = sup_pred[0]
         # Handle with Event Classification
         return classific_sup
 
 
+    # This function is going to translate the classification given by the algorithm into the anomalies registered in the above dictionay    
     def handleClassifications(self,data):
         typ = self.classifyData(data)
         if(typ==0):
@@ -95,6 +93,8 @@ class AlertAI:
             #position 0 for raw data
             self.prepare2Send(anomalyText)
 
+
+    # Simple function to build up the response to backend system
     def ourDict(self,data):
         final = {
         'classification' : str(data.iloc[0]['classification']),
@@ -111,6 +111,8 @@ class AlertAI:
         }
         return final
 
+
+    #Prepares all the information 
     def prepare2Send(self,classifString):
         #Prepare data before sending to backend
         originalData = self.sensorsData.copy()        
@@ -138,6 +140,7 @@ class AlertAI:
 
 
 
+        # Function that sends the HTTP request
     def sendData(self,json):
         #Save in db cloud
         #Sendo to endpoint POST
