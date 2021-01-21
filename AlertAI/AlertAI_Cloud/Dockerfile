@@ -1,27 +1,16 @@
-FROM ubuntu:18.04
+FROM python:3.8
 
-RUN apt-get update -y && \
-    apt install -y python3-pip python-dev
-
+# set the working directory in the container
 WORKDIR /app
 
-RUN pip install flask
+# copy the dependencies file to the working directory
+COPY requirements.txt .
 
-RUN pip install flask-sqlalchemy
+# install dependencies
+RUN pip install -r requirements.txt
 
-RUN pip install pandas
-
-RUN pip install sklearn
-
-RUN pip install joblib
-
-RUN apt install sqlite3
-
-
+# copy the content of the local src directory to the working directory
 COPY . /app
 
-ENTRYPOINT [ "python" ]
-
-EXPOSE 5000
-
-CMD [ "app.py" ]
+# command to run on container start
+CMD [ "python", "./app.py" ]
