@@ -50,8 +50,8 @@ public class CarService {
         User user = this.userService.findByEmail(email);
         Car car = findById(carId);
         if (car.getUser().getId() == user.getId()) {
-            String status = getCurrentStatus(carId);
-            car.setStatus(status);
+            //String status = getCurrentStatus(carId);
+            //TODO car.setStatus(status);
             return new CarShowDto(car);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
@@ -146,7 +146,7 @@ public class CarService {
         }
     }
 
-    public String getCurrentStatus(int carId){
+    /*public String getCurrentStatus(int carId){
         Car car = findById(carId);
         String licensePlate = car.getLicensePlate();
 
@@ -165,7 +165,7 @@ public class CarService {
         }
 
         return status.getStatus();
-    }
+    }*/
 
     public User findUserByCarId(int carId) {
         return findById(carId).getUser();
