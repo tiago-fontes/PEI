@@ -4,7 +4,9 @@ gsutil cp gs://bucket_alertai/alertai.db .
 
 gsutil cp gs://bucket_alertai/Dockerfile .
 
-gsutil cp -r gs://bucket_alertai/saves models/
+gsutil cp gs://bucket_alertai/requirements.txt .
+
+gsutil cp -r gs://bucket_alertai/models_saves .
 
 sudo add-apt-repository universe
 sudo apt-get update

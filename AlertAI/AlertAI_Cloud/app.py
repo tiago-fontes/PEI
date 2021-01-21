@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 
 #CONSTS
-folder = "saves/"
+folder = "models_saves/"
 extension = ".sav"
 
 
@@ -91,7 +91,7 @@ def index():
 
 
 #Routing
-@app.route('/models',methods = ["POST"])
+@app.route('/models',methods = ["GET"])
 def models():
 	args = request.args
 	carid = args['licensePlate']
