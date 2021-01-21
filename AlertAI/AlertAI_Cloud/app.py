@@ -59,12 +59,6 @@ db.create_all()
 #Dictionary for Algorithms names and models
 AlgoDict = {}
 
-# Data to initialize database with
-Algorithms = [
-	{"name": "SVM"},
-	{"name": "NaiveBayes"},
-	{"name": "RandomForest"},
-]
 
 def load_models(folder):
 	#Get all models to classify
@@ -99,18 +93,21 @@ def index():
 #Routing
 @app.route('/models',methods = ["POST"])
 def models():
-	req_data = request.get_json()
-	carid=req_data['carId']
-	timeV = req_data['timeValue']
-	cap = Capture.query.filter_by(carId=carid,timeValue=timeV).first()
-	classifs = Classification.query.filter_by(capture_id=cap.id).all()
-	models = Algorithm.query.all()
+	args = request.args
+	carid = args['licensePlate']
+	timeV = args['timeValue']
+	try:
+		cap = Capture.query.filter_by(carId=carid,timeValue=timeV).first()
+		classifs = Classification.query.filter_by(capture_id=cap.id).all()
+		models = Algorithm.query.all()
+	except Exception as e:
+		return "Caputure with that licensePlate and timeValue not found",400
 	final_json = {}
 	for cla in classifs:
 		for al in models:
 			if(cla.algorithm_id==al.id):
 				final_json[al.name] = cla.value
-	return jsonify(dict(data=final_json)) # or whatever is required
+	return jsonify(dict(data=final_json)),200
 
 
 @app.route('/capture',methods = ["POST"])
@@ -129,7 +126,7 @@ def insert_capture():
 		db.session.add(c)
 		db.session.commit()
 
-	return "ok"
+	return "Capture saved successfully",201
 
 
 
