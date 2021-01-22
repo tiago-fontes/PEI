@@ -102,7 +102,7 @@ def models():
 		classifs = Classification.query.filter_by(capture_id=cap.id).all()
 		models = Algorithm.query.all()
 	except Exception as e:
-		return "Caputure with that licensePlate and timeValue not found",400
+		return "Caputure with that licensePlate and timeValue not found",404
 	data = []
 	for cla in classifs:
 		for al in models:
