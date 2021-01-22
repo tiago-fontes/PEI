@@ -3,6 +3,7 @@ package com.peiload.ridecare.anomaly.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.peiload.ridecare.anomaly.dto.AlternativeClassificationShowDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
@@ -44,6 +45,9 @@ public class AnomalyService {
 
     @Value("${ridecare.datalake.url}")
     public String datalakeURL;
+
+    @Value("${ridecare.alertAI.url}")
+    public String alertAIURL;
 
     public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
@@ -208,7 +212,23 @@ public class AnomalyService {
         List<MeasurementShowDto> afterAnomaly = getMeasurements("recent", licensePlate, end, numberOfMeasurements);
         afterAnomaly = afterAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isBefore(end.toInstant().plusMillis(300000))).collect(Collectors.toList());
 
-        return new DetailedAnomalyShowDto(anomaly, beforeAnomaly, afterAnomaly);
+
+        //String url = alertAIURL + "/models?licensePlate=" + "VP-35-44" + "&timeValue=" + "2020-12-11 18:16:24";
+        String url = alertAIURL + "/models?licensePlate=" + licensePlate + "&timeValue=" + beginning;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<AlternativeClassificationShowDto> alternativeClassification;
+
+        try {
+            ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+            alternativeClassification = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
+        } catch (Exception e) {
+            alternativeClassification = new ArrayList<>();
+            e.printStackTrace();
+        }
+
+        return new DetailedAnomalyShowDto(anomaly, alternativeClassification, beforeAnomaly, afterAnomaly);
     }
 
 

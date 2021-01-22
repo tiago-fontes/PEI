@@ -24,6 +24,7 @@
         DB_PASSWORD: ridecare
         DB_DATABASE: ridecare_db
         DATALAKE_URL: http://34.105.216.153/datalake/
+        ALERTAI_URL: http://34.76.239.59:5000
     source: build
     state: present
 
