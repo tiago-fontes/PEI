@@ -1,11 +1,22 @@
 package com.peiload.ridecare.car.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.car.model.Car;
+import com.peiload.ridecare.car.model.CarStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,8 +62,28 @@ public class CarShowDto {
         if(car.getAnomalies() != null){
             this.anomalies = car.getAnomalies().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
         }
-        if(car.getStatusHistory() != null) {
-            this.status = new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size() - 1));
+
+        this.status = getCurrentStatus(this.licensePlate);
+    }
+
+    public StatusHistoryShowDto getCurrentStatus(String licensePlate){
+        String url = "http://34.105.216.153/datalake/raspberry/status/"+ licensePlate;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+
+        String datalake_status = rateResponse.getBody();
+        System.out.println(datalake_status);
+        if(datalake_status != null && datalake_status.contains("\"on\"")){
+            System.out.println("on");
+
+            return new StatusHistoryShowDto(CarStatus.ONLINE);
         }
+        else{
+            System.out.println("off");
+
+            return new StatusHistoryShowDto(CarStatus.OFFLINE);
+        }
+
     }
 }

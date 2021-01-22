@@ -1,0 +1,9 @@
+version: '2.1'
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - 8080:9090

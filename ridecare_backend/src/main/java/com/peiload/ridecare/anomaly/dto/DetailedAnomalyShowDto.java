@@ -18,14 +18,16 @@ public class DetailedAnomalyShowDto {
     private List<MeasurementShowDto> duringAnomaly;
     private List<MeasurementShowDto> afterAnomaly;
     private String classification;
+    private List<AlternativeClassificationShowDto> alternativeClassification;
     private String licensePlate;
     private int carId;
     private boolean viewed;
 
-    public DetailedAnomalyShowDto(Anomaly anomaly, List<MeasurementShowDto> beforeAnomaly, List<MeasurementShowDto> afterAnomaly) {
+    public DetailedAnomalyShowDto(Anomaly anomaly, List<AlternativeClassificationShowDto> alternativeClassification, List<MeasurementShowDto> beforeAnomaly, List<MeasurementShowDto> afterAnomaly) {
         this.beforeAnomaly = beforeAnomaly;
         this.duringAnomaly = anomaly.getMeasurements().stream().map(MeasurementShowDto::new).collect(Collectors.toList());
         this.afterAnomaly = afterAnomaly;
+        this.alternativeClassification = alternativeClassification;
         this.classification = anomaly.getClassification();
         this.licensePlate = anomaly.getCar().getLicensePlate();
         this.carId = anomaly.getCar().getId();

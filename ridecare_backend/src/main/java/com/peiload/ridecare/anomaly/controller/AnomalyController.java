@@ -99,7 +99,7 @@ public class AnomalyController {
     }
 
     @GetMapping(path="/{anomalyId}/detailed")
-    public DetailedAnomalyShowDto getMeasurements(@PathVariable int anomalyId, @RequestParam(value = "numberOfMeasurements", required = false, defaultValue = "5") int numberOfMeasurements){
+    public DetailedAnomalyShowDto getDetailedAnomaly(@PathVariable int anomalyId, @RequestParam(value = "numberOfMeasurements", required = false, defaultValue = "5") int numberOfMeasurements){
         return this.anomalyService.getDetailedAnomaly(anomalyId, numberOfMeasurements);
     }
 }

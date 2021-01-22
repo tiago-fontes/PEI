@@ -18,7 +18,7 @@
     name: ridecare_frontend_container
     recreate: yes
     published_ports:   
-      - "3000:80"
+      - "80:80"
     image: ridecare_frontend_image
 
 - name: Check if container is running

@@ -1,0 +1,9 @@
+[Unit]
+Description=Systemd service for nginx.
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/nginx.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -3,16 +3,6 @@
     path: /ridecare_backend/target
     state: directory
 
-- name: Create Database Scripts directory to store initialization files
-  file:
-    path: /ridecare_backend/databaseScripts
-    state: directory
-
-- name: Create nginx directory
-  file:
-    path: /ridecare_backend/nginx/
-    state: directory
-
 - name: Copy backend jar file
   copy:
     src: ../ridecare_backend/target/ridecare-0.0.1-SNAPSHOT.jar
@@ -23,39 +13,29 @@
     src: ../ridecare_backend/dockerfile
     dest: /ridecare_backend/dockerfile
 
-- name: Copy backend docker-compose file
-  copy:
-    src: ../ridecare_backend/docker-compose-cloud.yml
-    dest: /ridecare_backend/docker-compose.yml
-
-- name: Copy database script files (init.sql and schema.sql)
-  copy:
-    src: ../ridecare_backend/databaseScripts/{{ item }}
-    dest: /ridecare_backend/databaseScripts/{{ item }}
-  loop:
-    - init.sql
-    - schema.sql
-
-- name: Copy nginx files
-  copy:
-    src: ../ridecare_backend/nginx/{{ item }}
-    dest: /ridecare_backend/nginx/{{ item }}
-  loop:
-    - Dockerfile
-    - nginx.conf
-
-- name: Pull mysql docker latest image
+- name: Build ridecare_backend Dockerfile 
   docker_image:
-    name: mysql:latest
-    source: pull
-
-- name: Run backend docker-compose
-  docker_compose:
-    project_src: /ridecare_backend
-    files:
-      - "docker-compose.yml"
+    name: ridecare_backend_image
+    build:
+      path: /ridecare_backend/
+      args:
+        DB_IP: "{{ mysql_ip }}"
+        DB_USER: ridecare
+        DB_PASSWORD: ridecare
+        DB_DATABASE: ridecare_db
+        DATALAKE_URL: http://34.105.216.153/datalake/
+        ALERTAI_URL: http://34.76.239.59:5000
+    source: build
     state: present
-    restarted: yes
+
+- name: Run ridecare_backend
+  docker_container:
+    name: ridecare_backend_container
+    recreate: yes
+    published_ports:
+      - "80:8080"
+    image: ridecare_backend_image
+
 
 - name: Copy ridecare_backend.sh
   copy:
