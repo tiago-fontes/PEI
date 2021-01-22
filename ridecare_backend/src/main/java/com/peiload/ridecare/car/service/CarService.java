@@ -1,24 +1,16 @@
 package com.peiload.ridecare.car.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusShowDto;
 import com.peiload.ridecare.car.model.Car;
 import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -57,20 +49,6 @@ public class CarService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
         }
     }
-
-    /*public List<CarShowDto> getOnlineCars(String authorizationToken) {
-        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        User user = this.userService.findByEmail(email);
-        List<Car> cars = this.carRepository.findAllByUser(user);
-        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.ONLINE)).map(CarShowDto::new).collect(Collectors.toList());
-    }
-
-    public List<CarShowDto> getOfflineCars(String authorizationToken) {
-        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        User user = this.userService.findByEmail(email);
-        List<Car> cars = this.carRepository.findAllByUser(user);
-        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.OFFLINE)).map(CarShowDto::new).collect(Collectors.toList());
-    }*/
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
         String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
@@ -145,27 +123,6 @@ public class CarService {
             car.setFuel(carEditDto.getFuel());
         }
     }
-
-    /*public String getCurrentStatus(int carId){
-        Car car = findById(carId);
-        String licensePlate = car.getLicensePlate();
-
-        String url = datalakeURL + "/raspberry/status/"+ licensePlate;
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        StatusShowDto status;
-        try {
-            status = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
-        } catch (JsonProcessingException e) {
-            status = new StatusShowDto("offline");
-            e.printStackTrace();
-        }
-
-        return status.getStatus();
-    }*/
 
     public User findUserByCarId(int carId) {
         return findById(carId).getUser();
