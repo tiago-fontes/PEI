@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -202,8 +203,8 @@ public class AnomalyService {
         String licensePlate = anomaly.getCar().getLicensePlate();
 
         List<Measurement> measurements = anomaly.getMeasurements();
-
         Date beginning = measurements.get(0).getDate();
+
         List<MeasurementShowDto> beforeAnomaly = getMeasurements("history", licensePlate, beginning, numberOfMeasurements);
         beforeAnomaly = beforeAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isAfter(beginning.toInstant().minusMillis(300000))).collect(Collectors.toList());
         Collections.reverse(beforeAnomaly);
@@ -214,7 +215,9 @@ public class AnomalyService {
 
 
         //String url = alertAIURL + "/models?licensePlate=" + "VP-35-44" + "&timeValue=" + "2020-12-11 18:16:24";
-        String url = alertAIURL + "/models?licensePlate=" + licensePlate + "&timeValue=" + beginning;
+        String date = beginning.toString().split("\\.")[0];
+
+        String url = alertAIURL + "/models?licensePlate=" + licensePlate + "&timeValue=" + date;
         RestTemplate restTemplate = new RestTemplate();
 
         ObjectMapper objectMapper = new ObjectMapper();
