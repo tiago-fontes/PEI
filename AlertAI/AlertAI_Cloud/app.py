@@ -6,6 +6,7 @@ import pickle
 import glob
 import pandas as pd
 import joblib
+import json
 
 
 #init app
@@ -102,12 +103,17 @@ def models():
 		models = Algorithm.query.all()
 	except Exception as e:
 		return "Caputure with that licensePlate and timeValue not found",400
-	final_json = {}
+	data = []
 	for cla in classifs:
 		for al in models:
 			if(cla.algorithm_id==al.id):
-				final_json[al.name] = cla.value
-	return jsonify(dict(data=final_json)),200
+				final_json = {}
+				#final_json[al.name] = cla.value
+				final_json["Algoritmo"] = al.name
+				final_json["classificacao"] = cla.value
+				data.append(final_json)
+	json_data = json.dumps(data)
+	return json_data,200
 
 
 @app.route('/capture',methods = ["POST"])
