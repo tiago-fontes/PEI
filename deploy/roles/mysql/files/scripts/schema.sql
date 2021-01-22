@@ -1,5 +1,3 @@
-use ridecare_db;
-
 create table user
 (
     id           int auto_increment
@@ -58,15 +56,3 @@ create table measurement
     constraint FKbl7a1lgckql9mcdi6xinfckxu
         foreign key (anomaly_id) references anomaly (id)
 );
-
-create table status_history
-(
-    id     int auto_increment
-        primary key,
-    date   datetime(6) not null,
-    status int         not null,
-    car_id int         not null,
-    constraint FKnj85krlds9er9kdkcskr7uan3
-        foreign key (car_id) references car (id)
-);
-
