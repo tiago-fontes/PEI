@@ -109,8 +109,8 @@ def models():
 			if(cla.algorithm_id==al.id):
 				final_json = {}
 				#final_json[al.name] = cla.value
-				final_json["Algoritmo"] = al.name
-				final_json["classificacao"] = cla.value
+				final_json["algorithm"] = al.name
+				final_json["classification"] = cla.value
 				data.append(final_json)
 	json_data = json.dumps(data)
 	return json_data,200
