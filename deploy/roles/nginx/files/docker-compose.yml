@@ -2,7 +2,7 @@ version: '2.1'
 services:
   nginx:
     build:
-      context: ./nginx
+      context: .
       dockerfile: Dockerfile
     container_name: nginx
     ports:
