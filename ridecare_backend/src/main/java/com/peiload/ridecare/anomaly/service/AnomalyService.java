@@ -203,13 +203,13 @@ public class AnomalyService {
         String licensePlate = anomaly.getCar().getLicensePlate();
 
         List<Measurement> measurements = anomaly.getMeasurements();
-        Date beginning = measurements.get(0).getDate();
+        Date beginning = Date.from(measurements.get(0).getDate().toInstant().minusSeconds(1));
 
         List<MeasurementShowDto> beforeAnomaly = getMeasurements("history", licensePlate, beginning, numberOfMeasurements);
         beforeAnomaly = beforeAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isAfter(beginning.toInstant().minusMillis(300000))).collect(Collectors.toList());
         Collections.reverse(beforeAnomaly);
 
-        Date end = measurements.get(measurements.size()-1).getDate();
+        Date end = Date.from(measurements.get(measurements.size()-1).getDate().toInstant().plusSeconds(1));
         List<MeasurementShowDto> afterAnomaly = getMeasurements("recent", licensePlate, end, numberOfMeasurements);
         afterAnomaly = afterAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isBefore(end.toInstant().plusMillis(300000))).collect(Collectors.toList());
 
