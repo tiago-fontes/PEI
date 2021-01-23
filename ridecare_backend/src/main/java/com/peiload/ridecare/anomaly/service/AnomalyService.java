@@ -63,7 +63,9 @@ public class AnomalyService {
     }
 
     public List<AnomalyShowDto> getAllAnomalies() {
-        return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        List<AnomalyShowDto> anomalies = this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getAllUserAnomalies(String authorizationToken){
@@ -71,8 +73,9 @@ public class AnomalyService {
         User user = userService.findByEmail(email);
 
         List<Car> userCars = user.getCars();
-
-        return anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        List<AnomalyShowDto> anomalies = anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesUser(String authorizationToken) {
@@ -81,7 +84,9 @@ public class AnomalyService {
 
         List<Car> userCars = user.getCars();
 
-        return anomalyRepository.findAllByViewedAndCarIn(false, userCars);
+        List<AnomalyShowDto> anomalies = anomalyRepository.findAllByViewedAndCarIn(false, userCars);
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesCar(String authorizationToken, int carId) {
@@ -89,7 +94,9 @@ public class AnomalyService {
         Car car = this.carService.findById(carId);
 
         if(car.getUser().getEmail().equals(email)){
-            return anomalyRepository.findAllByViewedAndCar(false, car);
+            List<AnomalyShowDto> anomalies = anomalyRepository.findAllByViewedAndCar(false, car);
+            Collections.reverse(anomalies);
+            return anomalies;
         }
         else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
