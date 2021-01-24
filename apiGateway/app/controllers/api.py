@@ -24,7 +24,7 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 DATALAKE_HOST = "http://34.105.216.153/datalake/default/api"
 SENSORS_HOST = DATALAKE_HOST + "/sensors"
 BOOT_HOST = DATALAKE_HOST + "/raspberry"
-ALERTCLOUD = "http://35.205.66.70:5000/capture "
+ALERTCLOUD = "http://34.76.239.59:5000/capture"
 BACKEND = "http://34.82.167.68:80/anomaly/create"
 
 apiRoute = Blueprint('api', __name__,  template_folder='views')
@@ -36,10 +36,10 @@ tokenAuth = HTTPTokenAuth(scheme='Bearer')
 
 @basicAuth.verify_password
 def verify_password(username, password):
-    #encryptor = Encryptor()
-    #username = encryptor.desencryptMsg(username)
-    #password = encryptor.desencryptMsg(password)
-  
+    encryptor = Encryptor()
+    username = encryptor.desencryptMsg(username)
+    password = encryptor.desencryptMsg(password)
+    
     res = requests.get("http://34.82.167.68/car/verify?licensePlate="+username+"&sensorId="+password, timeout=3)
     if res.text == "true":
         return True
@@ -95,15 +95,15 @@ def raspberry():
     else:
         return Response(status=404)
 
+#@tokenAuth.login_required
 @apiRoute.route('/api/backend/alert', methods=['GET', 'POST'])
-@tokenAuth.login_required
 def backend():
     if request.method == "GET":
         return "online"
     elif request.method == "POST":
         try:
             cleanHeaders = {"licensePlate": request.headers["licensePlate"]}
-            requests.post(BACKEND, json=request.json, headers=cleanHeaders, timeout=3)
+            requests.post(BACKEND, json=request.json, headers=cleanHeaders, timeout=1)
             return Response(status=200)
         except:
             return Response(status=404)

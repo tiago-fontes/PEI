@@ -13,9 +13,12 @@ docker run -d --name apigateway --network="peiNetwork" -p 80:80 apigateway
 
 5-Correr um service worker py-rq em background pelo terminal do container:
 >docker exec -it apigateway bash
->chmod +x worker.py
->nohup python3 worker.py &
-(a partri daqui a correrá em background, sair com ctrl+c e exit)
+>python3 worker.py --daemonize
+
+Já não é preciso:
+#>chmod +x worker.py
+#>nohup python3 worker.py &
+#(a partri daqui a correrá em background, sair com ctrl+c e exit)
 
 ---
 
