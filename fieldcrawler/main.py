@@ -121,7 +121,7 @@ class FieldCrawler:
             measurement = self.g_mouse.getMeasurement()
             mesValue = measurement["carLocation"]
         except:
-            mesValue = ""
+            mesValue = "41.5608 -8.3968"
         dataDict = {
                     'carLocation': mesValue
                    }
