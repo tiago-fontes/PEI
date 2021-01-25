@@ -1,0 +1,53 @@
+- name: Create MySql directory
+  file:
+    path: /mysql
+    state: directory
+
+- name: Create Scripts directory to store initialization files
+  file:
+    path: /mysql/scripts
+    state: directory
+
+- name: Copy MySql docker-compose file
+  copy:
+    src: roles/mysql/files/docker-compose.yml
+    dest: /mysql/docker-compose.yml
+
+- name: Copy script files (init.sql and schema.sql)
+  copy:
+    src: roles/mysql/files/scripts/{{item}}
+    dest: /mysql/scripts/{{item}}
+  loop:
+    - init.sql
+    - schema.sql
+
+- name: Pull mysql docker latest image
+  docker_image:
+    name: mysql:latest
+    source: pull
+
+- name: Run MySql docker-compose
+  docker_compose:
+    project_src: /mysql
+    files:
+      - "docker-compose.yml"
+    state: present
+
+- name: Copy mysql.sh
+  copy:
+    src: roles/mysql/files/mysql.sh
+    dest: /usr/bin/mysql.sh
+
+- name: Make it an executable
+  shell: sudo chmod +x /usr/bin/mysql.sh
+
+- name: Copy mysqlservice.service
+  copy:
+    src: roles/mysql/files/mysqlservice.service
+    dest: /etc/systemd/system/mysqlservice.service
+
+- name: Give permissions to mysqlservice.service
+  shell: sudo chmod 644 /etc/systemd/system/mysqlservice.service
+
+- name: Ensure that the service starts whenever the system boots
+  shell: sudo systemctl enable mysqlservice

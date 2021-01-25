@@ -3,6 +3,7 @@ package com.peiload.ridecare.anomaly.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.peiload.ridecare.anomaly.dto.AlternativeClassificationShowDto;
 import com.peiload.ridecare.anomaly.dto.AnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.DetailedAnomalyShowDto;
 import com.peiload.ridecare.anomaly.dto.MeasurementSetDto;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -45,6 +47,9 @@ public class AnomalyService {
     @Value("${ridecare.datalake.url}")
     public String datalakeURL;
 
+    @Value("${ridecare.alertAI.url}")
+    public String alertAIURL;
+
     public AnomalyService(AnomalyRepository anomalyRepository, MeasurementRepository measurementRepository, JwtTokenUtil jtu, UserService userService, CarService carService) {
         this.anomalyRepository = anomalyRepository;
         this.measurementRepository = measurementRepository;
@@ -58,7 +63,9 @@ public class AnomalyService {
     }
 
     public List<AnomalyShowDto> getAllAnomalies() {
-        return this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        List<AnomalyShowDto> anomalies = this.anomalyRepository.findAll().stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getAllUserAnomalies(String authorizationToken){
@@ -66,8 +73,9 @@ public class AnomalyService {
         User user = userService.findByEmail(email);
 
         List<Car> userCars = user.getCars();
-
-        return anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        List<AnomalyShowDto> anomalies = anomalyRepository.findAllByCarIn(userCars).stream().map(AnomalyShowDto::new).collect(Collectors.toList());
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesUser(String authorizationToken) {
@@ -76,7 +84,9 @@ public class AnomalyService {
 
         List<Car> userCars = user.getCars();
 
-        return anomalyRepository.findAllByViewedAndCarIn(false, userCars);
+        List<AnomalyShowDto> anomalies = anomalyRepository.findAllByViewedAndCarIn(false, userCars);
+        Collections.reverse(anomalies);
+        return anomalies;
     }
 
     public List<AnomalyShowDto> getLatestAnomaliesCar(String authorizationToken, int carId) {
@@ -84,7 +94,9 @@ public class AnomalyService {
         Car car = this.carService.findById(carId);
 
         if(car.getUser().getEmail().equals(email)){
-            return anomalyRepository.findAllByViewedAndCar(false, car);
+            List<AnomalyShowDto> anomalies = anomalyRepository.findAllByViewedAndCar(false, car);
+            Collections.reverse(anomalies);
+            return anomalies;
         }
         else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car you were trying to view belongs to another user");
@@ -198,16 +210,35 @@ public class AnomalyService {
         String licensePlate = anomaly.getCar().getLicensePlate();
 
         List<Measurement> measurements = anomaly.getMeasurements();
+        Date beginning = Date.from(measurements.get(0).getDate().toInstant().minusSeconds(1));
 
-        Date beginning = measurements.get(0).getDate();
         List<MeasurementShowDto> beforeAnomaly = getMeasurements("history", licensePlate, beginning, numberOfMeasurements);
+        beforeAnomaly = beforeAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isAfter(beginning.toInstant().minusMillis(300000))).collect(Collectors.toList());
         Collections.reverse(beforeAnomaly);
 
-        Date end = measurements.get(measurements.size()-1).getDate();
+        Date end = Date.from(measurements.get(measurements.size()-1).getDate().toInstant().plusSeconds(1));
         List<MeasurementShowDto> afterAnomaly = getMeasurements("recent", licensePlate, end, numberOfMeasurements);
+        afterAnomaly = afterAnomaly.stream().filter(measurement -> measurement.getTimeValue().toInstant().isBefore(end.toInstant().plusMillis(300000))).collect(Collectors.toList());
 
 
-        return new DetailedAnomalyShowDto(anomaly, beforeAnomaly, afterAnomaly);
+        //String url = alertAIURL + "/models?licensePlate=" + "VP-35-44" + "&timeValue=" + "2020-12-11 18:16:24";
+        String date = beginning.toString().split("\\.")[0];
+
+        String url = alertAIURL + "/models?licensePlate=" + licensePlate + "&timeValue=" + date;
+        RestTemplate restTemplate = new RestTemplate();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<AlternativeClassificationShowDto> alternativeClassification;
+
+        try {
+            ResponseEntity<String> rateResponse = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+            alternativeClassification = objectMapper.readValue(rateResponse.getBody(), new TypeReference<>(){});
+        } catch (Exception e) {
+            alternativeClassification = new ArrayList<>();
+            e.printStackTrace();
+        }
+
+        return new DetailedAnomalyShowDto(anomaly, alternativeClassification, beforeAnomaly, afterAnomaly);
     }
 
 

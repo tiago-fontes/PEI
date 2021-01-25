@@ -17,12 +17,21 @@
         disks:
           - disk-01
           - disk-02
+          - disk-03
+          - disk-04
+          - disk-05
         addresses:
           - addr-01
           - addr-02
+          - addr-03
+          - addr-04
+          - addr-05
         instances:
-          - { index: 1, tag: backend, name: backend } 
-          - { index: 2, tag: frontend, name: frontend } 
+          - { index: 1, tag: backend-mysql, name: backend-mysql } 
+          - { index: 2, tag: backend1, name: backend1 } 
+          - { index: 3, tag: backend2, name: backend2 } 
+          - { index: 4, tag: backend-nginx, name: backend-nginx } 
+          - { index: 5, tag: frontend, name: frontend } 
 
 
 - hosts: all
@@ -31,12 +40,39 @@
     - { role: users, payload: users.yml }
     - { role: docker }
 
-
-- hosts: backend
+- hosts: backend-mysql
   gather_facts: yes
   become: yes
   roles:
-    - role: backend
+    - role: mysql
+
+- hosts: backend1
+  gather_facts: yes
+  become: yes
+  roles:
+    - {
+      role: backend,
+      mysql_ip: "{{ groups['backend-mysql'][0] }}"
+      }
+
+- hosts: backend2
+  gather_facts: yes
+  become: yes
+  roles:
+    - {
+      role: backend,
+      mysql_ip: "{{ groups['backend-mysql'][0] }}"
+      }
+
+- hosts: backend-nginx
+  gather_facts: yes
+  become: yes
+  roles:
+    - {
+      role: nginx,
+      backend1_ip: "{{ groups['backend1'][0] }}",
+      backend2_ip: "{{ groups['backend2'][0] }}"
+      }
 
 - hosts: frontend
   gather_facts: yes
@@ -44,6 +80,6 @@
   roles:
     - {
       role: frontend,
-      backend_ip: "{{ groups['backend'][0] }}",
-      backend_port: "8080"
+      backend_ip: "{{ groups['backend-nginx'][0] }}",
+      backend_port: "80"
       }

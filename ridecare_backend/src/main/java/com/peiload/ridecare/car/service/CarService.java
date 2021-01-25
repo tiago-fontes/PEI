@@ -3,20 +3,16 @@ package com.peiload.ridecare.car.service;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
 import com.peiload.ridecare.car.model.Car;
-import com.peiload.ridecare.car.model.CarStatus;
-import com.peiload.ridecare.car.model.StatusHistory;
 import com.peiload.ridecare.car.repository.CarRepository;
 import com.peiload.ridecare.common.JwtTokenUtil;
 import com.peiload.ridecare.user.model.User;
 import com.peiload.ridecare.user.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +23,9 @@ public class CarService {
     private final CarRepository carRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
+
+    @Value("${ridecare.datalake.url}")
+    public String datalakeURL;
 
     public CarService(CarRepository carRepository, JwtTokenUtil jwtTokenUtil, UserService userService) {
         this.carRepository = carRepository;
@@ -43,24 +42,12 @@ public class CarService {
         User user = this.userService.findByEmail(email);
         Car car = findById(carId);
         if (car.getUser().getId() == user.getId()) {
+            //String status = getCurrentStatus(carId);
+            //TODO car.setStatus(status);
             return new CarShowDto(car);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The car belongs to another user.");
         }
-    }
-
-    public List<CarShowDto> getOnlineCars(String authorizationToken) {
-        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        User user = this.userService.findByEmail(email);
-        List<Car> cars = this.carRepository.findAllByUser(user);
-        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.ONLINE)).map(CarShowDto::new).collect(Collectors.toList());
-    }
-
-    public List<CarShowDto> getOfflineCars(String authorizationToken) {
-        String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
-        User user = this.userService.findByEmail(email);
-        List<Car> cars = this.carRepository.findAllByUser(user);
-        return cars.stream().filter(car -> car.getStatusHistory().get(car.getStatusHistory().size()-1).getStatus().equals(CarStatus.OFFLINE)).map(CarShowDto::new).collect(Collectors.toList());
     }
 
     public List<CarShowDto> getUserCars(String authorizationToken) {
@@ -75,8 +62,6 @@ public class CarService {
             String email = jwtTokenUtil.getEmailFromAuthorizationString(authorizationToken);
             User user = this.userService.findByEmail(email);
             Car car = new Car(carCreateDto, user);
-            StatusHistory sh = new StatusHistory(CarStatus.OFFLINE, new Date(), car);
-            car.getStatusHistory().add(sh);
             this.carRepository.save(car);
             return new CarShowDto(car);
         } else {
@@ -139,46 +124,17 @@ public class CarService {
         }
     }
 
-    public StatusHistoryShowDto getCurrentStatus(int carId){
-        Car car = findById(carId);
-        return new StatusHistoryShowDto(car.getStatusHistory().get(car.getStatusHistory().size()-1));
-    }
-
-    public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(int carId, Date initialDate, Date finalDate) {
-        Car car = findById(carId);
-        List<StatusHistoryShowDto> history = new ArrayList<>();
-        for(int i = 0; i < car.getStatusHistory().size(); i++){
-            StatusHistory sh = car.getStatusHistory().get(i);
-            if(sh.getDate().after(initialDate)){
-                if(sh.getDate().before(finalDate)){
-                    history.add(new StatusHistoryShowDto(sh));
-                }
-                else{
-                    return history;
-                }
-            }
-        }
-
-        return history;
-    }
-
-    public List<StatusHistoryShowDto> getLatestStatusHistory(int carId, int hours) {
-        Car car = findById(carId);
-        List<StatusHistoryShowDto> history = new ArrayList<>();
-
-        Date initialDate = new Date(System.currentTimeMillis() - (hours * 60 * 60 * 1000));
-
-        List<StatusHistory> shList = car.getStatusHistory();
-
-        for(int i = car.getStatusHistory().size()-1; i >= 0 && shList.get(i).getDate().after(initialDate); i--){
-            StatusHistory sh = shList.get(i);
-            history.add(new StatusHistoryShowDto(sh));
-        }
-
-        return history;
-    }
-
     public User findUserByCarId(int carId) {
         return findById(carId).getUser();
+    }
+
+    public Boolean verify(String licensePlate, int sensorId) {
+        Optional<Car> car = this.carRepository.findByLicensePlate(licensePlate);
+        if(car.isEmpty()){
+            return false;
+        }
+        else{
+            return (car.get().getSensorId() == sensorId);
+        }
     }
 }

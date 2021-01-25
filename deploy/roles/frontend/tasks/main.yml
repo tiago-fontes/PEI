@@ -3,12 +3,6 @@
     src: ../ridecare_frontend
     dest: /
 
-- debug:
-    msg: "backend_ip {{ backend_ip }} with port {{ backend_port }}"
-
-- debug:
-    msg: "backend {{ backend_ip }}:{{backend_port}}"
-
 - name: Build ridecare_frontend Dockerfile 
   docker_image:
     name: ridecare_frontend_image
@@ -24,8 +18,27 @@
     name: ridecare_frontend_container
     recreate: yes
     published_ports:   
-      - "3000:80"
+      - "80:80"
     image: ridecare_frontend_image
 
 - name: Check if container is running
   shell: docker ps
+
+- name: Copy ridecare_frontend.sh
+  copy:
+    src: roles/frontend/files/ridecare_frontend.sh
+    dest: /usr/bin/ridecare_frontend.sh
+
+- name: Make it an executable
+  shell: sudo chmod +x /usr/bin/ridecare_frontend.sh
+
+- name: Copy frontendservice.service
+  copy:
+    src: roles/frontend/files/frontendservice.service
+    dest: /etc/systemd/system/frontendservice.service
+
+- name: Give permissions to frontendservice.service
+  shell: sudo chmod 644 /etc/systemd/system/frontendservice.service
+
+- name: Ensure that the service starts whenever the system boots
+  shell: sudo systemctl enable frontendservice

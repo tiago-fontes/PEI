@@ -3,24 +3,12 @@ package com.peiload.ridecare.car.controller;
 import com.peiload.ridecare.car.dto.CarCreateDto;
 import com.peiload.ridecare.car.dto.CarEditDto;
 import com.peiload.ridecare.car.dto.CarShowDto;
-import com.peiload.ridecare.car.dto.StatusHistoryShowDto;
+import com.peiload.ridecare.car.dto.StatusShowDto;
 import com.peiload.ridecare.car.service.CarService;
 import io.swagger.annotations.Api;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,7 +32,7 @@ public class CarController {
         return this.carService.getCarById(authorizationToken, carId);
     }
 
-    @GetMapping(path="/online")
+    /*@GetMapping(path="/online")
     public List<CarShowDto> getOnlineCars(@RequestHeader("Authorization") String authorizationToken){
         return this.carService.getOnlineCars(authorizationToken);
     }
@@ -52,7 +40,7 @@ public class CarController {
     @GetMapping(path="/offline")
     public List<CarShowDto> getOfflineCars(@RequestHeader("Authorization") String authorizationToken){
         return this.carService.getOfflineCars(authorizationToken);
-    }
+    }*/
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -71,21 +59,10 @@ public class CarController {
         this.carService.deleteCar(authorizationToken, carId);
     }
 
-    @GetMapping(path="/{carId}/currentStatus")
-    public StatusHistoryShowDto getCurrentStatus(@PathVariable int carId){
-        return this.carService.getCurrentStatus(carId);
+    @GetMapping(path="/verify")
+    public Boolean verify(@RequestParam("licensePlate") String licensePlate, @RequestParam("sensorId") int sensorId){
+        return this.carService.verify(licensePlate, sensorId);
     }
 
-    @GetMapping(path="/{carId}/history")
-    public List<StatusHistoryShowDto> getStatusHistoryBetweenDates(@PathVariable int carId,
-                                                                   @RequestParam("initialDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date initialDate,
-                                                                   @RequestParam("finalDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date finalDate){
-        return this.carService.getStatusHistoryBetweenDates(carId, initialDate, finalDate);
-    }
 
-    @GetMapping(path="/{carId}/history/latest")
-    public List<StatusHistoryShowDto> getLatestStatusHistory(@PathVariable int carId,
-                                                      @RequestParam("hours") int hours){
-        return this.carService.getLatestStatusHistory(carId, hours);
-    }
 }
