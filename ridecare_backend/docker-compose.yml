@@ -4,7 +4,7 @@ services:
     container_name: mysql
     image: mysql:latest
     ports:
-      - "3306:3306"
+      - 3306:3306
     security_opt:
       - seccomp:unconfined
     environment:
@@ -27,6 +27,7 @@ services:
       DB_PASSWORD: ridecare
       DB_DATABASE: ridecare_db
       DATALAKE_URL: http://cehum.ilch.uminho.pt/datalake/
+      SPRING_PROFILES_ACTIVE: front
     container_name: ridecare_backend
     depends_on:
       mysql:
