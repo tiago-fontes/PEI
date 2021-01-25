@@ -127,8 +127,20 @@
               <v-col class="font-weight-bold">{{
                 classification.algorithm
               }}</v-col>
-              <v-col class="font-weight-light">
-                {{ classification.classification }}
+              <v-col
+                class="font-weight-light"
+                v-if="classification.classification == 1"
+              >
+                Smoke
+              </v-col>
+              <v-col
+                class="font-weight-light"
+                v-else-if="classification.classification == 2"
+              >
+                Stink
+              </v-col>
+              <v-col class="font-weight-light" v-else>
+                Normal
               </v-col>
             </v-row>
           </v-container>
