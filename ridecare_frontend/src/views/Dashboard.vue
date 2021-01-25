@@ -161,10 +161,10 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        //console.log(res);
+        console.log(res);
         this.cars = res.data;
         res.data.map(car => {
-          if (car.status.status == "OFFLINE") {
+          if (car.status.status.toUpperCase() == "OFFLINE") {
             this.offlineCars.push(car);
           } else {
             this.onlineCars.push(car);
@@ -172,7 +172,6 @@ export default {
         });
       })
       .catch(err => {
-        //console.log(err.response);
         this.error = err;
       })
       .finally(() => (this.loadingCars = false));
@@ -202,30 +201,10 @@ export default {
   },
   methods: {
     getOnlineCars() {
-      axios
-        .get(`${process.env.VUE_APP_ROOT_API}/car/online`)
-        .then(res => {
-          //console.log(res);
-          this.cars = res.data;
-        })
-        .catch(err => {
-          //console.log(err.response);
-          this.error = err;
-        })
-        .finally(() => (this.loading = false));
+      this.cars = this.onlineCars;
     },
     getOfflineCars() {
-      axios
-        .get(`${process.env.VUE_APP_ROOT_API}/car/offline`)
-        .then(res => {
-          //console.log(res);
-          this.cars = res.data;
-        })
-        .catch(err => {
-          //console.log(err.response);
-          this.error = err;
-        })
-        .finally(() => (this.loading = false));
+      this.cars = this.offlineCars;
     },
     goToEvents() {
       this.$router.push("/events-anomalies");

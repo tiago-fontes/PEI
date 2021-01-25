@@ -120,9 +120,16 @@
         </v-tab-item>
         <v-tab-item>
           <v-container>
-            <v-row>
-              <v-col class="font-weight-bold">Nome do Algoritmo</v-col>
-              <v-col class="font-weight-light">Resultado do Algoritmo</v-col>
+            <v-row
+              v-for="(classification, index) in alternativeClassification"
+              :key="index"
+            >
+              <v-col class="font-weight-bold">{{
+                classification.algorithm
+              }}</v-col>
+              <v-col class="font-weight-light">
+                {{ classification.classification }}
+              </v-col>
             </v-row>
           </v-container>
         </v-tab-item>
@@ -187,6 +194,7 @@ export default {
         pressure: [],
         temperature: []
       },
+      alternativeClassification: [],
       otherAlgorithms: {}
     };
   },
@@ -199,7 +207,9 @@ export default {
         `${process.env.VUE_APP_ROOT_API}/anomaly/${this.$route.params.anomalyID}/detailed`
       )
       .then(res => {
+        console.log(res.data);
         this.anomaly = res.data;
+        this.alternativeClassification = res.data.alternativeClassification;
         this.transformResponse(res.data);
       })
       .catch(err => {
