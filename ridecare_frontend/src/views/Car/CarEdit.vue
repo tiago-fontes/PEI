@@ -233,7 +233,10 @@
             outlined
             color="warning"
             class="text-capitalize ml-4"
-            @click="cancelEdit"
+            :to="{
+              name: 'CarDetails',
+              params: { carID: this.$route.params.carID }
+            }"
           >
             Cancel
           </v-btn>
