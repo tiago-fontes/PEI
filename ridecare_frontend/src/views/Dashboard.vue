@@ -4,9 +4,19 @@
       color="primary"
       loading
       disabled
-      v-if="loadingAnomalies == true && loadingCars == true"
+      v-if="
+        loadingAnomalies == true &&
+          loadingCars == true &&
+          loadingAnomaliesNotSeen == true
+      "
     ></v-text-field>
-    <v-container v-else-if="loadingAnomalies == false && loadingCars == false">
+    <v-container
+      v-else-if="
+        loadingAnomalies == false &&
+          loadingCars == false &&
+          loadingAnomaliesNotSeen == false
+      "
+    >
       <v-row>
         <v-col
           cols="12"
@@ -84,7 +94,7 @@
                 color="orange"
                 icon="mdi-alert"
                 description="Events"
-                :value="anomalies.length"
+                :value="anomaliesNotSeen.length"
                 @click.native="goToEvents"
               />
             </v-col>
@@ -133,10 +143,12 @@ export default {
     return {
       loadingCars: true,
       loadingAnomalies: true,
+      loadingAnomaliesNotSeen: true,
       cars: [],
       onlineCars: [],
       offlineCars: [],
       anomalies: [],
+      anomaliesNotSeen: [],
       anomaliesByMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       anomaliesByClassification: [],
       error: null
@@ -149,10 +161,10 @@ export default {
     axios
       .get(`${process.env.VUE_APP_ROOT_API}/car`)
       .then(res => {
-        //console.log(res);
+        console.log(res);
         this.cars = res.data;
         res.data.map(car => {
-          if (car.status.status == "OFFLINE") {
+          if (car.status.status.toUpperCase() == "OFFLINE") {
             this.offlineCars.push(car);
           } else {
             this.onlineCars.push(car);
@@ -160,7 +172,6 @@ export default {
         });
       })
       .catch(err => {
-        //console.log(err.response);
         this.error = err;
       })
       .finally(() => (this.loadingCars = false));
@@ -177,33 +188,23 @@ export default {
         this.error = err;
       })
       .finally(() => (this.loadingAnomalies = false));
+
+    axios
+      .get(`${process.env.VUE_APP_ROOT_API}/anomaly/user/latest`)
+      .then(res => {
+        this.anomaliesNotSeen = res.data;
+      })
+      .catch(err => {
+        this.error = err;
+      })
+      .finally(() => (this.loadingAnomaliesNotSeen = false));
   },
   methods: {
     getOnlineCars() {
-      axios
-        .get(`${process.env.VUE_APP_ROOT_API}/car/online`)
-        .then(res => {
-          //console.log(res);
-          this.cars = res.data;
-        })
-        .catch(err => {
-          //console.log(err.response);
-          this.error = err;
-        })
-        .finally(() => (this.loading = false));
+      this.cars = this.onlineCars;
     },
     getOfflineCars() {
-      axios
-        .get(`${process.env.VUE_APP_ROOT_API}/car/offline`)
-        .then(res => {
-          //console.log(res);
-          this.cars = res.data;
-        })
-        .catch(err => {
-          //console.log(err.response);
-          this.error = err;
-        })
-        .finally(() => (this.loading = false));
+      this.cars = this.offlineCars;
     },
     goToEvents() {
       this.$router.push("/events-anomalies");

@@ -7,7 +7,7 @@
       v-model="show"
       top
       right
-      timeout="4000"
+      timeout="9000"
       color="#fdc500"
       text
     >
@@ -85,7 +85,7 @@ export default {
       setTimeout(() => {
         this.show = false;
         this.activeMessage = null;
-      }, 4000);
+      }, 9000);
     }
   }
 };

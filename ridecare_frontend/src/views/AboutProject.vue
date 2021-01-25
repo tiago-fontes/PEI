@@ -83,8 +83,7 @@ export default {
         {
           name: "Gabriela Martins",
           number: "A81987",
-          img:
-            "https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/6620618271548234969-512.png"
+          img: "https://image.flaticon.com/icons/png/512/146/146005.png"
         },
         {
           name: "João Costa",
@@ -125,8 +124,7 @@ export default {
         {
           name: "Rafaela Silva",
           number: "A79034",
-          img:
-            "https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/6620618271548234969-512.png"
+          img: "https://image.flaticon.com/icons/png/512/146/146005.png"
         },
         {
           name: "Rui Santos",
