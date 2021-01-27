@@ -32,8 +32,11 @@ API_HOST = "http://35.189.102.211/api"
 SESNSORS_HOST = API_HOST + "/datalake/sensors"
 BOOT_HOST = API_HOST + "/datalake/raspberry"
 
+# DEVELOPMENT PHASE VARIABLES
 #TAGS = "Não existência de fumo, vidros fechados, AC desligado"
 #CLASSIFICATION = "0"
+
+
 CARID = "AA-11-AA"
 #DEVID = "2"
 
@@ -41,7 +44,7 @@ class FieldCrawler:
 
     def __init__(self):
 
-        self.readInterval = 10  # seconds
+        self.readInterval = 8  # seconds
 
         self.token2send = ""
 
@@ -75,6 +78,7 @@ class FieldCrawler:
                     'timeValue': datetimeNow
                     }
             workers.queue(jobs.bootTime, BOOT_HOST, data)
+            # NO QUEUES ALTERNATIVE
             #res = requests.post("http://34.105.216.153/datalake/default/api/raspberry", json=data, timeout=3)
             #print(res.text)
         except:
@@ -147,6 +151,7 @@ class FieldCrawler:
 
         return dataDict
 
+# OLD METHOD
 
     def notifyDataLakeWithAuth(self, dataDict):
         session = requests.Session()
@@ -174,6 +179,7 @@ class FieldCrawler:
             print('response from server:'+res.text)
 
     def notifyDataLake(self, dataDict):
+        # NO QUEUES ALTERNATIVE
         #self.notifyDataLakeWithAuth(dataDict)
         #res = requests.post(SESNSORS_HOST, json=dataDict, timeout=1)
         workers.queue(jobs.sensors, SESNSORS_HOST, dataDict)
