@@ -21,19 +21,19 @@
 
 <div class="jumbotron jumbotron-fluid" style="padding:30px;word-wrap:break-word;">
 <div class="container center apis">
-<p><strong class="btn btn-secondary" style="background:#000000;cursor:default;">API:</strong> <a href="{{=URL()}}/sensors/all/json" target="_blank" class="btn btn-secondary">/datalake/sensors/all/json</a>
-<a href="{{=URL()}}/sensors/all/csv" target="_blank" class="btn btn-secondary">/datalake/sensors/all/csv</a>
+<p><strong class="btn btn-secondary" style="background:#000000;cursor:default;">API:</strong> <a href="{{=URL('default','sensors')}}/all/json" target="_blank" class="btn btn-secondary">/datalake/sensors/all/json</a>
+<a href="{{=URL('default','sensors')}}/all/csv" target="_blank" class="btn btn-secondary">/datalake/sensors/all/csv</a>
 
-<a href="{{=URL()}}/sensors/last/json" target="_blank" class="btn btn-secondary">/datalake/sensors/last/json</a>
-<a href="{{=URL()}}/sensors/last/csv" target="_blank" class="btn btn-secondary">/datalake/sensors/last/csv</a>
+<a href="{{=URL('default', 'sensors')}}/last/json" target="_blank" class="btn btn-secondary">/datalake/sensors/last/json</a>
+<a href="{{=URL('default','sensors')}}/last/csv" target="_blank" class="btn btn-secondary">/datalake/sensors/last/csv</a>
 
 
-<a href="{{=URL()}}/raspberry/status/66-ZZ-66" target="_blank" class="btn btn-secondary">/datalake/raspberry/status/&lt;carId&gt;</a>
-<a href="{{=URL()}}/history/66-ZZ-66/1607879989.756229/5" target="_blank" class="btn btn-secondary">/datalake/history/&lt;carId&gt;/&lt;timestamp&gt;/&lt;limit (-1=tudo)&gt;</a>
-<a href="{{=URL()}}/recent/66-ZZ-66/1607879989.756229/5" target="_blank" class="btn btn-secondary">/datalake/recent/&lt;carId&gt;/&lt;timestamp&gt;/&lt;limit (-1=tudo)&gt;</a>
+<a href="{{=URL('default','raspberry')}}/status/66-ZZ-66" target="_blank" class="btn btn-secondary">/datalake/raspberry/status/&lt;carId&gt;</a>
+<a href="{{=URL('default','history')}}/66-ZZ-66/1607879989.756229/5" target="_blank" class="btn btn-secondary">/datalake/history/&lt;carId&gt;/&lt;timestamp&gt;/&lt;limit (-1=tudo)&gt;</a>
+<a href="{{=URL('default','recent')}}/66-ZZ-66/1607879989.756229/5" target="_blank" class="btn btn-secondary">/datalake/recent/&lt;carId&gt;/&lt;timestamp&gt;/&lt;limit (-1=tudo)&gt;</a>
 
-<a href="{{=URL()}}/boots" target="_blank" class="btn btn-secondary">/datalake/boots</a>
-<a href="{{=URL()}}/boots/66-ZZ-66" target="_blank" class="btn btn-secondary">/datalake/boots/&lt;carId&gt;</a>
+<a href="{{=URL('default','boots')}}" target="_blank" class="btn btn-secondary">/datalake/boots</a>
+<a href="{{=URL('default','boots')}}/66-ZZ-66" target="_blank" class="btn btn-secondary">/datalake/boots/&lt;carId&gt;</a>
 </p>
 
     
@@ -41,8 +41,6 @@
 <a class="btn btn-primary" href="{{=URL('default','index', args=['bootings'])}}">Bootings</a>
 </p>
 
-<!--<a class="btn btn-primary" href="{{=URL('default','index')}}">Sensor1</a>
-<a class="btn btn-primary" href="{{=URL('default','index', args=['bme680'])}}">Sensor2</a>-->
 </div>
 </div>
 

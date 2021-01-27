@@ -24,7 +24,7 @@ if request.global_settings.web2py_version < "2.15.5":
 # -------------------------------------------------------------------------
 # once in production, remove reload=True to gain full speed
 # -------------------------------------------------------------------------
-configuration = AppConfig(reload=True)
+configuration = AppConfig(reload=False)
 
 if not request.env.web2py_runtime_gae:
     # ---------------------------------------------------------------------
@@ -112,7 +112,7 @@ auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = False
 
 #Registration = Off. Comentar para On
-#auth.settings.actions_disabled.append('register')
+auth.settings.actions_disabled.append('register')
 
 # -------------------------------------------------------------------------  
 # read more at http://dev.w3.org/html5/markup/meta.name.html               

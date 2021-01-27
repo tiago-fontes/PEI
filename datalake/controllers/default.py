@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 #@auth.requires_membership('admin')
@@ -78,7 +79,7 @@ def raspberry():
             #b = datetime.datetime.strptime(last2[1]["timeValue"], '%Y-%m-%d %H:%M:%S')
             #delta = last2[0]["timeValue"] - last2[1]["timeValue"]
             delta = last2[0]["timeValue"] - now
-            if delta.seconds <= 5:
+            if delta.seconds <= 10:
                 status = {"status": "on"}
             else:
                 status = {"status": "off"}
