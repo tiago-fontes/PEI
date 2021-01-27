@@ -53,9 +53,9 @@ class Classification(db.Model):
 # Delete database file if it exists currently
 if os.path.exists("alertai.db"):
 	os.remove("alertai.db")
-
-#Create all Models on database
-db.create_all()
+else:
+	#Create all Models on database
+	db.create_all()
 
 #Dictionary for Algorithms names and models
 AlgoDict = {}
