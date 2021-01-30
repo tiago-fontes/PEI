@@ -1,4 +1,4 @@
-# RideCare Deploy_Backend
+# RideCare Deploy_Backend_Frontend
 
 ## Pre-Requisites
 
@@ -30,7 +30,11 @@
 
 ## Run Application
 
-- On the backend_deploy directory:
+- Download credentials.json
+		
+		IAM & Admin > Service Accounts > Select or Create SA > Create Key (JSON)
+
+- On the deploy directory:
 		
 		export ANSIBLE_HOST_KEY_CHECKING=False
 
