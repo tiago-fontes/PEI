@@ -1,0 +1,288 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+h2 {
+  color: grey;
+}
+
+p{
+  font-weight: 200;
+}
+
+.auto-responsive-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-column-gap: 1em;
+  grid-auto-rows: minmax(300px, auto);
+}
+
+.title-center {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+
+.blue-title {
+  color: #5F6DE0;
+}
+
+.light-blue-title {
+  color: #DCE1FF;
+}
+
+.lighter-blue-title {
+  color: #EFF1FF;
+}
+
+.normal-text {
+  color: #778293;
+  line-height: 1.8;
+}
+
+.bold-text {
+  color: #778293;
+  font-weight: 500;
+}
+
+
+.rideCare h1 {
+  font-size: 100px;
+  margin-left: 50px;
+  margin-top: 200px;
+  margin-bottom: 0px;
+}
+
+
+.rideCare p {
+  margin-left: 55px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.reg-button {
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 2em;
+  color: lightgray;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 54px;
+  margin-top: 10px;
+  transition-duration: 0.4s;
+  margin-bottom: 60px;
+}
+
+
+.reg-button:hover {
+  background-color: #DCE1FF;
+  color: white;
+  border: 1px solid white;
+}
+
+
+
+
+.main-image{
+  float: left;
+  width: 100%;
+}
+
+.mid-image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+  width: 70%;
+}
+
+.auto-responsive-container .left-grid {
+  margin-left: 60px;
+}
+
+.auto-responsive-container .right-grid {
+  margin-right: 60px;
+}
+
+.text-gird {
+  padding: 30px;
+  margin: auto;
+}
+
+
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-column-gap: 1em;
+  grid-auto-rows: minmax(300px, auto);
+  justify-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+
+.feature {
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.feature-icon {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  margin-top: 100px;
+}
+
+.feature h2 {
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.anomalies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-column-gap: 8em;
+  grid-auto-rows: minmax(300px, auto);
+  justify-items: center;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.card {
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #496799;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  border-radius: 40px;
+}
+
+.card-icon {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  margin-top: 50px;
+}
+
+.normal {
+  background-color: white;
+  border: 1px solid #55B3AD;
+}
+
+.smoke {
+  background-color: #7884E5;
+}
+
+.stink {
+  background-color: #C3CBFF;
+}
+
+.normal h2 {
+  font-size: 40px;
+}
+
+.smoke p,
+.stink p {
+  color: white;
+  margin-bottom: 30px;
+}
+
+.smoke h2,
+.stink h2 {
+  color: white;
+  font-size: 40px;
+}
+
+
+.ml-image{
+  margin-left: 30px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.samples-img {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.blue-background {
+  background-color: #DCE1FF;
+}
+
+.titles-degrade h1 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.infrastructure-img {
+  width: 80%;
+  margin-bottom: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.right-align {
+  margin-top: 80px;
+  text-align: right;
+  margin-right: 60px;
+}
+
+.resources {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
+.cloud {
+  color: #E5E6EA;
+}
+
+.logos-container {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.footer p.apoio {
+  padding-top: 30px;
+  text-align: center;
+  color: white;
+}
+
+.footer p.year {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+
+  text-align: center;
+  color: white;
+  font-size: 10px;
+}
+
+.footer img {
+  padding: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .rideCare h1 {
+    font-size: 60px;
+    margin-top: 100px;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+

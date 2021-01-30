@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/3d9627186b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="auto-responsive-container">
+        <div class="rideCare">
+            <h1 class="blue-title">Ride<span class="light-blue-title">Care</span></h1>
+            <p class="normal-text">Monitor a car sharing fleet in real time </p>
+            <p class="normal-text"> and watch over occurred anomalies</p>
+            <button class="reg-button">Get Started</button>
+        </div>
+        <div>
+            <img class="main-image" src="./imgs/car2.JPG" alt="">
+        </div>
+    </div>
+
+
+
+    <div class="features-container">
+        <div class = "feature">
+            <img class ="feature-icon" src="./imgs/fleet-icon.PNG">
+            <h2 class="blue-title">Manage your fleet</h2>
+        </div>
+        <div class = "feature">
+            <img class ="feature-icon" src="./imgs/notification-icon.PNG">
+            <h2 class="blue-title">Receive real time notifications</h2>
+        </div>
+        <div class = "feature">
+            <img class ="feature-icon" src="./imgs/location-icon.PNG">
+            <h2 class="blue-title">Locate the anomalies</h2>
+        </div>
+
+        <div class = "feature">
+            <img class ="feature-icon" src="./imgs/history-icon.PNG">
+            <h2 class="blue-title">Confer past anomalies</h2>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="auto-responsive-container">
+        <div class="left-grid">
+            <img class="mid-image" src="./imgs/map.JPG" alt="">
+        </div>
+        <div class="right-grid text-gird">
+            <h1 class="light-blue-title">Find out about <span class="blue-title">inadequate</span> use of your vehicles</h1>
+            <p class="normal-text">It’s very challenging to keep track of the state of multiple vehicles from a fleet. Assurance of good conditions between usages is fundamental for any <a href="https://www.treehugger.com/what-is-car-sharing-and-how-does-it-work-4858485" target="_blank">Car Sharing</a> service’s reputation. With RideCare you can monitor a car-sharing fleet in real-time and watch over occurred anomalies. Inside the web application, you have access to a dashboard in which you can check all the past anomalies and the corresponding evolution of the sensorial data before, during, and after its occurrence. Once an anomaly occurs, you will be notified and every information about it at your disposal.</p>
+        </div>
+    </div>
+
+
+    <div class="anomalies-container">
+        <div class = "card normal">
+            <img class ="card-icon" src="./imgs/normal.PNG">
+            <h2 class="blue-title">Normal</h2>
+            <p>Even in the absence of anomalies, data is still collected and persisted to further improve the machine learning algorithms.</p>
+        </div>
+        <div class = "card smoke">
+            <img class ="card-icon" src="./imgs/smoke.PNG">
+            <h2 class="blue-title">Smoke</h2>
+            <p>Car sharing vehicles are not a place where you can smoke. Whenever RideCare detects smoke inside a vehicle, that information will be stored in our infrastructure.</p>
+        </div>
+        <div class = "card stink">
+            <img class ="card-icon" src="./imgs/stink.PNG">
+            <h2 class="blue-title">Stink</h2>
+            <p>RideCare is also capable of evaluating the presence bad smells inside the vehicle, mainly trash related.</p>
+        </div>
+    </div>
+
+    <div class="auto-responsive-container">
+        <div class="left-grid text-gird">
+            <h1 class="blue-title">Supervised and unsupervised <span class="light-blue-title">Machine Learning</span> Algorithms</h1>
+            <p class="normal-text">RideCare takes advantage of  real-time classification algorithms, based on classic Machine Learning methods to detect anomalous situations inside shared vehicles.
+                From labelled and unlabelled data, several algorithms from Supervised and Unsupervised Learning paradigms were tested and insights were taken during that extensive exploratory work. Our best algorithm achieved more than <b>97% accuracy</b> on all predictions made, for all scenarios considered*. Additionally, other supervised learning algorithms, which performed well during our research process, are hosted by a cloud application -AlertAI Cloud, allowing alternative predictions for the raw data collections.
+                <br>*These results were obtained under controlled capture scenarios, taking into account real environments inside vehicles.</p>
+        </div>
+        <div class="right-grid">
+            <img class="ml-image" src="./imgs/analytics.png" alt="">
+        </div>
+    </div>
+
+
+    <div>
+        <h1 class="title-center light-blue-title">Dataset composed by data collected from real scenarios</h2>
+        <img class="samples-img" src="./imgs/samples.png">
+    </div>
+
+
+    <div class="auto-responsive-container">
+        <div class="left-grid text-gird titles-degrade">
+            <h1 class="blue-title">In car system installed</h1>
+            <h1 class="light-blue-title">Real time data crawling</h1>
+            <h1 class="lighter-blue-title">Real time data classification</h1>
+            <p class="normal-text">A data crawler script and the machine learning algorithm
+                resides inside the vehicle and does the evaluation locally.
+                Whenever our machine learning algorithms detect anomalies 
+                in the sensorial data collected by our sensors, that information 
+                will be sent to our servers. </p>
+                <b class="bold-text">No network coverage? We've got you covered!</b>
+                
+                <p class="normal-text">
+                A queue system was implemented in order to keep function
+                even if the car is in an area with no network coverage.
+                </p>
+        </div>
+        <div class="right-grid">
+            <img class="ml-image" style="width: 90%;" src="./imgs/car-setup.png" alt="">
+        </div>
+    </div>
+
+    <div>
+        <h1 class="title-center blue-title right-align">Robust, fail tolerant <br><span class="cloud">cloud-based</span> infrastructure</h2>
+        <img class="infrastructure-img" src="./imgs/infrastructure.png">
+    </div>
+
+
+    <h2 class="resources light-blue-title">Other resources</h2>
+    <div class="auto-responsive-container">
+        <div class="text-grid title-center">
+            <a href="">Demonstration Video</a>
+            <p class="normal-text">or use demo login credentials:
+                <br>email: teste@gmail.com
+                <br>password: teste
+            </p>
+        </div>
+        <div class="text-grid title-center">
+            <a href="">Technical Report</a>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <a href="">Repository</a>
+        </div>
+    </div>
+
+
+
+
+
+   
+
+    <footer class = "footer blue-background">
+        <div class="logos-container">
+            <div>
+                <img src="./imgs/RIDECARE.PNG" style="height: 80px;" alt="">
+            </div>
+            <div>
+                <img src="./imgs/DI-UM.png" style="height: 80px;" alt="">
+            </div>
+            <div>
+                <img src="./imgs/BOSCH.PNG"" style="height: 80px;" alt="">
+            </div>
+        </div>
+        <p class ="year">PEI 2021</p>
+    </footer>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="index.js" charset="utf-8"></script>
+</body>
+
+</html>
