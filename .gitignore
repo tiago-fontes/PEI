@@ -109,3 +109,5 @@ src/.DS_Store
 
 .vscode
 ridecare_frontend/package-lock.json
+
+deploy/credentials.json
