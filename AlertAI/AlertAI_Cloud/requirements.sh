@@ -8,6 +8,8 @@ gsutil cp gs://bucket_alertai/requirements.txt .
 
 gsutil cp -r gs://bucket_alertai/models_saves .
 
+gsutil cp -r gs://bucket_alertai/SQLite.sh .
+
 sudo add-apt-repository universe
 sudo apt-get update
 
