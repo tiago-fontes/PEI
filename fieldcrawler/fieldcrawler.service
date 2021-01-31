@@ -1,0 +1,13 @@
+[Unit]
+Description=Field Crawler Script
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/PEI/fieldcrawler/main.py
+Restart=in-on-abort
+
+[Install]
+WantedBy=multi-user.target
+
