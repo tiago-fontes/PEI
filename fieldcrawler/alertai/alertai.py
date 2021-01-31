@@ -16,7 +16,7 @@ import traceback
 #from rqWorker import Workers
 #workers = Workers()
 
-SUP_MODEL = '/home/pi/PEI/fieldcrawler/alertai/models/svm_gridsearch.sav'
+SUP_MODEL = '/home/pi/PEI/fieldcrawler/alertai/models/RandomForest_Raspberry.sav'
 #UNSUP_MODEL = '/home/pi/pei/fieldcrawler/alertai/models/isolationforest.sav'
 DB_HOST = 'http://35.189.102.211/api/backend/alert'
 
