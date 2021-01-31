@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -14,6 +18,48 @@ h2 {
 p{
   font-weight: 200;
 }
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  transition: all 0.5s
+}
+.logo {
+  padding: 0 2.5rem;
+}
+.navbar__menu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.navbar__menu .menu__wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2rem;
+}
+.navbar__menu .menu__wrapper .menu__item {
+  list-style: none;
+  display: flex;
+}
+.navbar__menu .menu__wrapper .menu__item .menu__link {
+  display: flex;
+  outline: none;
+  text-decoration: none;
+  font-weight: 400;
+  color: white;
+}
+
+.scroll_up{
+  transform: translateY(-80px);
+}
+
+
 
 .auto-responsive-container {
   display: grid;
@@ -81,6 +127,7 @@ p{
   margin-top: 10px;
   transition-duration: 0.4s;
   margin-bottom: 60px;
+  cursor: pointer;
 }
 
 
@@ -250,9 +297,10 @@ p{
 }
 
 .logos-container {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .footer p.apoio {
@@ -274,15 +322,162 @@ p{
   padding: 40px;
 }
 
-@media only screen and (max-width: 600px) {
 
+@media only screen and (max-width: 600px) {
   .rideCare h1 {
     font-size: 60px;
     margin-top: 100px;
   }
 
-  .footer {
-    display: none;
+  .logos-container {
+    flex-direction: column;
+    align-items: center;
   }
 }
+.container {
+
+  margin: 20px 40px;
+  color: black;
+}
+
+.heading {
+  font-size: 60px;
+  color: white;
+}
+
+.heading span {
+  font-style: italic;
+  font-size: 30px;
+}
+
+.profiles {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 80px;
+}
+
+.profile .profile-img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.profile:hover .profile-img {
+  filter: grayscale(0);
+}
+
+.user-name {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.profile h5 {
+  font-size: 18px;
+  font-weight: 100;
+  letter-spacing: 3px;
+  color: #ccc;
+}
+
+.profile p {
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: justify;
+}
+
+.profile-icons{
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 0px;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-github {
+  color: #171515;
+}
+
+.fa-linkedin {
+  color: #0072b1;
+}
+
+.team {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 90px;
+  margin-top: 90px;
+}
+
+
+
+@media only screen and (max-width: 1150px) {
+  .profiles {
+    flex-direction: column;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile p {
+    text-align: center;
+    margin: 20px 60px 80px 60px;
+    font-size: 20px;
+  }
+}
+
+
+
+
+.credits-car {
+  font-size: 10px;
+  color: lightgray;
+  text-align: right;
+  margin-top: 0px;
+  padding-right: 10px;
+}
+
+.credits-map {
+  font-size: 10px;
+  color: lightgray;
+  text-align: left;
+  margin-top: 0px;
+}
+
+@media only screen and (max-width: 900px) {
+  .heading {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+  }
+
+  .heading span {
+    font-size: 15px;
+  }
+
+  .profiles {
+    margin: 20px 0;
+  }
+
+  .profile p {
+    margin: 20px 10px 80px 10px;
+  }
+}
+
 

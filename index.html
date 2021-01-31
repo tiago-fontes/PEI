@@ -5,25 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideCare</title>
+    <link rel="icon" href="./imgs/car.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/3d9627186b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <div class="wrapper">
+        <nav class="navbar">
+          <div class="logo">
+            <img src="./imgs/RIDECARE.PNG" style="height: 50px;" alt="">
+          </div>
+          <div class="navbar__menu">
+            <ul class="menu__wrapper">
+              <li class="menu__item">
+                <a href="#profiles" class="menu__link">About Us</a>
+              </li>       
+            </ul>
+          </div>
+        </nav>
+    </div>
 
     <div class="auto-responsive-container">
         <div class="rideCare">
             <h1 class="blue-title">Ride<span class="light-blue-title">Care</span></h1>
             <p class="normal-text">Monitor a car sharing fleet in real time </p>
             <p class="normal-text"> and watch over occurred anomalies</p>
-            <button class="reg-button">Get Started</button>
+            <a class="reg-button" href="http://35.247.44.100:3000/login">Get Started</a>
         </div>
         <div>
             <img class="main-image" src="./imgs/car.JPG" alt="">
+            <p class="credits-car">Illustraton by Kemal Sanli</p>
         </div>
     </div>
-
 
 
     <div class="features-container">
@@ -45,14 +61,11 @@
             <h2 class="blue-title">Confer past anomalies</h2>
         </div>
     </div>
-
-
-
-
-
+    
     <div class="auto-responsive-container">
         <div class="left-grid">
             <img class="mid-image" src="./imgs/map.JPG" alt="">
+            <p class="credits-map">Illustraton by Aleksandar Savic</p>
         </div>
         <div class="right-grid text-gird">
             <h1 class="light-blue-title">Find out about <span class="blue-title">inadequate</span> use of your vehicles</h1>
@@ -88,6 +101,7 @@
         </div>
         <div class="right-grid">
             <img class="ml-image" src="./imgs/analytics.png" alt="">
+            <p class="credits-car">Illustraton by Chris Randalls</p>
         </div>
     </div>
 
@@ -125,6 +139,111 @@
         <img class="infrastructure-img" src="./imgs/infrastructure.png">
     </div>
 
+    <h2 class="resources light-blue-title team" id="profiles">Meet The Team</h2>
+    <div class="container">
+        <div class="profiles">
+          <div class="profile">
+            <img src="./imgs/members/andre.jpg" class="profile-img">
+    
+            <h3 class="user-name blue-title">André Coutinho</h3>
+            <div class="profile-icons">
+                <a href="https://github.com/andreRcoutinho" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/arcoutinho/" class="fa fa-linkedin"></a>
+            </div>
+           
+          </div>
+          <div class="profile">
+            <img src="./imgs/members/gabriela.jpg" class="profile-img" width="100%">
+    
+            <h3 class="user-name blue-title">Gabriela Martins</h3>
+            <div class="profile-icons">
+                <a href="https://github.com/GabrielaMartins19" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/gabriela-sa-martins/" class="fa fa-linkedin"></a>
+            </div>
+            
+          </div>
+          <div class="profile">
+            <img src="./imgs/members/joao_costa.jpg" class="profile-img">
+    
+            <h3 class="user-name blue-title">João Costa</h3>
+            <div class="profile-icons">
+                <a href="https://github.com/JoaoSCosta" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/joao-s-costa/" class="fa fa-linkedin"></a>
+            </div>
+            
+          </div>
+          <div class="profile">
+            <img src="./imgs/members/jose_pinto.jpg" class="profile-img">
+    
+            <h3 class="user-name blue-title">José Pinto</h3>
+            <div class="profile-icons">
+                <a href="https://github.com/JAPPinto" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/jos%C3%A9-pinto-5b5a21205/" class="fa fa-linkedin"></a>
+            </div>
+           
+          </div>
+        </div>
+        <div class="profiles">
+            <div class="profile">
+              <img src="./imgs/members/leandro.jpg" class="profile-img">
+              <h3 class="user-name blue-title">Leandro Costa</h3>
+              <div class="profile-icons">
+                <a href="https://github.com/leandrocosta16" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/leandro-costa-0296b0107/" class="fa fa-linkedin"></a>
+            </div> 
+            </div>
+            <div class="profile">
+              <img src="./imgs/members/luis_correia.jpg" class="profile-img">
+              <h3 class="user-name blue-title">Luís Correia</h3>
+              <div class="profile-icons">
+                <a href="https://github.com/mrluiigi" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/luisrcorreia/" class="fa fa-linkedin"></a>
+            </div>
+            </div>
+            <div class="profile">
+                <img src="./imgs/members/paulo.jpg" class="profile-img">
+                <h3 class="user-name blue-title">Paulo Jorge</h3>
+                <div class="profile-icons">
+                    <a href="https://github.com/Paulo-Jorge-PM" class="fa fa-github"></a>
+                    <a href="http://www.paulojorgepm.net/portfolio" class="fa fa-globe"></a>
+                </div>
+            </div>
+            <div class="profile">
+                <img src="./imgs/members/pedro_barbosa.jpg" class="profile-img">
+                <h3 class="user-name blue-title">Pedro Barbosa</h3>
+                <div class="profile-icons">
+                    <a href="https://github.com/PADBarbosa" class="fa fa-github"></a>
+                    <a href="https://www.linkedin.com/in/pedro-barbosa-78aa1a205/" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+          </div>
+          <div class="profiles">
+            <div class="profile">
+              <img src="./imgs/members/rafaela.jpg" class="profile-img">
+              <h3 class="user-name blue-title">Rafaela Soares</h3>
+              <div class="profile-icons">
+                <a href="https://github.com/cosmicgirl97" class="fa fa-github"></a>
+                <a href="https://www.linkedin.com/in/rafaela-s-3632a5b2/" class="fa fa-linkedin"></a>
+            </div>
+            </div>
+            <div class="profile">
+                <img src="./imgs/members/rui.jpg" class="profile-img">
+                <h3 class="user-name blue-title">Rui Santos</h3>
+                <div class="profile-icons">
+                    <a href="https://github.com/ruifcsantosdev" class="fa fa-github"></a>
+                    <a href="https://www.linkedin.com/in/ruifcsantos/" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="profile">
+                <img src="./imgs/members/tiago_fontes.jpg" class="profile-img">
+                <h3 class="user-name blue-title">Tiago Fontes</h3>
+                <div class="profile-icons">
+                    <a href="https://github.com/tsource98" class="fa fa-github"></a>
+                    <a href="https://www.linkedin.com/in/tiago-rf-fontes/" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+          </div>
+      </div>
 
     <h2 class="resources light-blue-title">Other resources</h2>
     <div class="auto-responsive-container">
@@ -146,12 +265,6 @@
         </div>
     </div>
 
-
-
-
-
-   
-
     <footer class = "footer blue-background">
         <div class="logos-container">
             <div>
@@ -172,6 +285,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="index.js" charset="utf-8"></script>
+    <script>
+        $(document).ready(function () {
+            'use strict';
+            var c, currentScrollTop = 0,
+                navbar = $('nav');
+            $(window).scroll(function () {
+                var a = $(window).scrollTop();
+                var b = navbar.height();
+                currentScrollTop = a;
+                if (c < currentScrollTop && a > b + b) {
+                    navbar.addClass("scroll_up");
+                }
+                if(currentScrollTop == 0)
+                {
+                    navbar.removeClass("scroll_up");
+                }
+                c = currentScrollTop;
+            });
+            });
+    </script>
 </body>
 
 </html>
+
