@@ -1,0 +1,842 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.TypeError'> unsupported operand type(s) for -: 'str' and 'int'"
+p3
+sS'layer'
+p4
+S'/var/www/web2py/applications/datalake/controllers/default.py'
+p5
+sS'code'
+p6
+S'<code object <module> at 0x7ff96d87c430, file "/var/www/web2py/applications/datalake/controllers/default.py", line 4>'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.TypeError object>"
+p13
+sS'__str__'
+p14
+S"<method-wrapper '__str__' of exceptions.TypeError object>"
+p15
+sS'__reduce__'
+p16
+S'<built-in method __reduce__ of exceptions.TypeError object>'
+p17
+sS'__dict__'
+p18
+S'{}'
+p19
+sS'message'
+p20
+S'"unsupported operand type(s) for -: \'str\' and \'int\'"'
+p21
+sS'__sizeof__'
+p22
+S'<built-in method __sizeof__ of exceptions.TypeError object>'
+p23
+sS'__init__'
+p24
+S"<method-wrapper '__init__' of exceptions.TypeError object>"
+p25
+sS'__setattr__'
+p26
+S"<method-wrapper '__setattr__' of exceptions.TypeError object>"
+p27
+sS'__reduce_ex__'
+p28
+S'<built-in method __reduce_ex__ of exceptions.TypeError object>'
+p29
+sS'__new__'
+p30
+S'<built-in method __new__ of type object>'
+p31
+sS'__format__'
+p32
+S'<built-in method __format__ of exceptions.TypeError object>'
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.TypeError'>"
+p35
+sS'__doc__'
+p36
+S"'Inappropriate argument type.'"
+p37
+sS'__getitem__'
+p38
+S"<method-wrapper '__getitem__' of exceptions.TypeError object>"
+p39
+sS'__setstate__'
+p40
+S'<built-in method __setstate__ of exceptions.TypeError object>'
+p41
+sS'__getattribute__'
+p42
+S"<method-wrapper '__getattribute__' of exceptions.TypeError object>"
+p43
+sS'args'
+p44
+S'("unsupported operand type(s) for -: \'str\' and \'int\'",)'
+p45
+sS'__subclasshook__'
+p46
+S'<built-in method __subclasshook__ of type object>'
+p47
+sS'__unicode__'
+p48
+S'<built-in method __unicode__ of exceptions.TypeError object>'
+p49
+sS'__delattr__'
+p50
+S"<method-wrapper '__delattr__' of exceptions.TypeError object>"
+p51
+sS'__repr__'
+p52
+S"<method-wrapper '__repr__' of exceptions.TypeError object>"
+p53
+sS'__hash__'
+p54
+S"<method-wrapper '__hash__' of exceptions.TypeError object>"
+p55
+ssS'evalue'
+p56
+S"unsupported operand type(s) for -: 'str' and 'int'"
+p57
+sS'request'
+p58
+cgluon.html
+XML_unpickle
+p59
+(S's\xd0j\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>66-ZZ-66</div></td></tr><tr><td><div>1607879989.756229</div></td></tr><tr><td><div>3</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>default</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">ajs_group_id</td><td style="vertical-align:top;">:</td><td><div>null<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">ajs_user_id</td><td style="vertical-align:top;">:</td><td><div>null<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-91d6b348-d0f2-401b-bb94-bf86db2971a3<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_cehum</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-f99b11f6-b792-4f7b-9203-c2e1866210e2<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_datalake</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_welcome</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-0d64b5db-94b7-47bf-97af-45b1aac6b0e9<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/usr/share/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTPS</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en,pt-PT;q=0.8,pt;q=0.5,en-US;q=0.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>ajs_user_id=null; ajs_group_id=null; _ga=GA1.2.58574739.1606321892; session_id_welcome=188.80.231.143-0d64b5db-94b7-47bf-97af-45b1aac6b0e9; session_id_admin=188.80.231.143-91d6b348-d0f2-401b-bb94-bf86db2971a3; session_id_datalake=188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880; session_id_cehum=188.80.231.143-f99b11f6-b792-4f7b-9203-c2e1866210e2</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_DNT</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>https://cehum.ilch.uminho.pt/datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_UPGRADE_INSECURE_REQUESTS</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/datalake/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>58520</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_SCHEME</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/datalake/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>nginx/1.10.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">UWSGI_SCHEME</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/medieval/&#x27;, &#x27;/var/www/web2py/applications/xxiico/&#x27;, &#x27;/var/www/web2py/applications/microrrelatos_xaquinnunez/&#x27;, &#x27;/var/www/web2py/applications/heritage/&#x27;, &#x27;/var/www/web2py/applications/myriades/&#x27;, &#x27;/var/www/web2py/applications/datalake/&#x27;, &#x27;/var/www/web2py/applications/cehum/&#x27;, &#x27;/var/www/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/usr/share/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en,pt-PT;q=0.8,pt;q=0.5,en-US;q=0.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>ajs_user_id=null; ajs_group_id=null; _ga=GA1.2.58574739.1606321892; session_id_welcome=188.80.231.143-0d64b5db-94b7-47bf-97af-45b1aac6b0e9; session_id_admin=188.80.231.143-91d6b348-d0f2-401b-bb94-bf86db2971a3; session_id_datalake=188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880; session_id_cehum=188.80.231.143-f99b11f6-b792-4f7b-9203-c2e1866210e2</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_dnt</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>https://cehum.ilch.uminho.pt/datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_upgrade_insecure_requests</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">https</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_py2</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>193.137.11.51</div></td></tr><tr><td><div>srv-webcehum.scom.uminho.pt</div></td></tr><tr><td><div>srv-webcehum</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/datalake/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>58520</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/datalake/default/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>nginx/1.10.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.node</td><td style="vertical-align:top;">:</td><td><div>srv-webcehum</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.version</td><td style="vertical-align:top;">:</td><td><div>2.0.18</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_node</td><td style="vertical-align:top;">:</td><td><div>srv-webcehum</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_version</td><td style="vertical-align:top;">:</td><td><div>2.0.18</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_original_uri</td><td style="vertical-align:top;">:</td><td><div>/datalake/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.17.1-stable+timestamp.2018.08.06.01.02.56</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x7ff96f58fed0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7ff96e7aaea0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x7ff96f58fed0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7ff96e7aaea0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/datalake/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>history</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/medieval/&#x27;, &#x27;/var/www/web2py/applications/xxiico/&#x27;, &#x27;/var/www/web2py/applications/microrrelatos_xaquinnunez/&#x27;, &#x27;/var/www/web2py/applications/heritage/&#x27;, &#x27;/var/www/web2py/applications/myriades/&#x27;, &#x27;/var/www/web2py/applications/datalake/&#x27;, &#x27;/var/www/web2py/applications/cehum/&#x27;, &#x27;/var/www/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_py2</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>cehum.ilch.uminho.pt</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>193.137.11.51</div></td></tr><tr><td><div>srv-webcehum.scom.uminho.pt</div></td></tr><tr><td><div>srv-webcehum</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.17.1-stable+timestamp.2018.08.06.01.02.56</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_scheduler</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2020, 12, 13, 17, 27, 3, 174632)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/datalake/history/66-ZZ-66/1607879989.756229/3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2020, 12, 13, 17, 27, 3, 174655)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7ff96d9cec50&gt;</div></td></tr></table></div>'
+tRp60
+sS'frames'
+p61
+(lp62
+(dp63
+S'file'
+p64
+S'/var/www/web2py/gluon/restricted.py'
+p65
+sS'dump'
+p66
+(dp67
+S'environment'
+p68
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AppConfig': <function AppConfig>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, ...}"
+p69
+sS'ccode'
+p70
+S'<code object <module> at 0x7ff96d87c430, file "/...cations/datalake/controllers/default.py", line 4>'
+p71
+ssS'lnum'
+p72
+I219
+sS'lines'
+p73
+(dp74
+I214
+S'    if environment is None:'
+p75
+sI215
+S'        environment = {}'
+p76
+sI216
+S"    environment['__file__'] = layer"
+p77
+sI217
+S"    environment['__name__'] = '__restricted__'"
+p78
+sI218
+S'    try:'
+p79
+sI219
+S'        exec(ccode, environment)'
+p80
+sI220
+S'    except HTTP:'
+p81
+sI221
+S'        raise'
+p82
+sI222
+S'    except RestrictedError:'
+p83
+sI223
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p84
+ssS'call'
+p85
+S'(ccode=<code object <module> at 0x7ff96d87c430, file "/...cations/datalake/controllers/default.py", line 4>, environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'AppConfig\': <function AppConfig>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, ...}, layer=\'/var/www/web2py/applications/datalake/controllers/default.py\', scode=<code object <module> at 0x7ff96d87c430, file "/...cations/datalake/controllers/default.py", line 4>)'
+p86
+sS'func'
+p87
+S'restricted'
+p88
+sa(dp89
+g64
+S'/var/www/web2py/applications/datalake/controllers/default.py'
+p90
+sg66
+(dp91
+sg72
+I196
+sg73
+(dp92
+I192
+S'    http://..../[app]/default/download/[filename]'
+p93
+sI193
+S'    """'
+p94
+sI194
+S'    return response.download(request, db)'
+p95
+sI185
+S'    return dict(form=auth())'
+p96
+sI186
+S''
+sI187
+S'# ---- action to server uploaded static content (required) ---'
+p97
+sI188
+S'@cache.action()'
+p98
+sI189
+S'def download():'
+p99
+sI190
+S'    """'
+p100
+sI191
+S'    allows downloading of uploaded files'
+p101
+ssg85
+S'()'
+p102
+sg87
+S'<module>'
+p103
+sa(dp104
+g64
+S'/var/www/web2py/gluon/globals.py'
+p105
+sg66
+(dp106
+S'self'
+p107
+S'undefined'
+p108
+sS'f'
+S'<function history>'
+p109
+ssg72
+I421
+sg73
+(dp110
+I416
+S"        self.flash = ''            # used by the default view layout"
+p111
+sI417
+S'        self.meta = Storage()      # used by web2py_ajax.html'
+p112
+sI418
+S'        self.menu = []             # used by the default view layout'
+p113
+sI419
+S'        self.files = []            # used by web2py_ajax.html'
+p114
+sI420
+S'        self._vars = None'
+p115
+sI421
+S'        self._caller = lambda f: f()'
+p116
+sI422
+S'        self._view_environment = None'
+p117
+sI423
+S'        self._custom_commit = None'
+p118
+sI424
+S'        self._custom_rollback = None'
+p119
+sI425
+S"        self.generic_patterns = ['*']"
+p120
+ssg85
+S'(f=<function history>)'
+p121
+sg87
+S'<lambda>'
+p122
+sa(dp123
+g64
+S'/var/www/web2py/applications/datalake/controllers/default.py'
+p124
+sg66
+(dp125
+S'orderby'
+p126
+g108
+sS'carId'
+p127
+S"'66-ZZ-66'"
+p128
+sS'db.sensors.carId'
+p129
+S'<pydal.objects.Field object>'
+p130
+sS'db.sensors.timeValue'
+p131
+S'<pydal.objects.Field object>'
+p132
+sS'dTime'
+p133
+S'datetime.datetime(2020, 12, 13, 17, 19, 49, 756229)'
+p134
+sS').select'
+p135
+g108
+sS'limitby'
+p136
+g108
+sS'db.sensors.id'
+p137
+S'<pydal.objects.Field object>'
+p138
+sS'limit'
+p139
+S"'3'"
+p140
+sS'global db'
+p141
+S'<DAL uri="sqlite://storage.sqlite">'
+p142
+sS'db.sensors'
+p143
+S'<Table sensors (id, carId, carLocation, timeValu...idity, pressure, altitude, tags, classification)>'
+p144
+sS'data'
+p145
+g108
+ssg72
+I83
+sg73
+(dp146
+I78
+S'    if request.args(2):'
+p147
+sI79
+S'        limit=request.args(2)'
+p148
+sI80
+S'    else:'
+p149
+sI81
+S'        limit=-1'
+p150
+sI82
+S'    dTime = datetime.datetime.fromtimestamp(timestamp)'
+p151
+sI83
+S'    data = db( (db.sensors.timeValue < dTime) & (db.sensors.carId == carId) ).select(orderby=~db.sensors.id, limitby=(0,limit))'
+p152
+sI84
+S'    return data.as_json()'
+p153
+sI85
+S''
+sI86
+S'def sds011():'
+p154
+sI87
+S'    if request.args(0) == "all":'
+p155
+ssg85
+S'()'
+p156
+sg87
+S'history'
+p157
+sa(dp158
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/objects.py'
+p159
+sg66
+(dp160
+S'self.query'
+p161
+S'<Query (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>'
+p162
+sS'adapter.select'
+p163
+S'<bound method SQLite.select of <pydal.adapters.sqlite.SQLite object>>'
+p164
+sS'fields'
+p165
+S'[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>]'
+p166
+sS'adapter'
+p167
+S'<pydal.adapters.sqlite.SQLite object>'
+p168
+sS'attributes'
+p169
+S"{'limitby': (0, '3'), 'orderby': <pydal.objects.Expression object>}"
+p170
+sS'self'
+p171
+S'<Set (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>'
+p172
+ssg72
+I2277
+sg73
+(dp173
+I2272
+S"                                    attributes.get('join', None),"
+p174
+sI2273
+S"                                    attributes.get('left', None),"
+p175
+sI2274
+S"                                    attributes.get('orderby', None),"
+p176
+sI2275
+S"                                    attributes.get('groupby', None))"
+p177
+sI2276
+S'        fields = adapter.expand_all(fields, tablenames)'
+p178
+sI2277
+S'        return adapter.select(self.query, fields, attributes)'
+p179
+sI2278
+S''
+sI2279
+S'    def iterselect(self, *fields, **attributes):'
+p180
+sI2280
+S'        adapter = self.db._adapter'
+p181
+sI2281
+S'        tablenames = adapter.tables(self.query,'
+p182
+ssg85
+S'(self=<Set (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>, *fields=[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>], **attributes={\'limitby\': (0, \'3\'), \'orderby\': <pydal.objects.Expression object>})'
+p183
+sg87
+S'select'
+p184
+sa(dp185
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/sqlite.py'
+p186
+sg66
+(dp187
+S'fields'
+p188
+S'[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>]'
+p189
+sS'self'
+p190
+S'<pydal.adapters.sqlite.SQLite object>'
+p191
+sS').select'
+p192
+S'<bound method SQLite.select of <pydal.adapters.sqlite.SQLite object>>'
+p193
+sS'attributes'
+p194
+S"{'limitby': (0, '3'), 'orderby': <pydal.objects.Expression object>}"
+p195
+sS'query'
+p196
+S'<Query (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>'
+p197
+sS'builtinsuper'
+p198
+S"<type 'super'>"
+p199
+sS'global SQLite'
+p200
+S"<class 'pydal.adapters.sqlite.SQLite'>"
+p201
+ssg72
+I82
+sg73
+(dp202
+I77
+S"            self.execute('PRAGMA foreign_keys=ON;')"
+p203
+sI78
+S''
+sI79
+S'    def select(self, query, fields, attributes):'
+p204
+sI80
+S"        if attributes.get('for_update', False) and 'cache' not in attributes:"
+p205
+sI81
+S"            self.execute('BEGIN IMMEDIATE TRANSACTION;')"
+p206
+sI82
+S'        return super(SQLite, self).select(query, fields, attributes)'
+p207
+sI83
+S''
+sI84
+S'    def delete(self, table, query):'
+p208
+sI85
+S'        db = self.db'
+p209
+sI86
+S'        deleted = [x[table._id.name] for x in db(query).select(table._id)]'
+p210
+ssg85
+S'(self=<pydal.adapters.sqlite.SQLite object>, query=<Query (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>, fields=[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>], attributes={\'limitby\': (0, \'3\'), \'orderby\': <pydal.objects.Expression object>})'
+p211
+sg87
+g184
+sa(dp212
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py'
+p213
+sg66
+(dp214
+S'fields'
+p215
+S'[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>]'
+p216
+sS'self'
+p217
+S'<pydal.adapters.sqlite.SQLite object>'
+p218
+sS'self._select_wcols'
+p219
+S'<bound method SQLite._select_wcols of <pydal.adapters.sqlite.SQLite object>>'
+p220
+sS'sql'
+p221
+g108
+sS'query'
+p222
+S'<Query (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>'
+p223
+sS'colnames'
+p224
+g108
+sS'attributes'
+p225
+S"{'limitby': (0, '3'), 'orderby': <pydal.objects.Expression object>}"
+p226
+ssg72
+I758
+sg73
+(dp227
+I753
+S'            time_expire)'
+p228
+sI754
+S'        ret._restore_fields(fields)'
+p229
+sI755
+S'        return ret'
+p230
+sI756
+S''
+sI757
+S'    def select(self, query, fields, attributes):'
+p231
+sI758
+S'        colnames, sql = self._select_wcols(query, fields, **attributes)'
+p232
+sI759
+S"        cache = attributes.get('cache', None)"
+p233
+sI760
+S"        if cache and attributes.get('cacheable', False):"
+p234
+sI761
+S'            return self._cached_select('
+p235
+sI762
+S'                cache, sql, fields, attributes, colnames)'
+p236
+ssg85
+S'(self=<pydal.adapters.sqlite.SQLite object>, query=<Query (("sensors"."timeValue" < \'2020-12-13 17:19:49\') AND ("sensors"."carId" = \'66-ZZ-66\'))>, fields=[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>], attributes={\'limitby\': (0, \'3\'), \'orderby\': <pydal.objects.Expression object>})'
+p237
+sg87
+g184
+sa(dp238
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py'
+p239
+sg66
+(dp240
+S'distinct'
+p241
+S'False'
+p242
+sS'for_update'
+p243
+g242
+sS'self'
+p244
+S'<pydal.adapters.sqlite.SQLite object>'
+p245
+sS'self.can_select_for_update'
+p246
+S'True'
+p247
+ssg72
+I703
+sg73
+(dp248
+I704
+S'        )'
+p249
+sI705
+S''
+sI706
+S'    def _select(self, query, fields, attributes):'
+p250
+sI707
+S'        return self._select_wcols(query, fields, **attributes)[1]'
+p251
+sI698
+S"                          tablemap[t]._primarykey or ['_id'])"
+p252
+sI699
+S'            ])'
+p253
+sI700
+S'        #: build sql using dialect'
+p254
+sI701
+S'        return colnames, self.dialect.select('
+p255
+sI702
+S'            sql_fields, sql_t, query, sql_grp, having, sql_ord, limitby,'
+p256
+sI703
+S'            distinct, for_update and self.can_select_for_update'
+p257
+ssg85
+S'(self=<pydal.adapters.sqlite.SQLite object>, query=\'(("sensors"."timeValue" < \\\'2020-12-13 17:19:49\\\') AND ("sensors"."carId" = \\\'66-ZZ-66\\\'))\', fields=[<pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>, <pydal.objects.Field object>], left=False, join=False, distinct=False, orderby=<pydal.objects.Expression object>, groupby=False, having=False, limitby=(0, \'3\'), orderby_on_limitby=True, for_update=False, outer_scoped=[], required=None, cache=None, cacheable=None, processor=None)'
+p258
+sg87
+S'_select_wcols'
+p259
+sa(dp260
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/dialects/sqlite.py'
+p261
+sg66
+(dp262
+S'for_update'
+p263
+g242
+ssg72
+I40
+sg73
+(dp264
+I35
+S'        if distinct and distinct is not True:'
+p265
+sI36
+S'            raise SyntaxError('
+p266
+sI37
+S"                'DISTINCT ON is not supported by SQLite')"
+p267
+sI38
+S'        return super(SQLiteDialect, self).select('
+p268
+sI39
+S'            fields, tables, where, groupby, having, orderby, limitby, distinct,'
+p269
+sI40
+S'            for_update)'
+p270
+sI41
+S''
+sI42
+S"    def truncate(self, table, mode=''):"
+p271
+sI43
+S"        tablename = self.adapter.expand(table._raw_rname, 'string')"
+p272
+sI44
+S'        return ['
+p273
+ssg85
+S'(self=<pydal.dialects.sqlite.SQLiteDialect object>, fields=\'"sensors"."id", "sensors"."carId", "sensors"."ca...de", "sensors"."tags", "sensors"."classification"\', tables=\'"sensors"\', where=\'(("sensors"."timeValue" < \\\'2020-12-13 17:19:49\\\') AND ("sensors"."carId" = \\\'66-ZZ-66\\\'))\', groupby=False, having=False, orderby=\'"sensors"."id" DESC\', limitby=(0, \'3\'), distinct=False, for_update=False)'
+p274
+sg87
+g184
+sa(dp275
+g64
+S'/var/www/web2py/gluon/packages/dal/pydal/dialects/base.py'
+p276
+sg66
+(dp277
+S'lmin'
+p278
+S'0'
+sS'lmax'
+p279
+S"'3'"
+p280
+sS'limit'
+p281
+S"''"
+p282
+ssg72
+I182
+sg73
+(dp283
+I177
+S"                grp += ' HAVING %s' % having"
+p284
+sI178
+S'        if orderby:'
+p285
+sI179
+S"            order = ' ORDER BY %s' % orderby"
+p286
+sI180
+S'        if limitby:'
+p287
+sI181
+S'            (lmin, lmax) = limitby'
+p288
+sI182
+S"            limit = ' LIMIT %i' % (lmax - lmin)"
+p289
+sI183
+S"            offset = ' OFFSET %i' % lmin"
+p290
+sI184
+S'        if for_update:'
+p291
+sI185
+S"            upd = ' FOR UPDATE'"
+p292
+sI186
+S"        return 'SELECT%s %s FROM %s%s%s%s%s%s%s;' % ("
+p293
+ssg85
+S'(self=<pydal.dialects.sqlite.SQLiteDialect object>, fields=\'"sensors"."id", "sensors"."carId", "sensors"."ca...de", "sensors"."tags", "sensors"."classification"\', tables=\'"sensors"\', where=\'(("sensors"."timeValue" < \\\'2020-12-13 17:19:49\\\') AND ("sensors"."carId" = \\\'66-ZZ-66\\\'))\', groupby=False, having=False, orderby=\'"sensors"."id" DESC\', limitby=(0, \'3\'), distinct=False, for_update=False)'
+p294
+sg87
+g184
+sasS'pyver'
+p295
+S'Python 2.7.12: /usr/local/bin/uwsgi (prefix: /usr)'
+p296
+sS'session'
+p297
+g59
+(S's\xe5\x08\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>1c143b38-e8d1-42dd-8354-cdfc77bea1d2</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2020, 12, 13, 17, 24, 3, 828565)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>ridecare@gmail.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>PEI</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>1L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div>MEI</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">1</td><td style="vertical-align:top;">:</td><td><div>user_1</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp298
+sS'etype'
+p299
+S"<type 'exceptions.TypeError'>"
+p300
+sS'date'
+p301
+S'Sun Dec 13 17:27:03 2020'
+p302
+sS'response'
+p303
+g59
+(S's\x1c=\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7ff96dadd068&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_datalake</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>bootstrap4_inline</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/datalake</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>My Sites</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/site</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>This App</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Design</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/design/datalake</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Controller</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/controllers/default.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>View</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/views/default/history.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>DB Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/models/db.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Menu Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/models/menu.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Config.ini</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/private/appconfig.ini</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Layout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/views/layout.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Stylesheet</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/datalake/static/css/web2py-bootstrap3.css</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/datalake/appadmin</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Errors</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/errors/datalake</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>About</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/about/datalake</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>web2py.com</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Download</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/download</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Support</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/support</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Demo</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/demo_admin</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Quick Examples</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/examples/default/examples</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>FAQ</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/AlterEgo</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Videos</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/videos/</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Free Applications</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/appliances</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Plugins</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com/plugins</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2pyslices.com/</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Documentation</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>#</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Online book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Preface</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/00</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Introduction</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/01</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Python</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/02</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Overview</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/03</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>The Core</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/04</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>The Views</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/05</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/06</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Forms and Validators</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/07</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Email and SMS</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/08</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Access Control</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/09</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Services</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/10</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Ajax Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/11</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Components and Plugins</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/12</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Deployment Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/13</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Other Recipes</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/14</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Helping web2py</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book/default/chapter/15</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Buy web2py\'s book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://stores.lulu.com/web2py</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Community</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>None</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Groups</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/examples/default/usergroups</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Twitter</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://twitter.com/web2py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Live Chat</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://webchat.freenode.net/?channels=web2py</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">description</td><td style="vertical-align:top;">:</td><td><div>a cool new app</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>web2py</div></td></tr><tr><td><div>python</div></td></tr><tr><td><div>framework</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^default/\\w+\\.py$</div></td></tr><tr><td><div>^default/history/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/var/www/web2py/applications/datalake/sessions/1fd/1db/188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880&#x27;, mode &#x27;rb+&#x27; at 0x7ff96d8b5a50&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/datalake/sessions/188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>4c9ea3cc818d72741ce338afc9cd5068</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>188.80.231.143-3daac619-7ea5-4804-9350-a89be4414880</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>datalake</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">show_toolbar</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>default/history.html</div></td></tr></table></div>'
+tRp304
+sS'locals'
+p305
+(dp306
+S'orderby'
+p307
+S'\'"sensors"."id" DESC\''
+p308
+sS'tables'
+p309
+S'\'"sensors"\''
+p310
+sS'grp'
+p311
+S"''"
+p312
+sS'distinct'
+p313
+g242
+sS'fields'
+p314
+S'\'"sensors"."id", "sensors"."carId", "sensors"."ca...de", "sensors"."tags", "sensors"."classification"\''
+p315
+sS'dst'
+p316
+S"''"
+p317
+sS'limitby'
+p318
+S"(0, '3')"
+p319
+sS'having'
+p320
+g242
+sS'for_update'
+p321
+g242
+sS'lmax'
+p322
+S"'3'"
+p323
+sS'groupby'
+p324
+g242
+sS'limit'
+p325
+S"''"
+p326
+sS'upd'
+p327
+S"''"
+p328
+sS'whr'
+p329
+S'\' WHERE (("sensors"."timeValue" < \\\'2020-12-13 17:19:49\\\') AND ("sensors"."carId" = \\\'66-ZZ-66\\\'))\''
+p330
+sS'offset'
+p331
+S"''"
+p332
+sS'where'
+p333
+S'\'(("sensors"."timeValue" < \\\'2020-12-13 17:19:49\\\') AND ("sensors"."carId" = \\\'66-ZZ-66\\\'))\''
+p334
+sS'order'
+p335
+S'\' ORDER BY "sensors"."id" DESC\''
+p336
+sS'lmin'
+p337
+S'0'
+sS'self'
+p338
+S'<pydal.dialects.sqlite.SQLiteDialect object>'
+p339
+sssS'traceback'
+p340
+S'Traceback (most recent call last):\n  File "/var/www/web2py/gluon/restricted.py", line 219, in restricted\n    exec(ccode, environment)\n  File "/var/www/web2py/applications/datalake/controllers/default.py", line 196, in <module>\n  File "/var/www/web2py/gluon/globals.py", line 421, in <lambda>\n    self._caller = lambda f: f()\n  File "/var/www/web2py/applications/datalake/controllers/default.py", line 83, in history\n    data = db( (db.sensors.timeValue < dTime) & (db.sensors.carId == carId) ).select(orderby=~db.sensors.id, limitby=(0,limit))\n  File "/var/www/web2py/gluon/packages/dal/pydal/objects.py", line 2277, in select\n    return adapter.select(self.query, fields, attributes)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/sqlite.py", line 82, in select\n    return super(SQLite, self).select(query, fields, attributes)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py", line 758, in select\n    colnames, sql = self._select_wcols(query, fields, **attributes)\n  File "/var/www/web2py/gluon/packages/dal/pydal/adapters/base.py", line 703, in _select_wcols\n    distinct, for_update and self.can_select_for_update\n  File "/var/www/web2py/gluon/packages/dal/pydal/dialects/sqlite.py", line 40, in select\n    for_update)\n  File "/var/www/web2py/gluon/packages/dal/pydal/dialects/base.py", line 182, in select\n    limit = \' LIMIT %i\' % (lmax - lmin)\nTypeError: unsupported operand type(s) for -: \'str\' and \'int\'\n'
+p341
+s.
