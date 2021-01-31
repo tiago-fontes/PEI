@@ -68,25 +68,40 @@ def boots():
         data = db( (db.raspberries.id > 0) & (db.raspberries.carId == carId) ).select(orderby=~db.raspberries.id)
     return data.as_json()
 
+
+
+
+
 def raspberry():
     import datetime
     carId = request.args(1)
     try:
         if request.args(0) == "status" or request.args(0) == None:
-            last2 = db( (db.sensors.id > 0) & (db.sensors.carId == carId) ).select(db.sensors.timeValue, orderby=~db.sensors.id, limitby=(0,2))
+            secondsInterval = 10
             now = datetime.datetime.now()
-            #a = datetime.datetime.strptime(last2[0]["timeValue"], '%Y-%m-%d %H:%M:%S')
-            #b = datetime.datetime.strptime(last2[1]["timeValue"], '%Y-%m-%d %H:%M:%S')
-            #delta = last2[0]["timeValue"] - last2[1]["timeValue"]
-            delta = last2[0]["timeValue"] - now
-            if delta.seconds <= 10:
-                status = {"status": "on"}
-            else:
-                status = {"status": "off"}
+            timeDelta = now - datetime.timedelta(seconds=secondsInterval)
+            last = db( (db.sensors.timeValue > timeDelta) & (db.sensors.carId == carId) ).select(db.sensors.timeValue, orderby=~db.sensors.timeValue).first()
+            
+            #last2 = db( (db.sensors.id > 0) & (db.sensors.carId == carId) ).select(db.sensors.timeValue, orderby=~db.sensors.id, limitby=(0,2))
+            #return last["timeValue"]
+            #delta = last2[0]["timeValue"] - now
+            #if delta.seconds <= 30:
+            status = {"status": "off"}
+            try:
+                if last["timeValue"]:
+                    status = {"status": "on"}
+            except:
+                pass
+            #else:
+            #    status = {"status": "off"}
             #return last2[0]["timeValue"]
             return response.json(status)
     except:
         return None
+
+
+
+        
 
 def history():
     import datetime
