@@ -1,0 +1,36 @@
+- name: Install apt utilities, certificates and curl
+  apt:
+    name: ['python-apt', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
+    state: latest
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
+
+- name: Add Docker Repo Key
+  apt_key: 
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 0EBFCD88
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+    state: present
+
+- name: Install Pip and Docker
+  apt:
+    name: ['python3-pip','docker-ce']
+    state: latest
+
+- name: Add Docker User Permitions
+  command: usermod -aG docker ${USER}
+
+- name: Download docker-compose
+  get_url: 
+    url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: u+x
+
+- name: Install docker-compose
+  command: pip3 install docker docker-compose

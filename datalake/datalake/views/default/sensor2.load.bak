@@ -1,0 +1,13 @@
+<h3 style="font-weight:bold;">Dados - Sensor <span style="text-transform: uppercase;">{{=sensor}}</span></h3>
+<p><a class="btn btn-secondary" href="{{=URL('default','json', args=['bme680'])}}" target="_blank">JSON</a> <a class="btn btn-secondary" href="{{=URL('default','csv', args=['bme680'])}}" target="_blank">CSV</a></p>
+<br>
+{{=grid}}
+
+<script>
+var clicked = false;
+$("a").click(function(){
+    clicked = true;
+    clearInterval(timmer);
+    $('.autoreloading').text("Paused");
+});
+</script>

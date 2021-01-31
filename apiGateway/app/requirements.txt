@@ -1,0 +1,11 @@
+Python 3+
+pip3 install Flask
+pip3 install flask-cors
+pip3 install rq
+pip3 install rq-dashboard
+pip3 install requests
+pip3 install flask-httpauth
+pip3 install python-daemon
+
+redis>=3:
+sudo apt install redis-server

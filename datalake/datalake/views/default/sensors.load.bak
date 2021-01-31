@@ -1,0 +1,13 @@
+<h3 style="font-weight:bold;">Dados - Sensores <span style="text-transform: uppercase;">{{=sensor}}</span></h3>
+
+<br>
+{{=grid}}
+
+<script>
+var clicked = false;
+$("a").click(function(){
+    clicked = true;
+    clearInterval(timmer);
+    $('.autoreloading').text("Paused");
+});
+</script>
