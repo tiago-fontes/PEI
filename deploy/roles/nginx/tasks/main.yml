@@ -1,0 +1,62 @@
+- name: Create nginx directory
+  file:
+    path: /nginx
+    state: directory
+
+- name: Copy nginx files
+  copy:
+    src: roles/nginx/files/{{ item }}
+    dest: /nginx/{{ item }}
+  loop:
+    - Dockerfile
+    - nginx.conf
+
+- name: Replace BACKEND1_IP entry
+  replace:
+    path: /nginx/nginx.conf
+    regexp: 'BACKEND1'
+    replace: "{{ backend1_ip }}"
+
+- name: Replace BACKEND2_IP entry
+  replace:
+    path: /nginx/nginx.conf
+    regexp: 'BACKEND2'
+    replace: "{{ backend2_ip }}"
+
+- name: Build nginx Dockerfile 
+  docker_image:
+    name: nginx_image
+    build:
+      path: /nginx
+      args:
+        BACKEND1: "{{ backend1_ip }}"
+        BACKEND2: "{{ backend2_ip }}"
+    source: build
+    state: present
+
+- name: Run nginx
+  docker_container:
+    name: nginx_container
+    recreate: yes
+    published_ports:
+      - "80:9090"
+    image: nginx_image
+
+- name: Copy nginx.sh
+  copy:
+    src: roles/nginx/files/nginx.sh
+    dest: /usr/bin/nginx.sh
+
+- name: Make it an executable
+  shell: sudo chmod +x /usr/bin/nginx.sh
+
+- name: Copy nginxservice.service
+  copy:
+    src: roles/nginx/files/nginxservice.service
+    dest: /etc/systemd/system/nginxservice.service
+
+- name: Give permissions to nginxservice.service
+  shell: sudo chmod 644 /etc/systemd/system/nginxservice.service
+
+- name: Ensure that the service starts whenever the system boots
+  shell: sudo systemctl enable nginxservice
