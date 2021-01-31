@@ -1,0 +1,10 @@
+Flask
+flask-httpauth
+flask-cors
+requests
+rq
+rq-dashboard
+python-daemon
+pycrypto
+itsdangerous
+cryptography

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<h1>UM / Bosch</h1>
+{{title}}
+<h2>Routes:</h2>
+<p><b>DASHBOARD:</b> <a href="{{ url_for('rq_dashboard.overview') }}" target="_blank">{{ url_for('rq_dashboard.overview', _external=True) }}</a></p>
+<br>
+<ul>
+    <li>/api</li>
+    <ul>
+        <li><a href="{{ url_for('api.datalakeSensors') }}" target="_blank">{{ url_for('api.datalakeSensors', _external=True) }}</a></li>
+        <li><a href="{{ url_for('api.raspberry') }}" target="_blank">{{ url_for('api.raspberry', _external=True) }}</a></li>
+    </ul>
+</ul>
+</body>
+</html>
